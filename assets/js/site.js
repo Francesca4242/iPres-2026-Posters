@@ -295,6 +295,7 @@ const IPRES = (() => {
         <div class="poster-card__foot">
           ${themeChips}
           ${poster.status === 'awaited' ? '<span class="chip chip--awaited">Coming soon</span>' : ''}
+          ${poster.attendance === 'online' ? '<span class="chip chip--plain">\u{1F4BB} Online</span>' : ''}
         </div>
       </div>
     </a>`;

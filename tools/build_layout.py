@@ -2,7 +2,7 @@
 """
 Generate data/layout.json - the poster hall floor plan used by map.html.
 
-The shape comes from "Poster layout.pptx" (Option 4, "Minimal amount of
+The shape comes from "map/Poster layout.pptx" (Option 4, "Minimal amount of
 walls"), which specifies:
 
     9 walls = 18 posters      6 walls =  6 posters
@@ -209,11 +209,11 @@ def main():
     payload = {
         "provisional": True,
         "note": (
-            "Wall counts come from Poster layout.pptx (Option 4). The exact "
+            "Wall counts come from map/Poster layout.pptx (Option 4). The exact "
             "positions and which poster goes where are NOT confirmed yet - "
             "edit data/layout.json to set the real ones."
         ),
-        "source": "Poster layout.pptx",
+        "source": "map/Poster layout.pptx",
         "viewBox": [0, 0, VIEW_W, VIEW_H],
         "dimensions": {"widthMetres": 13.5, "depthMetres": 6},
         "floorPlanImage": "assets/img/floorplan.png",

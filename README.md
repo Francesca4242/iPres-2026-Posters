@@ -47,8 +47,9 @@ tools/poster_files.csv┘                                      │
 ```
 
 * **`data/posters.json`** — one entry per poster: title, abstract, authors,
-  institutions, keywords, topics, themes and the path to its PDF (or `null` if
-  it has not arrived). Regenerate with `python3 tools/build_data.py`.
+  institutions, keywords, topics, themes, orientation, whether it is presented
+  online, and the path to its PDF (or `null` if it has not arrived). Regenerate
+  with `python3 tools/build_data.py`.
 * **`data/layout.json`** — the hall: 25 walls in five clusters, 42 boards, and
   which poster hangs on each. Currently **provisional**.
 * **`data/config.json`** — the poll URL and the conference details.
@@ -91,13 +92,14 @@ index.html posters.html poster.html map.html trails.html
 assets/css/site.css          one stylesheet for every page
 assets/js/site.js            shared: data loading, chrome, passport, PDF rendering
 assets/js/trails.js          the trail definitions and the quiz
-assets/img/floorplan.png     the venue plan from Poster layout.pptx
+assets/img/floorplan.png     the venue plan from map/Poster layout.pptx
 data/                        posters.json, layout.json, config.json
 posters/                     the poster PDFs
 iPRES2026_Logos/             conference logos
 tools/                       the three Python scripts, plus the filename overrides
-poster_metadata.csv          the source of truth for all poster metadata
-Poster layout.pptx           the venue's wall plan, where the map numbers come from
+poster_metadata.csv          the source of truth for all poster metadata; its
+                             file_name column says which PDF belongs to which row
+map/Poster layout.pptx       the venue's wall plan, where the map numbers come from
 ```
 
 Posters remain the copyright of their authors.

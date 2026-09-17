@@ -1,5 +1,5 @@
 {
- "generated": "2026-09-17T10:01:56Z",
+ "generated": "2026-09-17T10:45:00Z",
  "themes": [
   {
    "id": "infrastructure",
@@ -161,6 +161,8 @@
     "University of California San Francisco, United States of America"
    ],
    "locationHint": "",
+   "orientation": "landscape",
+   "attendance": null,
    "file": "posters/192_KateTasker-EmmaJames_28-Million-Documents.pdf",
    "fileSize": 593455,
    "status": "available",
@@ -202,6 +204,8 @@
     "Royal Danish Library, Denmark"
    ],
    "locationHint": "",
+   "orientation": "portrait",
+   "attendance": null,
    "file": null,
    "fileSize": 0,
    "status": "awaited",
@@ -241,6 +245,8 @@
     "American Institute of Physics (AIP), United States of America"
    ],
    "locationHint": "",
+   "orientation": "portrait",
+   "attendance": null,
    "file": "posters/156_Allison-Buser_Accessing-Quantum-History.pdf",
    "fileSize": 1164997,
    "status": "available",
@@ -284,6 +290,8 @@
     "Digital Research Alliance of Canada, Canada"
    ],
    "locationHint": "",
+   "orientation": "portrait",
+   "attendance": null,
    "file": "posters/1093_Tomé_Adapting-to-Context.pdf",
    "fileSize": 704000,
    "status": "available",
@@ -327,6 +335,8 @@
     "Digital Preservation Coalition, United Kingdom"
    ],
    "locationHint": "",
+   "orientation": "portrait",
+   "attendance": null,
    "file": "posters/Sarah Middleton and Dorothy Waugh_Advocacy as a Core Digital Preservation Competency.pdf",
    "fileSize": 3430277,
    "status": "available",
@@ -377,6 +387,8 @@
     "University of Illinois"
    ],
    "locationHint": "",
+   "orientation": "portrait",
+   "attendance": null,
    "file": "posters/282_Brent-West_AI-Enabled-Access-To-Large-And-Sensitive-Collections.pdf",
    "fileSize": 1453618,
    "status": "available",
@@ -434,6 +446,8 @@
     "Amsab--Institute for Social History, Belgium"
    ],
    "locationHint": "",
+   "orientation": "portrait",
+   "attendance": null,
    "file": "posters/MerijnMaene_AIDAModel.pdf",
    "fileSize": 48902,
    "status": "available",
@@ -478,6 +492,8 @@
     "University of York, United Kingdom"
    ],
    "locationHint": "",
+   "orientation": "portrait",
+   "attendance": null,
    "file": "posters/MarcoBrunello_ArchIScanArchivingOurBiggestDigitalCollectionYet.pdf",
    "fileSize": 1347635,
    "status": "available",
@@ -529,6 +545,8 @@
     "Utrecht University"
    ],
    "locationHint": "",
+   "orientation": null,
+   "attendance": null,
    "file": null,
    "fileSize": 0,
    "status": "awaited",
@@ -578,6 +596,8 @@
     "Emory University, United States of America"
    ],
    "locationHint": "",
+   "orientation": "portrait",
+   "attendance": null,
    "file": "posters/153_Rao-ORiordan_Captioning-Everything-Everywhere-All-At-Once.pdf",
    "fileSize": 751768,
    "status": "available",
@@ -653,6 +673,8 @@
     "Texas A&M University, United States of America"
    ],
    "locationHint": "",
+   "orientation": "landscape",
+   "attendance": null,
    "file": "posters/Taylor_NDSAFixitySurveyResults.pdf",
    "fileSize": 612895,
    "status": "available",
@@ -718,6 +740,8 @@
     "UCL, CLOSER UK"
    ],
    "locationHint": "",
+   "orientation": "portrait",
+   "attendance": null,
    "file": "posters/DANCIU_DDI Metadata for Beginners.pdf",
    "fileSize": 299341,
    "status": "available",
@@ -774,6 +798,8 @@
     "University of Cambridge Libraries and Archives, United Kingdom"
    ],
    "locationHint": "",
+   "orientation": "portrait",
+   "attendance": null,
    "file": "posters/McKeanTalboom_Digital_Forensics_and_Preservation.pdf",
    "fileSize": 6230371,
    "status": "available",
@@ -861,6 +887,8 @@
     "Digital Research Alliance of Canada"
    ],
    "locationHint": "",
+   "orientation": "portrait",
+   "attendance": null,
    "file": "posters/Lake_A-Canada-wide-portrait-with-DPC-RAM.pdf",
    "fileSize": 375008,
    "status": "available",
@@ -906,7 +934,9 @@
    "organisations": [
     "The American University in Cairo, Egypt"
    ],
-   "locationHint": "",
+   "locationHint": "online",
+   "orientation": "landscape",
+   "attendance": "online",
    "file": "posters/107_IrinaSchmid_DignifiedDeletion.pdf",
    "fileSize": 4183507,
    "status": "available",
@@ -956,6 +986,8 @@
     "KB national library of the Netherlands"
    ],
    "locationHint": "",
+   "orientation": "portrait",
+   "attendance": null,
    "file": "posters/113_Hofsink-Ligtenberg_Dont-Stop-Retrievin_.pdf",
    "fileSize": 1420033,
    "status": "available",
@@ -1017,6 +1049,8 @@
     "International Institute of Social History, Netherlands, The"
    ],
    "locationHint": "",
+   "orientation": "portrait",
+   "attendance": null,
    "file": "posters/140_RoseVanderKnaapFriedland_ExploringaHolisticApproach.pdf",
    "fileSize": 1157757,
    "status": "available",
@@ -1072,6 +1106,8 @@
     "UC Santa Cruz, United States of America"
    ],
    "locationHint": "",
+   "orientation": "portrait",
+   "attendance": null,
    "file": "posters/151_Norton-Berry_Forwarding-the-Email-Archive.pdf",
    "fileSize": 11847427,
    "status": "available",
@@ -1129,6 +1165,8 @@
     "Medical Center of National Digital Preservation Centre, National Science and Technology Library"
    ],
    "locationHint": "",
+   "orientation": "portrait",
+   "attendance": null,
    "file": "posters/Peng Yuanyuan_From Simulation to Reality_ China_s First Authentic-Scenario Emergency Drill for Preserving Licensed Electronic Journals in Biomedicine.pdf",
    "fileSize": 193346,
    "status": "available",
@@ -1183,6 +1221,8 @@
     "National Library of New Zealand and Archives New Zealand, New Zealand"
    ],
    "locationHint": "",
+   "orientation": "portrait",
+   "attendance": null,
    "file": "posters/AndreaGoethals_HowWellDidWeDo.pdf",
    "fileSize": 678536,
    "status": "available",
@@ -1268,6 +1308,8 @@
     "The National Archives, United Kingdom"
    ],
    "locationHint": "",
+   "orientation": "landscape",
+   "attendance": null,
    "file": "posters/168_AndyJackson_IntroducingDataflowDiagrams.pdf",
    "fileSize": 172334,
    "status": "available",
@@ -1327,6 +1369,8 @@
     "University of Exeter"
    ],
    "locationHint": "",
+   "orientation": null,
+   "attendance": null,
    "file": null,
    "fileSize": 0,
    "status": "awaited",
@@ -1383,6 +1427,8 @@
     "King’s College London, United Kingdom"
    ],
    "locationHint": "",
+   "orientation": "portrait",
+   "attendance": null,
    "file": "posters/167_Pallotto-Strickland-and-Storrar_Let’s-doWARC.pdf",
    "fileSize": 1302417,
    "status": "available",
@@ -1424,6 +1470,8 @@
     "TIB – Leibniz Information Centre for Science and Technology and University Library Germany, Germany"
    ],
    "locationHint": "",
+   "orientation": "portrait",
+   "attendance": null,
    "file": "posters/263_Annabel-Walz_Lower-Saxony-State-Initiative.pdf",
    "fileSize": 839071,
    "status": "available",
@@ -1475,6 +1523,8 @@
     "Vancouver Holocaust Education Centre (VHEC), Canada"
    ],
    "locationHint": "",
+   "orientation": "portrait",
+   "attendance": null,
    "file": "posters/AdaRohini_LTO-7toLTO-10.pdf",
    "fileSize": 2305315,
    "status": "available",
@@ -1519,6 +1569,8 @@
     "FORS, Switzerland"
    ],
    "locationHint": "",
+   "orientation": "portrait",
+   "attendance": null,
    "file": "posters/ElianeFerrez_OvercomingBarriersToPreservingAndSharingQualitativeData.pdf",
    "fileSize": 890248,
    "status": "available",
@@ -1569,6 +1621,8 @@
     "CERN, Switzerland"
    ],
    "locationHint": "",
+   "orientation": "portrait",
+   "attendance": null,
    "file": "posters/234-Liptak_LeMeur-CERN-Preservation-As-A-Service.pdf",
    "fileSize": 1077815,
    "status": "available",
@@ -1608,6 +1662,8 @@
     "University of California, California Digital Library, United States"
    ],
    "locationHint": "",
+   "orientation": "landscape",
+   "attendance": null,
    "file": "posters/EricLopatin_Repository-Autoscaling-through-use-of-Containers-and-Operational-Metrics.pdf",
    "fileSize": 867134,
    "status": "available",
@@ -1676,6 +1732,8 @@
     "National Museum of Japanese History, Japan"
    ],
    "locationHint": "",
+   "orientation": null,
+   "attendance": null,
    "file": null,
    "fileSize": 0,
    "status": "awaited",
@@ -1724,6 +1782,8 @@
     "RMIT University, Australia"
    ],
    "locationHint": "",
+   "orientation": "landscape",
+   "attendance": null,
    "file": "posters/CassieShaw_RoadmapToPreservation.pdf",
    "fileSize": 1210553,
    "status": "available",
@@ -1789,6 +1849,8 @@
     "Oswaldo Cruz Foundation, Brazil"
    ],
    "locationHint": "",
+   "orientation": "portrait",
+   "attendance": null,
    "file": "posters/116_Machado-JoaoGuilherme_SGP-VSD_packager.pdf",
    "fileSize": 745039,
    "status": "available",
@@ -1835,6 +1897,8 @@
     "University of Cambridge Libraries and Archives, United Kingdom"
    ],
    "locationHint": "",
+   "orientation": "portrait",
+   "attendance": "in-person",
    "file": "posters/138_Rebekah-Johnston-and-Leontien-Talboom_Shrinking-The-Digital-Heap-Triaging.pdf",
    "fileSize": 363700,
    "status": "available",
@@ -1893,6 +1957,8 @@
     "Digital Preservation Coalition, United Kingdom"
    ],
    "locationHint": "",
+   "orientation": "landscape",
+   "attendance": null,
    "file": "posters/281_AndyJackson_BuildingAnIndexOfPractice.pdf",
    "fileSize": 279616,
    "status": "available",
@@ -1942,6 +2008,8 @@
     "The British Library, United Kingdom"
    ],
    "locationHint": "",
+   "orientation": "portrait",
+   "attendance": null,
    "file": "posters/240_LucasWhibleyDay_TakingARisk.pdf",
    "fileSize": 145805,
    "status": "available",
@@ -1994,6 +2062,8 @@
     "National Library of Scotland, United Kingdom"
    ],
    "locationHint": "",
+   "orientation": "portrait",
+   "attendance": "in-person",
    "file": "posters/118_Conor-Q-Walker_The-Diskovery-Pilot.pdf",
    "fileSize": 7682945,
    "status": "available",
@@ -2043,6 +2113,8 @@
     "University of Geneva, Switzerland"
    ],
    "locationHint": "",
+   "orientation": "portrait",
+   "attendance": null,
    "file": "posters/Cazeaux_TheDLCMTechnology.pdf",
    "fileSize": 1531820,
    "status": "available",
@@ -2100,6 +2172,8 @@
     "UKRI, United Kingdom"
    ],
    "locationHint": "",
+   "orientation": "portrait",
+   "attendance": null,
    "file": "posters/246_Oliver-Brough_The-Good-The-Grey-The-Redundant.pdf",
    "fileSize": 829688,
    "status": "available",
@@ -2194,6 +2268,8 @@
     "Finnish Social Science  Data Archive (FSD), Tampere University"
    ],
    "locationHint": "",
+   "orientation": "portrait",
+   "attendance": null,
    "file": "posters/HLH-TRIPP_v02_00.drawio.pdf",
    "fileSize": 521046,
    "status": "available",
@@ -2254,6 +2330,8 @@
     "University of Illinois Urbana-Champaign, United States of America"
    ],
    "locationHint": "",
+   "orientation": "portrait",
+   "attendance": null,
    "file": "posters/Narlock_WeCantKeepEverythingForever.pdf",
    "fileSize": 456952,
    "status": "available",

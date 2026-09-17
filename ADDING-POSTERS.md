@@ -16,32 +16,39 @@ Still awaited:
 ## The quick way (in the browser, no software)
 
 1. Go to the `posters/` folder on GitHub and choose **Add file → Upload files**.
-2. Drop the PDF in. Name it like the others — a submission number, the author
-   surname and a few words of the title, e.g.
-   `Myrvoll_50-Billion-Objects-of-the-Danish-Web.pdf`.
-3. Commit it.
+   Drop the PDF in and commit it.
+2. Edit `poster_metadata.csv` and put the PDF's exact filename in that poster's
+   **`file_name`** column, replacing the word `placeholder`.
 
-That's it. A GitHub Action (`.github/workflows/build-data.yml`) rebuilds
+A GitHub Action (`.github/workflows/build-data.yml`) rebuilds
 `data/posters.json` within a minute or two and commits the result, and the
 poster appears on the site — in the gallery, in the search index, on its own
 page and on the map.
 
-The matcher pairs the PDF with its metadata row by looking for the author
-surname and words from the title in the filename. If it can't decide, the
-Action's log says so and the poster stays marked "PDF on its way". Fix that by
-adding one line to `tools/poster_files.csv`:
+While you are in the row, `landscape/ portrait` and `online/ in-person` are
+worth filling in too: the first decides the shape of the board on the map, and
+the second puts a "presented online" note on the poster.
+
+**If you only do step 1**, the build still tries to pair the PDF with its row
+by looking for the author surname and words from the title in the filename, so
+a file named like the existing ones will usually be picked up anyway. Anything
+it cannot place is named in the Action's log and stays marked "PDF on its way".
+
+**If a filename refuses to match** — an accented character can arrive mangled
+when the CSV is exported — add one line to `tools/poster_files.csv`, which
+overrides everything else:
 
 ```csv
 50-billion-objects-of-the-danish-web-visualizing,Myrvoll_50-Billion-Objects.pdf
 ```
 
-The left-hand column is the poster's id — the ids are already listed in that
-file, one row per poster, so you only ever fill in the blank on the right.
+The left-hand column is the poster's id; `build_data.py` prints it in its log.
 
 ## The local way
 
 ```bash
 cp ~/Downloads/the-new-poster.pdf posters/
+# ...then put that filename in the row's file_name column
 python3 tools/build_data.py        # rebuilds data/posters.json
 python3 tools/check_verbatim.py    # confirms no metadata text was altered
 git add posters data && git commit -m "Add the Netarkivet poster" && git push
@@ -53,7 +60,8 @@ It prints what it matched, what it could not match, and what is still awaited.
 ## Adding a poster that is not in the CSV at all
 
 Add a row to `poster_metadata.csv` with the same columns
-(`title,abstract_plain,keywords,topics,authors,organisations,poster_location`),
+(`title`, `abstract_plain`, `keywords`, `topics`, `authors`, `organisations`,
+`poster_location`, `file_name`, `landscape/ portrait`, `online/ in-person`),
 then run `python3 tools/build_data.py`. Keep the topics in the same
 comma-and-newline shape as the existing rows — that is what drives the theme
 colours, the filters and the trails.
@@ -76,7 +84,7 @@ the same check runs in CI on every push. If a typo needs fixing, fix it in
 
 `data/layout.json` is currently a **provisional** arrangement: the right number
 of walls in the right clusters (25 walls, 42 boards, from
-`Poster layout.pptx`), but not the real positions, and the posters are assigned
+`map/Poster layout.pptx`), but not the real positions, and the posters are assigned
 to boards automatically so that each theme stays together.
 
 When the hall is set up for real, edit `data/layout.json` directly. Every board

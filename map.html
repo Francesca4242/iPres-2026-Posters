@@ -207,11 +207,18 @@
             ? `Board ${slot.number}, reserved for ${slot.reservedFor}`
             : `Board ${slot.number}: ${poster ? poster.title : 'empty'}`,
         });
+        /* Landscape posters get a wider, shorter board so the shape of the
+           hall matches what is actually hanging on it. */
+        const wide = poster && poster.orientation === 'landscape';
+        const w = wide ? 36 : 30;
+        const h = wide ? 24 : 28;
+        const x = slot.x - w / 2 - 1;
+        const y = slot.y - h / 2;
         const lift = make('g', { class: 'slot-lift' });
-        lift.appendChild(make('rect', { class: 'slot-shadow', x: slot.x - 13, y: slot.y - 11, width: 30, height: 28, rx: 6 }));
-        lift.appendChild(make('rect', { class: 'slot-face', x: slot.x - 16, y: slot.y - 14, width: 30, height: 28, rx: 6, fill }));
-        lift.appendChild(make('rect', { class: 'slot-shine', x: slot.x - 13, y: slot.y - 11, width: 24, height: 7, rx: 3 }));
-        lift.appendChild(text(slot.number, { x: slot.x - 1, y: slot.y + 6, 'text-anchor': 'middle' }));
+        lift.appendChild(make('rect', { class: 'slot-shadow', x: x + 3, y: y + 3, width: w, height: h, rx: 6 }));
+        lift.appendChild(make('rect', { class: 'slot-face', x, y, width: w, height: h, rx: 6, fill }));
+        lift.appendChild(make('rect', { class: 'slot-shine', x: x + 3, y: y + 3, width: w - 6, height: 6, rx: 3 }));
+        lift.appendChild(text(slot.number, { x: x + w / 2, y: y + h / 2 + 5, 'text-anchor': 'middle' }));
         node.appendChild(lift);
         group.appendChild(node);
         slotNodes.set(slot.id, { node, lift, slot, poster, cluster });
@@ -240,6 +247,7 @@
     ...themeList.map((theme) =>
       `<span class="chip chip--solid" style="background:${theme.color}">${theme.emoji} ${esc(theme.short)}</span>`),
     '<span class="chip chip--plain">Grey = reserved board</span>',
+    '<span class="chip chip--plain">Wide board = landscape poster</span>',
     '<span class="chip chip--plain">Green outline = you have seen it</span>',
   ].join('');
 
@@ -278,7 +286,9 @@
       <h3 style="margin-top:.9rem">${esc(poster.title)}</h3>
       <p style="font-size:.88rem;color:var(--ink-soft)">${esc(poster.authorLine)}</p>
       <p class="map-blurb">${esc(poster.abstract)}</p>
-      <p style="font-size:.8rem;color:var(--ink-soft)">${esc(cluster.name)}</p>
+      <p style="font-size:.8rem;color:var(--ink-soft)">${esc(cluster.name)}${
+        poster.orientation ? ` &middot; ${esc(poster.orientation)}` : ''}${
+        poster.attendance ? ` &middot; ${esc(poster.attendance)}` : ''}</p>
       <div class="poster-card__foot">
         <a class="btn btn--sm btn--primary" href="poster.html?id=${encodeURIComponent(poster.id)}">Read the poster</a>
         <button class="btn btn--sm" type="button" data-seen>${seen ? '✓ Seen it' : 'Mark as seen'}</button>

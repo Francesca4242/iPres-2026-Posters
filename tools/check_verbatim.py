@@ -63,6 +63,10 @@ def main():
         for topic in poster["topics"]:
             if topic not in row["topics"]:
                 problems.append("topic {!r} is not verbatim in {!r}".format(topic, title[:40]))
+        for field, column in (("orientation", "landscape/ portrait"), ("attendance", "online/ in-person")):
+            value = poster.get(field)
+            if value and value not in (row.get(column) or "").lower():
+                problems.append("{} {!r} is not verbatim in {!r}".format(field, value, title[:40]))
 
     if problems:
         print("Metadata has been altered:")
@@ -70,8 +74,9 @@ def main():
             print("  -", problem)
         sys.exit(1)
 
-    print("All {} posters: titles, abstracts, authors, keywords, institutions "
-          "and topics are character-for-character identical to the CSV.".format(len(rows)))
+    print("All {} posters: titles, abstracts, authors, keywords, institutions, "
+          "topics and orientation are character-for-character identical to the "
+          "CSV.".format(len(rows)))
 
 
 if __name__ == "__main__":

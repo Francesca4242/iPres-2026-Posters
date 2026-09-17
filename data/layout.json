@@ -1,7 +1,7 @@
 {
  "provisional": true,
- "note": "Wall counts come from Poster layout.pptx (Option 4). The exact positions and which poster goes where are NOT confirmed yet - edit data/layout.json to set the real ones.",
- "source": "Poster layout.pptx",
+ "note": "Wall counts come from map/Poster layout.pptx (Option 4). The exact positions and which poster goes where are NOT confirmed yet - edit data/layout.json to set the real ones.",
+ "source": "map/Poster layout.pptx",
  "viewBox": [
   0,
   0,

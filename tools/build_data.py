@@ -211,6 +211,37 @@ def load_overrides():
     return mapping
 
 
+#: file_name values that mean "this poster has not been sent yet".
+PLACEHOLDERS = {"", "placeholder", "tbc", "tba", "n/a", "na", "none", "-"}
+
+
+def resolve_name(name, by_nfc):
+    """Turn a file_name from the CSV into a real filename in posters/.
+
+    The export is cp1252, so a filename with a character that encoding cannot
+    represent arrives mangled - "1093_Tome?_Adapting-to-Context.pdf" is really
+    "1093_Tomé_...". Where a name does not match a file on disk, any "?" is
+    treated as a single-character wildcard before giving up. The wildcard is
+    tried against both the composed and decomposed spelling of each filename,
+    because "?" may have replaced a whole accented letter or just the accent.
+    """
+    if not name:
+        return None
+    exact = by_nfc.get(unicodedata.normalize("NFC", name))
+    if exact:
+        return exact
+    if "?" in name:
+        pattern = re.compile("^" + ".".join(re.escape(part) for part in name.split("?")) + "$")
+        hits = {
+            real for real in by_nfc.values()
+            for form in ("NFC", "NFD")
+            if pattern.match(unicodedata.normalize(form, real))
+        }
+        if len(hits) == 1:
+            return hits.pop()
+    return None
+
+
 def guess_file(record, available):
     """Best-effort match of a metadata row to a PDF that nobody has mapped yet.
 
@@ -281,22 +312,38 @@ def main():
             "authors": split_people(row.get("authors")),
             "organisations": split_orgs(row.get("organisations")),
             "locationHint": clean(row.get("poster_location")),
+            "orientation": clean(row.get("landscape/ portrait")).strip().lower() or None,
+            "attendance": clean(row.get("online/ in-person")).strip().lower() or None,
+            "csvFileName": clean(row.get("file_name")).strip(),
         })
 
-    # 1. honour explicit overrides, 2. auto-match whatever is left over.
-    claimed = set()
+    # Three ways to pair a metadata row with its PDF, in order of authority:
+    #   1. tools/poster_files.csv, for anything that needs a manual decision
+    #   2. the file_name column of poster_metadata.csv - the normal route
+    #   3. a fuzzy match on the title and author surnames, as a last resort
+    claimed, guessed, missing = set(), [], []
     for record in records:
-        fname = by_nfc.get(unicodedata.normalize("NFC", overrides.get(record["id"], "")))
+        override = overrides.get(record["id"], "")
+        fname = resolve_name(override, by_nfc)
         if fname:
             record["file"] = fname
             claimed.add(fname)
-        elif overrides.get(record["id"]):
-            fname = overrides[record["id"]]
-            print("  ! override for '{}' points at a missing file: {}".format(record["id"], fname))
+            continue
+        if override:
+            print("  ! override for '{}' points at a missing file: {}".format(record["id"], override))
 
-    guessed = []
+        stated = record["csvFileName"]
+        if stated.lower() in PLACEHOLDERS:
+            continue
+        fname = resolve_name(stated, by_nfc)
+        if fname:
+            record["file"] = fname
+            claimed.add(fname)
+        else:
+            missing.append((record["id"], stated))
+
     for record in records:
-        if record.get("file"):
+        if record.get("file") or record["csvFileName"].lower() in PLACEHOLDERS:
             continue
         fname, _score = guess_file(record, [f for f in pdfs if f not in claimed])
         if fname:
@@ -317,6 +364,7 @@ def main():
             record["fileSize"] = 0
             record["status"] = "awaited"
             record["number"] = None
+        record.pop("csvFileName", None)
         record["authorLine"] = "; ".join(p["name"] for p in record["authors"])
         record["searchText"] = " ".join([
             record["title"], record["abstract"], record["authorLine"],
@@ -345,8 +393,13 @@ def main():
     print("Wrote {} - {} posters, {} with a PDF, {} still awaited".format(
         os.path.relpath(OUT, ROOT), len(records),
         payload["counts"]["available"], payload["counts"]["awaited"]))
+    if missing:
+        print("file_name in the CSV does not match anything in posters/:")
+        for pid, stated in missing:
+            print("   {:<44} wants {}".format(pid, stated))
     if guessed:
-        print("Auto-matched (add to tools/poster_files.csv to make it permanent):")
+        print("Matched on the title instead of file_name "
+              "(fill in file_name, or add a line to tools/poster_files.csv):")
         for pid, fname in guessed:
             print("   {:<44} -> {}".format(pid, fname))
     unused = [f for f in pdfs if f not in claimed]
