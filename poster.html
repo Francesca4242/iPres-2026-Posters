@@ -107,6 +107,8 @@
         </div>
         ${poster.authors.every((a) => !(a.affiliations || []).length) && poster.organisations.length
           ? `<div><dt>Institution</dt><dd>${poster.organisations.map(esc).join('<br>')}</dd></div>` : ''}
+        ${poster.presenting
+          ? `<div><dt>Presenting</dt><dd>${esc(poster.presenting)}</dd></div>` : ''}
         ${slotLine ? `<div>${slotLine}</div>` : ''}
 
       </dl>

@@ -645,35 +645,74 @@ html[data-theme='dark'] .browser__screen {
 }
 .browser__sub { margin: 0 0 1.2rem; color: var(--ink-soft); max-width: 60ch; }
 
-/* Fixed-width cards, centred, so one online poster does not sit in the corner
-   of an empty screen and forty do not turn into slivers. */
-.online-grid {
-  display: grid; gap: 1rem; justify-content: center;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 260px));
+/* The cable map: a patch panel wired to every online poster. */
+.cable-map { position: relative; margin: 0 0 1.2rem; }
+.cable-map svg { width: 100%; height: auto; display: block; overflow: visible; }
+
+.wire { fill: none; stroke-linecap: round; }
+.wire--casing { stroke: var(--ink); stroke-width: 13; }
+.wire--core { stroke-width: 7; }
+.wire-plug { stroke: var(--ink); stroke-width: 3; }
+
+.hub__shadow { fill: rgba(8, 19, 28, .45); }
+.hub__face { fill: #1f2937; stroke: var(--ink); stroke-width: 4; }
+.hub__icon { font-size: 40px; }
+.hub__label {
+  font-family: var(--display); font-weight: 700; font-size: 17px; fill: #9fe7ff;
+  letter-spacing: .06em;
 }
 
-.online-card {
-  display: flex; flex-direction: column; text-decoration: none; color: inherit;
-  border: 4px solid var(--ink); border-radius: var(--radius);
-  background: var(--paper); box-shadow: 6px 6px 0 var(--ink);
-  overflow: hidden; transition: transform .12s ease, box-shadow .12s ease;
+.to-foyer { cursor: pointer; }
+.to-foyer__label {
+  font-family: var(--display); font-weight: 700; font-size: 20px; fill: var(--ink);
+  paint-order: stroke; stroke: var(--paper); stroke-width: 5px;
 }
-.online-card:hover, .online-card:focus-visible {
-  transform: translate(-3px, -3px); box-shadow: 9px 9px 0 var(--ink);
+.to-foyer:hover .wire--core, .to-foyer:focus-visible .wire--core { stroke: #ffd166; }
+
+.online-node { cursor: pointer; }
+.online-node__lift {
+  transition: transform .12s cubic-bezier(.3, 1.6, .5, 1);
+  transform-box: fill-box; transform-origin: center;
 }
-.online-card__thumb {
-  aspect-ratio: 4 / 3; display: grid; place-items: center; overflow: hidden;
-  background: var(--paper-3); border-bottom: 4px solid var(--ink);
+.online-node:hover .online-node__lift,
+.online-node:focus-visible .online-node__lift { transform: translate(-3px, -7px) scale(1.2) rotate(-3deg); }
+.node-shadow { fill: rgba(8, 19, 28, .55); }
+.node-face { stroke: var(--ink); stroke-width: 4; }
+.node-screen { fill: rgba(255, 255, 255, .85); stroke: var(--ink); stroke-width: 3; }
+.node-number {
+  font-family: var(--display); font-weight: 700; font-size: 20px; fill: #fff;
+  paint-order: stroke; stroke: rgba(8, 19, 28, .6); stroke-width: 4px;
 }
-.online-card__thumb img, .online-card__thumb canvas { width: 100%; height: 100%; object-fit: cover; }
-.online-card__body { padding: .8rem .85rem .9rem; display: flex; flex-direction: column; gap: .4rem; flex: 1; }
-.online-card__title { font-family: var(--display); font-size: 1rem; line-height: 1.25; margin: 0; }
-.online-card__authors { margin: 0; font-size: .82rem; color: var(--ink-soft); }
-.online-card__foot { margin-top: auto; display: flex; flex-wrap: wrap; gap: .35rem; align-items: center; }
-.online-card__go {
-  margin-left: auto; font-family: var(--display); font-weight: 700; font-size: .82rem;
-  padding: .2rem .6rem; border: 3px solid var(--ink); border-radius: 999px; background: #ffd166; color: #08131c;
+.online-node:focus-visible .node-face { stroke: #ffd166; stroke-width: 6; }
+
+.cable-tip {
+  position: absolute; pointer-events: none; opacity: 0; transition: opacity .12s;
+  max-width: 270px; padding: .5rem .7rem; border: 3px solid var(--ink);
+  border-radius: 12px; background: var(--paper); box-shadow: 4px 4px 0 var(--ink);
+  font-size: .82rem; line-height: 1.3; z-index: 3;
 }
+.cable-tip.is-on { opacity: 1; }
+.cable-tip b { display: block; font-family: var(--display); margin-bottom: .15rem; }
+
+/* The same posters as plain text, for anybody who would rather read a list
+   than follow a cable - and for screen readers. */
+.online-list {
+  margin: 0; padding: 0 0 0 0; list-style: none;
+  display: grid; gap: .5rem; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+.online-list li {
+  display: grid; grid-template-columns: auto 1fr; gap: .1rem .6rem;
+  align-items: baseline; padding: .5rem .7rem;
+  border: 3px solid var(--ink); border-radius: 12px; background: var(--paper);
+}
+.online-list__n {
+  grid-row: span 2; font-family: var(--display); font-weight: 700;
+  min-width: 1.8rem; height: 1.8rem; display: grid; place-items: center;
+  border: 3px solid var(--ink); border-radius: 50%; background: var(--brand); color: #fff;
+  font-size: .8rem;
+}
+.online-list a { font-family: var(--display); font-weight: 700; font-size: .92rem; }
+.online-list__who { font-size: .78rem; color: var(--ink-soft); }
 
 .browser__status {
   display: flex; align-items: center; gap: .5rem;
@@ -690,5 +729,5 @@ html[data-theme='dark'] .browser__screen {
 @keyframes pulse-live { 50% { opacity: .25; } }
 @media (prefers-reduced-motion: reduce) {
   .browser__caret, .browser__live { animation: none; }
-  .online-card { transition: none; }
+  .online-node__lift { transition: none; }
 }

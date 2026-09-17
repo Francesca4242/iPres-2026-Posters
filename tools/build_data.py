@@ -325,6 +325,11 @@ def main():
             "authors": split_people(row.get("authors")),
             "organisations": split_orgs(row.get("organisations")),
             "locationHint": clean(row.get("poster_location")),
+            # A `presenting` column, when the CSV has one, says when this
+            # poster is staffed - "Tuesday 14:00-15:30" or whatever the
+            # organiser writes. Copied through exactly as typed and shown on
+            # the poster's page; the column does not have to exist.
+            "presenting": clean(row.get("presenting")),
             "orientation": clean(row.get("landscape/ portrait")).strip().lower() or None,
             "attendance": clean(row.get("online/ in-person")).strip() or None,
             "csvFileName": clean(row.get("file_name")).strip(),
@@ -393,7 +398,14 @@ def main():
         # anything that says online / virtual / remote counts as online, and
         # anything mentioning a person counts as in the room. The raw cell is
         # kept as `attendance`; `presentedOnline` is what the website reads.
+        # Either column may carry the word: the organiser writes "online" in
+        # poster_location as readily as in the online/in-person column, and
+        # both mean the same thing. A poster_location with a number in it is a
+        # board number, so it is not read for this.
         said = (record["attendance"] or "").lower()
+        hint = (record["locationHint"] or "").lower()
+        if not re.search(r"\d", hint):
+            said = "{} {}".format(said, hint)
         if any(word in said for word in ("online", "virtual", "remote")):
             record["presentedOnline"] = True
         elif "person" in said or "onsite" in said or "on-site" in said:

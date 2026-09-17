@@ -17,6 +17,7 @@ const IPRES = (() => {
     { href: 'index.html', label: 'Home' },
     { href: 'posters.html', label: 'All posters' },
     { href: 'map.html', label: 'Map' },
+    { href: 'online.html', label: 'Online' },
     { href: 'trails.html', label: 'Trails' },
   ];
 

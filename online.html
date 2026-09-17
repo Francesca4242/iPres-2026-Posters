@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Online Room &middot; iPRES 2026 poster hall</title>
+<meta name="description" content="The iPRES 2026 posters presented online: no board in the foyer, plugged in here instead.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230b82c6'/><circle cx='50' cy='42' r='16' fill='white'/><circle cx='50' cy='42' r='6' fill='%230b82c6'/><path d='M50 58 L64 84 H36 Z' fill='white'/></svg>">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header data-site-header></header>
+
+<main id="main" class="wrap-wide">
+  <section style="padding:2rem 0 0">
+    <h1>The Online Room</h1>
+    <p class="hero__lead">Some posters are presented online. They have no board in the foyer,
+      so they are plugged in here &mdash; every one of them readable, votable and on the
+      trails like any other.</p>
+  </section>
+
+  <section class="online-room" id="online-room" data-online-room hidden></section>
+
+  <div class="banner-note" data-empty-note hidden
+       style="border-style:solid;border-color:var(--ink);background:var(--paper)">
+    <span aria-hidden="true" style="font-size:1.6rem">&#128268;</span>
+    <div><b>Nobody is online yet.</b> Once a poster is marked as presented online it
+      appears here, wired in from the foyer. <a href="map.html">See the foyer map</a>.</div>
+  </div>
+
+  <div data-poll-banner></div>
+</main>
+
+<footer data-site-footer></footer>
+
+<script src="assets/js/site.js"></script>
+<script>
+(async () => {
+  const config = await IPRES.chrome('online.html');
+  const { posters } = await IPRES.hall();
+  const esc = IPRES.esc;
+  const onlinePosters = posters.filter((poster) => poster.presentedOnline);
+
+  document.querySelector('[data-poll-banner]').innerHTML = IPRES.pollBanner(config);
+  IPRES.wirePollPending();
+
+  if (!onlinePosters.length) document.querySelector('[data-empty-note]').hidden = false;
+  onlineRoom(onlinePosters);
+
+
+  /* Posters presented online have no board, which on a map page can read as
+     "not really here". So they get a map too: a patch panel wired to the
+     foyer, with a cable running out to every online poster. Same blocky
+     buttons as the boards, same click, same theme colours - the only
+     difference is that the room they are in is the internet. */
+  function onlineRoom(list) {
+    const room = document.querySelector('[data-online-room]');
+    if (!list.length) return;
+    const site = (config.conference || {}).website || 'https://ipres2026.dk/';
+    const host = site.replace(/^https?:\/\//, '').replace(/\/$/, '');
+
+    /* Same scatter every time the page loads: positions come from the poster
+       id, not from Math.random, so nobody's poster jumps about. */
+    const hash = (text, salt) => {
+      let n = 2166136261 ^ salt;
+      for (let i = 0; i < text.length; i += 1) {
+        n = Math.imul(n ^ text.charCodeAt(i), 16777619);
+      }
+      return ((n >>> 0) % 1000) / 1000;
+    };
+
+    const CABLES = ['#3b82f6', '#f59e0b', '#22c55e', '#ef4444', '#a855f7', '#0ea5e9', '#ec4899'];
+    const NODE = 74;
+    /* On a phone the map is redrawn narrow and tall rather than shrunk: a
+       74px button scaled to a 390px screen is 23px, which nobody can tap.
+       Two columns in a 500-wide drawing keeps them around 50px - a fingertip -
+       and needs no sideways scrolling. */
+    const narrow = window.matchMedia('(max-width: 640px)').matches;
+    const cols = narrow ? 2 : Math.min(5, Math.max(2, Math.ceil(Math.sqrt(list.length * 1.4))));
+    const rows = Math.ceil(list.length / cols);
+    const left = narrow ? 150 : 330;
+    const W = narrow ? 500 : 1240;
+    const H = Math.max(narrow ? 300 : 360, rows * (narrow ? 150 : 168) + (narrow ? 180 : 130));
+    const cellW = (W - left - (narrow ? 40 : 90)) / cols;
+    const cellH = (H - (narrow ? 200 : 150)) / rows;
+    const hub = narrow ? { x: 84, y: 112 } : { x: 150, y: H / 2 };
+
+    const place = (poster, index) => {
+      const col = index % cols;
+      const row = Math.floor(index / cols);
+      return {
+        x: left + cellW * (col + 0.5) + (hash(poster.id, 1) - 0.5) * cellW * 0.42,
+        y: (narrow ? 150 : 92) + cellH * (row + 0.5)
+           + (hash(poster.id, 2) - 0.5) * cellH * 0.44,
+      };
+    };
+
+    const parts = [];
+    const nodes = list.map(place);
+
+    /* Cables first, so they run behind the buttons. Their control points are
+       deliberately wild - a tidy fan of curves is not a tangle. */
+    list.forEach((poster, index) => {
+      const to = nodes[index];
+      const colour = CABLES[index % CABLES.length];
+      const spread = (hash(poster.id, 3) - 0.5) * 2;
+      const sag = (hash(poster.id, 4) - 0.5) * 2;
+      const c1x = hub.x + 120 + hash(poster.id, 5) * 260;
+      const c1y = hub.y + spread * 300;
+      const c2x = to.x - 90 - hash(poster.id, 6) * 220;
+      const c2y = to.y + sag * 230;
+      const d = `M${hub.x + 62} ${hub.y} C${c1x} ${c1y} ${c2x} ${c2y} ${to.x - NODE / 2 - 14} ${to.y}`;
+      parts.push(`<path class="wire wire--casing" d="${d}"></path>`);
+      parts.push(`<path class="wire wire--core" d="${d}" stroke="${colour}"></path>`);
+      /* The plug on the end of it. */
+      parts.push(`<rect class="wire-plug" x="${to.x - NODE / 2 - 20}" y="${to.y - 11}"
+                    width="18" height="22" rx="3" fill="${colour}"></rect>`);
+    });
+
+    /* The patch panel, wired back to the foyer upstairs. */
+    parts.push(`<g class="hub">
+      <rect class="hub__shadow" x="${hub.x - 58}" y="${hub.y - 84}" width="120" height="172" rx="14"></rect>
+      <rect class="hub__face" x="${hub.x - 62}" y="${hub.y - 88}" width="120" height="172" rx="14"></rect>
+      <text class="hub__icon" x="${hub.x - 2}" y="${hub.y - 34}" text-anchor="middle">\u{1F50C}</text>
+      <text class="hub__label" x="${hub.x - 2}" y="${hub.y + 8}" text-anchor="middle">PATCHED</text>
+      <text class="hub__label" x="${hub.x - 2}" y="${hub.y + 34}" text-anchor="middle">INTO THE</text>
+      <text class="hub__label" x="${hub.x - 2}" y="${hub.y + 60}" text-anchor="middle">FOYER</text>
+    </g>`);
+    /* ...and the cable that runs off the top of the panel to the real map. */
+    /* On a phone the hub is already at the top left, so the cable leaves to
+       the right instead of off the edge of the drawing. */
+    const up = narrow
+      ? `M${hub.x - 2} ${hub.y - 88} C${hub.x - 2} ${hub.y - 150} ${hub.x + 70} ${hub.y - 130} ${hub.x + 96} 0`
+      : `M${hub.x - 2} ${hub.y - 88} C${hub.x - 2} ${hub.y - 160} ${hub.x - 90} ${hub.y - 150} ${hub.x - 96} 0`;
+    parts.push(`<a class="to-foyer" href="map.html#foyer-map" aria-label="Over to the map of the foyer">
+      <path class="wire wire--casing" d="${up}"></path>
+      <path class="wire wire--core" stroke="#10b981" d="${up}"></path>
+      <text class="to-foyer__label" x="${narrow ? hub.x + 118 : hub.x - 82}" y="${narrow ? 40 : 34}"
+            text-anchor="${narrow ? 'start' : 'middle'}">\u2191 to the foyer</text>
+    </a>`);
+
+    list.forEach((poster, index) => {
+      const to = nodes[index];
+      const theme = poster.themeObjects[0];
+      const x = to.x - NODE / 2;
+      const y = to.y - NODE / 2;
+      parts.push(`<a class="online-node" href="poster.html?id=${encodeURIComponent(poster.id)}"
+            data-online-node="${esc(poster.id)}" aria-label="${esc(poster.title)}, presented online">
+        <g class="online-node__lift">
+          <rect class="node-shadow" x="${x + 4}" y="${y + 4}" width="${NODE}" height="${NODE}" rx="12"></rect>
+          <rect class="node-face" x="${x}" y="${y}" width="${NODE}" height="${NODE}" rx="12"
+                fill="${theme ? theme.color : 'var(--brand)'}"></rect>
+          <rect class="node-screen" x="${x + 11}" y="${y + 13}" width="${NODE - 22}" height="${NODE - 34}" rx="4"></rect>
+          <text class="node-number" x="${x + NODE / 2}" y="${y + NODE - 13}" text-anchor="middle">${index + 1}</text>
+        </g>
+      </a>`);
+    });
+
+    room.innerHTML = `
+      <div class="browser">
+        <div class="browser__bar">
+          <span class="browser__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="browser__tab">\u{1F310} The Online Room</span>
+          <span class="browser__url"><span aria-hidden="true">\u{1F512}</span>
+            ${esc(host)}/online-room<span class="browser__caret" aria-hidden="true"></span></span>
+        </div>
+        <div class="browser__screen">
+          <h2 class="browser__hello">Wired in from elsewhere</h2>
+          <p class="browser__sub">${list.length} poster${list.length === 1 ? '' : 's'}
+            ${list.length === 1 ? 'is' : 'are'} presented online, so ${list.length === 1 ? 'it has' : 'they have'}
+            no board in the foyer &mdash; ${list.length === 1 ? 'it is' : 'they are'} plugged in
+            down here instead. Click one to read it.</p>
+          <div class="cable-map">
+            <svg viewBox="0 0 ${W} ${H}" role="img"
+                 aria-label="${list.length} online posters, each on the end of a cable from the foyer">
+              ${parts.join('\n')}
+            </svg>
+            <div class="cable-tip" data-cable-tip></div>
+          </div>
+          <ol class="online-list">
+            ${list.map((poster, index) => `<li><span class="online-list__n">${index + 1}</span>
+              <a href="poster.html?id=${encodeURIComponent(poster.id)}">${esc(poster.title)}</a>
+              <span class="online-list__who">${esc(poster.authorLine)}</span></li>`).join('')}
+          </ol>
+        </div>
+        <div class="browser__status">
+          <span class="browser__live" aria-hidden="true"></span>
+          Connected &middot; ${list.length} online &middot; open all night
+        </div>
+      </div>`;
+    room.hidden = false;
+
+    /* Hovering a node names it, the same way hovering a board does. */
+    const wrap = room.querySelector('.cable-map');
+    const tip = room.querySelector('[data-cable-tip]');
+    const byIdOnline = {};
+    list.forEach((poster) => { byIdOnline[poster.id] = poster; });
+    room.querySelectorAll('[data-online-node]').forEach((node) => {
+      const poster = byIdOnline[node.dataset.onlineNode];
+      node.addEventListener('mousemove', (event) => {
+        const box = wrap.getBoundingClientRect();
+        tip.innerHTML = `<b>${esc(poster.title)}</b>${esc(poster.authorLine)}`;
+        tip.classList.add('is-on');
+        tip.style.left = `${Math.max(4, Math.min(event.clientX - box.left + 14, box.width - 280))}px`;
+        tip.style.top = `${event.clientY - box.top + 16}px`;
+      });
+      node.addEventListener('mouseleave', () => tip.classList.remove('is-on'));
+    });
+  }
+
+  /* Rotating a phone can cross the breakpoint the tangle was drawn for. */
+  let wasNarrow = window.matchMedia('(max-width: 640px)').matches;
+  window.addEventListener('resize', () => {
+    const isNarrow = window.matchMedia('(max-width: 640px)').matches;
+    if (isNarrow !== wasNarrow) {
+      wasNarrow = isNarrow;
+      onlineRoom(onlinePosters);
+    }
+  });
+
+})();
+</script>
+</body>
+</html>

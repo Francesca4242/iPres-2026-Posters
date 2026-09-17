@@ -13,7 +13,8 @@ hall layout? See [ADDING-POSTERS.md](ADDING-POSTERS.md).**
 | `index.html` | Landing page: counts, the eight themes, trail teasers, a shuffle button |
 | `posters.html` | Every poster, searchable across titles, abstracts, authors, institutions and keywords; filter by theme; sort by walk order, title, author or theme |
 | `poster.html?id=…` | One poster: the PDF readable in the page (paged, zoomable, downloadable), the full abstract, authors with their institutions, keywords, its board number, and the trails it is on |
-| `map.html` | The foyer as a game board: 22 walls, 42 numbered buttons, the staircase you arrive by and the Community Survey table. Board 1 is the one nearest the stairs and the numbers count away from it. Click a board for what is on it; once posters are assigned they colour by theme and trails draw their route. Below it, the **Online Room**: a browser window holding the posters that are not in the foyer |
+| `online.html` | The **Online Room**: the posters that are not in the foyer, drawn as a patch panel with a cable running out to each one. Redrawn narrow and tall on a phone so the buttons stay tappable |
+| `map.html` | The foyer as a game board: 22 walls, 42 numbered buttons, the staircase you arrive by and the Community Survey table. Board 1 is the one nearest the stairs and the numbers count away from it. Click a board for what is on it; once posters are assigned they colour by theme and trails draw their route. |
 | `trails.html` | Twelve themed walks through the hall, plus a quiz that picks one for you |
 
 Running through all of them: a **Vote** button wired to the best-poster poll, a
@@ -100,7 +101,7 @@ one by editing that table; nothing else needs to change.
 ## Layout of the repository
 
 ```
-index.html posters.html poster.html map.html trails.html
+index.html posters.html poster.html map.html online.html trails.html
 assets/css/site.css          one stylesheet for every page
 assets/js/site.js            shared: data loading, chrome, passport, PDF rendering
 assets/thumbs/               pre-rendered gallery thumbnails, one per poster

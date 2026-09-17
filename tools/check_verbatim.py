@@ -67,6 +67,11 @@ def main():
             value = poster.get(field)
             if value and value.lower() not in (row.get(column) or "").lower():
                 problems.append("{} {!r} is not verbatim in {!r}".format(field, value, title[:40]))
+        # Columns copied straight through, when the CSV has them at all.
+        for field, column in (("presenting", "presenting"), ("locationHint", "poster_location")):
+            if poster.get(field) and poster[field] != newline_only(row.get(column)):
+                problems.append("{} {!r} was rewritten in {!r}".format(
+                    field, poster[field], title[:40]))
 
     if problems:
         print("Metadata has been altered:")
@@ -75,7 +80,8 @@ def main():
         sys.exit(1)
 
     print("All {} posters: titles, abstracts, authors, keywords, institutions, "
-          "topics and orientation are character-for-character identical to the "
+          "topics, orientation and presenting times are character-for-character "
+          "identical to the "
           "CSV.".format(len(rows)))
 
 

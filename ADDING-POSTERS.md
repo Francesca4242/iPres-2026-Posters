@@ -61,6 +61,15 @@ renders what is missing or out of date, so it takes a second. If they are not
 installed it says so and does nothing, and the site still works — the browser
 falls back to rendering previews itself, just more slowly.
 
+## When each poster is presented
+
+Add a **`presenting`** column to `poster_metadata.csv` and write the day and
+time in it however you like — `Tuesday 14:00–15:30`, `Wed, session 2`, anything.
+It appears on that poster's own page under **Presenting**, copied out exactly as
+typed, and `check_verbatim.py` fails the build if anything rewrites it. Leave a
+cell blank and that poster simply has no such line. The column does not have to
+exist at all: nothing breaks without it.
+
 ## Adding a poster that is not in the CSV at all
 
 Add a row to `poster_metadata.csv` with the same columns
@@ -91,12 +100,15 @@ and, on the next rebuild, that poster:
 * becomes findable through a **💻 Presented online** filter on the All posters
   page. That filter stays hidden until at least one poster is marked online, so
   it appears by itself once you start filling the column in;
-* **appears in the Online Room** at the bottom of the map page — a browser
-  window in the same blocky style as the map, with a card per online poster.
-  Somebody planning their walk round the foyer sees them in the same place and
-  the same style as the boards, rather than having to know a filter exists. The
-  room appears by itself when the first poster is marked online and hides again
-  if none are.
+* **appears in the Online Room** (`online.html`, in the main navigation) — a
+  map of its own, drawn as a patch panel with a cable running out to every
+  online poster, and the same list in plain text underneath. The map page links
+  to it and the room links back, so the two rooms are wired together. It fills
+  itself from the CSV: nothing to switch on as the column gets filled in.
+
+Writing `online` in the **`poster_location`** column does the same thing, since
+that is where it naturally gets typed. A `poster_location` with a number in it
+is read as a board number instead.
 
 Anything that says online, virtual or remote counts as online; anything saying
 in-person, in person or on-site counts as being in the room. Capitals and extra
@@ -229,9 +241,6 @@ position), so settle the positions **before** you start assigning posters —
 after that, `--keep` can only keep boards that have not moved. And the three
 extra posters the drawing mentions (Reception, the nestor survey and "Trends in
 digital preservation") are not on the walls and are not on the map.
-
-Once the real positions are in, set `"provisional": false` at the top of
-`data/layout.json` and the orange banner disappears from the map page.
 
 ## Changing the poll link
 
