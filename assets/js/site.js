@@ -193,7 +193,17 @@ const IPRES = (() => {
     return docCache.get(url);
   }
 
+  /* pdf.js refuses two concurrent renders onto one canvas, which is easy to
+     trigger by clicking zoom or next-page twice quickly. Cancel whatever that
+     canvas was drawing before starting again. */
+  const renderTasks = new WeakMap();
+
   async function renderPage(doc, pageNumber, canvas, targetWidth) {
+    const inFlight = renderTasks.get(canvas);
+    if (inFlight) {
+      inFlight.cancel();
+      try { await inFlight.promise; } catch (err) { /* cancelled, as intended */ }
+    }
     const page = await doc.getPage(pageNumber);
     const base = page.getViewport({ scale: 1 });
     const scale = targetWidth / base.width;
@@ -205,7 +215,15 @@ const IPRES = (() => {
     canvas.style.height = `${Math.floor(viewport.height)}px`;
     const context = canvas.getContext('2d', { alpha: false });
     context.setTransform(ratio, 0, 0, ratio, 0, 0);
-    await page.render({ canvasContext: context, viewport }).promise;
+    const task = page.render({ canvasContext: context, viewport });
+    renderTasks.set(canvas, task);
+    try {
+      await task.promise;
+    } catch (err) {
+      if (err && err.name !== 'RenderingCancelledException') throw err;
+    } finally {
+      if (renderTasks.get(canvas) === task) renderTasks.delete(canvas);
+    }
     return viewport;
   }
 
