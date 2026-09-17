@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>All posters &middot; iPRES 2026 Poster Hall</title>
+<meta name="description" content="Search and filter every iPRES 2026 poster by title, author, institution, keyword or theme.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230b82c6'/><rect x='24' y='18' width='52' height='64' rx='5' fill='white'/><rect x='32' y='28' width='36' height='6' fill='%230b82c6'/><rect x='32' y='42' width='36' height='4' fill='%23cfdde8'/><rect x='32' y='52' width='28' height='4' fill='%23cfdde8'/><rect x='32' y='62' width='34' height='4' fill='%23cfdde8'/></svg>">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header data-site-header></header>
+
+<main id="main" class="wrap-wide">
+  <section style="padding:2rem 0 0">
+    <h1>Every poster</h1>
+    <p class="hero__lead">Search across titles, abstracts, authors, institutions and keywords.
+      Press <kbd>/</kbd> anywhere to jump to the search box.</p>
+  </section>
+
+  <div class="toolbar">
+    <div class="search-row">
+      <label class="visually-hidden" for="q">Search posters</label>
+      <input class="search-input" id="q" type="search" autocomplete="off" spellcheck="false"
+             placeholder="Try: workflows, emulation, fixity, Copenhagen, Talboom&hellip;">
+      <label class="visually-hidden" for="sort">Sort by</label>
+      <select class="filter" id="sort" style="padding:.5rem .8rem">
+        <option value="slot">Walk order (map)</option>
+        <option value="title">Title A&ndash;Z</option>
+        <option value="author">First author A&ndash;Z</option>
+        <option value="theme">Theme</option>
+      </select>
+      <button class="btn btn--sm" type="button" data-random>&#127922; Random</button>
+    </div>
+    <div class="filter-row" data-theme-filters></div>
+    <div class="filter-row" style="margin-top:.5rem">
+      <button class="filter" type="button" data-toggle="pdf" aria-pressed="false">&#128196; Has a PDF</button>
+      <button class="filter" type="button" data-toggle="unseen" aria-pressed="false">&#128065; Not seen yet</button>
+      <button class="filter" type="button" data-toggle="online" aria-pressed="false" hidden>&#128187; Presented online</button>
+      <button class="filter" type="button" data-clear>Clear all</button>
+      <span class="result-count" data-count style="margin-left:auto"></span>
+    </div>
+  </div>
+
+  <div class="grid grid--posters" data-results></div>
+  <div data-empty hidden class="empty-state">
+    <div class="big">&#129301;</div>
+    <h2>Nothing matches that</h2>
+    <p>Try a shorter search, or clear the filters.</p>
+  </div>
+
+  <div class="wrap" style="width:100%"><div data-poll-banner></div></div>
+</main>
+
+<footer data-site-footer></footer>
+
+<script src="assets/js/site.js"></script>
+<script>
+(async () => {
+  document.querySelector('[data-results]').innerHTML = IPRES.loader('Rolling in the posters');
+  const config = await IPRES.chrome('posters.html');
+  const { posters, themeList, counts } = await IPRES.hall();
+
+  const params = new URLSearchParams(window.location.search);
+  const state = {
+    q: params.get('q') || '',
+    themes: new Set((params.get('theme') || '').split(',').filter(Boolean)),
+    pdfOnly: params.get('pdf') === '1',
+    unseenOnly: false,
+    onlineOnly: params.get('online') === '1',
+    sort: params.get('sort') || 'slot',
+  };
+
+  const input = document.getElementById('q');
+  const sortSelect = document.getElementById('sort');
+  const results = document.querySelector('[data-results]');
+  const emptyState = document.querySelector('[data-empty]');
+  const countLabel = document.querySelector('[data-count]');
+
+  input.value = state.q;
+  sortSelect.value = state.sort;
+
+  document.querySelector('[data-poll-banner]').innerHTML = IPRES.pollBanner(config);
+  IPRES.wirePollPending();
+
+  document.querySelector('[data-theme-filters]').innerHTML = themeList.map((theme) => `
+    <button class="filter" type="button" data-theme-id="${theme.id}"
+            style="--chip-color:${theme.color}"
+            aria-pressed="${state.themes.has(theme.id)}">${theme.emoji} ${IPRES.esc(theme.short)}</button>`).join('');
+
+  /* Highlight the search term inside a title without letting markup through. */
+  const highlighter = (needle) => (text) => {
+    const safe = IPRES.esc(text);
+    if (!needle) return safe;
+    const pattern = needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return safe.replace(new RegExp(`(${pattern})`, 'ig'), '<mark>$1</mark>');
+  };
+
+  const SORTERS = {
+    slot: (a, b) => (a.slot?.number || 999) - (b.slot?.number || 999),
+    title: (a, b) => a.title.localeCompare(b.title),
+    author: (a, b) => (a.authors[0]?.last || '').localeCompare(b.authors[0]?.last || ''),
+    theme: (a, b) => ((a.themes[0] || 'z') + a.title).localeCompare((b.themes[0] || 'z') + b.title),
+  };
+
+  function apply() {
+    const needle = state.q.trim().toLowerCase();
+    const terms = needle.split(/\s+/).filter(Boolean);
+    const seen = IPRES.passport.seen();
+
+    const matched = posters.filter((poster) => {
+      if (state.pdfOnly && poster.status !== 'available') return false;
+      if (state.unseenOnly && seen.has(poster.id)) return false;
+      if (state.onlineOnly && !poster.presentedOnline) return false;
+      if (state.themes.size && !(poster.themes || []).some((t) => state.themes.has(t))) return false;
+      return terms.every((term) => poster.searchText.includes(term));
+    }).sort(SORTERS[state.sort] || SORTERS.slot);
+
+    results.innerHTML = matched.map((poster) =>
+      IPRES.posterCard(poster, { highlight: highlighter(state.q.trim()) })).join('');
+    IPRES.thumbnails(results);
+
+    emptyState.hidden = matched.length > 0;
+    countLabel.textContent = matched.length === counts.total
+      ? `${counts.total} posters`
+      : `${matched.length} of ${counts.total} posters`;
+
+    const next = new URLSearchParams();
+    if (state.q) next.set('q', state.q);
+    if (state.themes.size) next.set('theme', [...state.themes].join(','));
+    if (state.pdfOnly) next.set('pdf', '1');
+    if (state.onlineOnly) next.set('online', '1');
+    if (state.sort !== 'slot') next.set('sort', state.sort);
+    const query = next.toString();
+    history.replaceState(null, '', query ? `?${query}` : window.location.pathname);
+  }
+
+  let debounce;
+  input.addEventListener('input', () => {
+    state.q = input.value;
+    clearTimeout(debounce);
+    debounce = setTimeout(apply, 120);
+  });
+  sortSelect.addEventListener('change', () => { state.sort = sortSelect.value; apply(); });
+
+  /* Note: data-theme-id, not data-theme - <html> carries data-theme for the
+     light/dark setting and would otherwise be caught by this selector. */
+  document.querySelectorAll('[data-theme-id]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const id = button.dataset.themeId;
+      if (state.themes.has(id)) state.themes.delete(id); else state.themes.add(id);
+      button.setAttribute('aria-pressed', state.themes.has(id));
+      apply();
+    });
+  });
+
+  /* The online filter only appears once somebody has been marked as online in
+     the "online/ in-person" column of poster_metadata.csv. */
+  const onlineButton = document.querySelector('[data-toggle="online"]');
+  onlineButton.hidden = !posters.some((poster) => poster.presentedOnline);
+
+  const TOGGLE_KEYS = { pdf: 'pdfOnly', unseen: 'unseenOnly', online: 'onlineOnly' };
+  document.querySelectorAll('[data-toggle]').forEach((button) => {
+    const key = TOGGLE_KEYS[button.dataset.toggle];
+    button.setAttribute('aria-pressed', String(state[key]));
+    button.addEventListener('click', () => {
+      state[key] = !state[key];
+      button.setAttribute('aria-pressed', String(state[key]));
+      apply();
+    });
+  });
+
+  document.querySelector('[data-clear]').addEventListener('click', () => {
+    state.q = ''; state.themes.clear();
+    state.pdfOnly = false; state.unseenOnly = false; state.onlineOnly = false;
+    input.value = '';
+    document.querySelectorAll('[data-theme-id],[data-toggle]').forEach((b) => b.setAttribute('aria-pressed', 'false'));
+    apply();
+  });
+
+  document.querySelector('[data-random]').addEventListener('click', () => {
+    const pick = posters[Math.floor(Math.random() * posters.length)];
+    window.location.href = `poster.html?id=${encodeURIComponent(pick.id)}`;
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === '/' && document.activeElement !== input && !event.metaKey && !event.ctrlKey) {
+      event.preventDefault();
+      input.focus();
+      input.select();
+    }
+  });
+
+  document.addEventListener('passport:change', apply);
+  apply();
+})();
+</script>
+</body>
+</html>

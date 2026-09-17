@@ -1,0 +1,20 @@
+{
+ "conference": {
+  "name": "iPRES 2026",
+  "city": "Copenhagen",
+  "tagline": "Community / Preservation / Horizon",
+  "website": "https://ipres2026.dk/"
+ },
+ "poll": {
+  "//": "The best poster poll. This is the only place the URL appears: every Vote button on every page reads this value. Blank it out and the buttons say voting opens later instead of linking anywhere.",
+  "url": "https://tally.so/r/Y5g4bz",
+  "heading": "Best poster award",
+  "label": "Vote for a poster",
+  "blurb": "Seen one you loved? Cast your vote in the best poster poll - it takes about ten seconds.",
+  "opensText": "Voting opens at the conference."
+ },
+ "hall": {
+  "//": "Shown on the map page so people know when they can actually walk round.",
+  "sessionText": "Poster sessions run alongside the coffee breaks."
+ }
+}
