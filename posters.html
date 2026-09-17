@@ -26,7 +26,7 @@
              placeholder="Try: workflows, emulation, fixity, Copenhagen, Talboom&hellip;">
       <label class="visually-hidden" for="sort">Sort by</label>
       <select class="filter" id="sort" style="padding:.5rem .8rem">
-        <option value="slot">Walk order (map)</option>
+        <option value="slot" data-needs-boards hidden>Walk order (map)</option>
         <option value="title">Title A&ndash;Z</option>
         <option value="author">First author A&ndash;Z</option>
         <option value="theme">Theme</option>
@@ -72,6 +72,11 @@
     sort: params.get('sort') || 'slot',
   };
 
+  /* Sorting by where a poster hangs is only offered once boards are assigned. */
+  const anyBoards = posters.some((poster) => poster.slot);
+  document.querySelectorAll('[data-needs-boards]').forEach((node) => { node.hidden = !anyBoards; });
+  if (!anyBoards && state.sort === 'slot') state.sort = 'title';
+
   const input = document.getElementById('q');
   const sortSelect = document.getElementById('sort');
   const results = document.querySelector('[data-results]');
@@ -98,7 +103,8 @@
   };
 
   const SORTERS = {
-    slot: (a, b) => (a.slot?.number || 999) - (b.slot?.number || 999),
+    slot: (a, b) => (a.slot?.number || 9999) - (b.slot?.number || 9999)
+      || a.title.localeCompare(b.title),
     title: (a, b) => a.title.localeCompare(b.title),
     author: (a, b) => (a.authors[0]?.last || '').localeCompare(b.authors[0]?.last || ''),
     theme: (a, b) => ((a.themes[0] || 'z') + a.title).localeCompare((b.themes[0] || 'z') + b.title),

@@ -1,512 +1,374 @@
 {
  "provisional": true,
- "note": "Wall counts come from map/Poster layout.pptx (Option 4). The exact positions and which poster goes where are NOT confirmed yet - edit data/layout.json to set the real ones.",
+ "note": "Wall counts, sizes and groups come from map/Poster layout.pptx and the plan is drawn to its scale, but the spacing within each group is an even guess and no poster has been put on a board yet. Set a board's \"poster\" here to fill it in.",
  "source": "map/Poster layout.pptx",
  "viewBox": [
   0,
   0,
-  1000,
-  700
+  1734,
+  756
  ],
- "dimensions": {
-  "widthMetres": 13.5,
-  "depthMetres": 6
+ "scale": {
+  "pxPerMetre": 60,
+  "margin": {
+   "left": 1.7,
+   "top": 2.9,
+   "right": 0.7,
+   "bottom": 3.2
+  }
  },
- "floorPlanImage": "assets/img/floorplan.png",
- "counts": {
-  "walls": 25,
-  "slots": 42,
-  "reserved": 3
+ "dimensions": {
+  "lengthMetres": 26.5,
+  "depthMetres": 6.5,
+  "boardWidthMetres": 1.25
+ },
+ "room": {
+  "x": 102.0,
+  "y": 174.0,
+  "w": 1590,
+  "h": 390
+ },
+ "scaleBarY": 696.0,
+ "measuredArea": {
+  "x": 102.0,
+  "y": 196.8,
+  "w": 810,
+  "h": 360,
+  "label": "13.5 m × 6 m"
  },
  "furniture": [
   {
    "kind": "entrance",
    "label": "Entrance",
-   "x": 24,
-   "y": 300,
-   "w": 28,
-   "h": 120
+   "x": 27.0,
+   "y": 294.0,
+   "w": 51,
+   "h": 150
   },
   {
    "kind": "coffee",
    "label": "Coffee",
-   "x": 45,
-   "y": 520,
-   "w": 112,
-   "h": 50
+   "x": 990.0,
+   "y": 36.0,
+   "w": 162,
+   "h": 102
   },
   {
-   "kind": "reception",
-   "label": "Reception",
-   "x": 700,
-   "y": 34,
-   "w": 260,
-   "h": 52
-  },
-  {
-   "kind": "seating",
-   "label": "Seating",
-   "x": 455,
-   "y": 190,
-   "w": 180,
-   "h": 120
+   "kind": "stairs",
+   "label": "Stairs",
+   "x": 1596.0,
+   "y": 438.0,
+   "w": 96,
+   "h": 126
   }
  ],
+ "floorPlan": {
+  "image": "assets/img/floorplan.png",
+  "x": -23.4,
+  "y": -264.9,
+  "w": 2252.0,
+  "h": 912.8
+ },
+ "counts": {
+  "walls": 25,
+  "slots": 42,
+  "assigned": 0
+ },
  "clusters": [
   {
    "id": "A",
    "name": "Havnegade Block",
-   "hint": "Nine double-sided walls - the busiest corner of the hall.",
-   "labelX": 240,
-   "labelY": 105,
+   "hint": "Nine double-sided walls along the top of the open area.",
+   "labelX": 522.0,
+   "labelY": 105.0,
    "walls": [
     {
      "id": "A1",
-     "x": 120,
-     "y": 180,
-     "angle": 90,
-     "length": 104,
+     "x1": 162.0,
+     "y1": 174.0,
+     "x2": 162.0,
+     "y2": 249.0,
+     "thickness": 6.0,
+     "kind": "fin",
      "slots": [
       {
        "id": "A1a",
        "number": 1,
-       "x": 105.0,
-       "y": 180.0,
-       "facing": 270,
-       "poster": "overcoming-barriers-to-preserving-and-sharing-qualitative-data",
-       "reservedFor": null
+       "x": 142.8,
+       "y": 211.5,
+       "facing": "west",
+       "poster": null
       },
       {
        "id": "A1b",
        "number": 2,
-       "x": 135.0,
-       "y": 180.0,
-       "facing": 90,
-       "poster": "accessing-quantum-history-in-the-new-century-a",
-       "reservedFor": null
+       "x": 181.2,
+       "y": 211.5,
+       "facing": "east",
+       "poster": null
       }
      ]
     },
     {
      "id": "A2",
-     "x": 240,
-     "y": 180,
-     "angle": 90,
-     "length": 104,
+     "x1": 252.0,
+     "y1": 174.0,
+     "x2": 252.0,
+     "y2": 249.0,
+     "thickness": 6.0,
+     "kind": "fin",
      "slots": [
       {
        "id": "A2a",
        "number": 3,
-       "x": 225.0,
-       "y": 180.0,
-       "facing": 270,
-       "poster": "adapting-to-context-generating-collaboration-opportunities",
-       "reservedFor": null
+       "x": 232.8,
+       "y": 211.5,
+       "facing": "west",
+       "poster": null
       },
       {
        "id": "A2b",
        "number": 4,
-       "x": 255.0,
-       "y": 180.0,
-       "facing": 90,
-       "poster": "advocacy-as-a-core-digital-preservation-competency-strengthening",
-       "reservedFor": null
+       "x": 271.2,
+       "y": 211.5,
+       "facing": "east",
+       "poster": null
       }
      ]
     },
     {
      "id": "A3",
-     "x": 360,
-     "y": 180,
-     "angle": 90,
-     "length": 104,
+     "x1": 342.0,
+     "y1": 174.0,
+     "x2": 342.0,
+     "y2": 249.0,
+     "thickness": 6.0,
+     "kind": "fin",
      "slots": [
       {
        "id": "A3a",
        "number": 5,
-       "x": 345.0,
-       "y": 180.0,
-       "facing": 270,
-       "poster": "are-we-on-the-right-track",
-       "reservedFor": null
+       "x": 322.8,
+       "y": 211.5,
+       "facing": "west",
+       "poster": null
       },
       {
        "id": "A3b",
        "number": 6,
-       "x": 375.0,
-       "y": 180.0,
-       "facing": 90,
-       "poster": "ddi-for-beginners-free-bilingual-training-resources-to",
-       "reservedFor": null
+       "x": 361.2,
+       "y": 211.5,
+       "facing": "east",
+       "poster": null
       }
      ]
     },
     {
      "id": "A4",
-     "x": 120,
-     "y": 320,
-     "angle": 90,
-     "length": 104,
+     "x1": 432.0,
+     "y1": 174.0,
+     "x2": 432.0,
+     "y2": 249.0,
+     "thickness": 6.0,
+     "kind": "fin",
      "slots": [
       {
        "id": "A4a",
        "number": 7,
-       "x": 105.0,
-       "y": 320.0,
-       "facing": 270,
-       "poster": "digital-preservation-on-a-national-level-a-canada",
-       "reservedFor": null
+       "x": 412.8,
+       "y": 211.5,
+       "facing": "west",
+       "poster": null
       },
       {
        "id": "A4b",
        "number": 8,
-       "x": 135.0,
-       "y": 320.0,
-       "facing": 90,
-       "poster": "from-simulation-to-reality-china-s-first-authentic",
-       "reservedFor": null
+       "x": 451.2,
+       "y": 211.5,
+       "facing": "east",
+       "poster": null
       }
      ]
     },
     {
      "id": "A5",
-     "x": 240,
-     "y": 320,
-     "angle": 90,
-     "length": 104,
+     "x1": 522.0,
+     "y1": 174.0,
+     "x2": 522.0,
+     "y2": 249.0,
+     "thickness": 6.0,
+     "kind": "fin",
      "slots": [
       {
        "id": "A5a",
        "number": 9,
-       "x": 225.0,
-       "y": 320.0,
-       "facing": 270,
-       "poster": "introducing-dataflow-diagrams-communicating-digital-preservation-workflows",
-       "reservedFor": null
+       "x": 502.8,
+       "y": 211.5,
+       "facing": "west",
+       "poster": null
       },
       {
        "id": "A5b",
        "number": 10,
-       "x": 255.0,
-       "y": 320.0,
-       "facing": 90,
-       "poster": "lower-saxony-state-initiative-for-digital-preservation",
-       "reservedFor": null
+       "x": 541.2,
+       "y": 211.5,
+       "facing": "east",
+       "poster": null
       }
      ]
     },
     {
      "id": "A6",
-     "x": 360,
-     "y": 320,
-     "angle": 90,
-     "length": 104,
+     "x1": 612.0,
+     "y1": 174.0,
+     "x2": 612.0,
+     "y2": 249.0,
+     "thickness": 6.0,
+     "kind": "fin",
      "slots": [
       {
        "id": "A6a",
        "number": 11,
-       "x": 345.0,
-       "y": 320.0,
-       "facing": 270,
-       "poster": "taking-a-risk",
-       "reservedFor": null
+       "x": 592.8,
+       "y": 211.5,
+       "facing": "west",
+       "poster": null
       },
       {
        "id": "A6b",
        "number": 12,
-       "x": 375.0,
-       "y": 320.0,
-       "facing": 90,
-       "poster": "arch-i-scan-archiving-our-biggest-digital-collection",
-       "reservedFor": null
+       "x": 631.2,
+       "y": 211.5,
+       "facing": "east",
+       "poster": null
       }
      ]
     },
     {
      "id": "A7",
-     "x": 120,
-     "y": 460,
-     "angle": 90,
-     "length": 104,
+     "x1": 702.0,
+     "y1": 174.0,
+     "x2": 702.0,
+     "y2": 249.0,
+     "thickness": 6.0,
+     "kind": "fin",
      "slots": [
       {
        "id": "A7a",
        "number": 13,
-       "x": 105.0,
-       "y": 460.0,
-       "facing": 270,
-       "poster": "digital-forensics-and-contemporary-practice-updating-and-reframing",
-       "reservedFor": null
+       "x": 682.8,
+       "y": 211.5,
+       "facing": "west",
+       "poster": null
       },
       {
        "id": "A7b",
        "number": 14,
-       "x": 135.0,
-       "y": 460.0,
-       "facing": 90,
-       "poster": "don-t-stop-retrievin-ensuring-version-integrity-in",
-       "reservedFor": null
+       "x": 721.2,
+       "y": 211.5,
+       "facing": "east",
+       "poster": null
       }
      ]
     },
     {
      "id": "A8",
-     "x": 240,
-     "y": 460,
-     "angle": 90,
-     "length": 104,
+     "x1": 792.0,
+     "y1": 174.0,
+     "x2": 792.0,
+     "y2": 249.0,
+     "thickness": 6.0,
+     "kind": "fin",
      "slots": [
       {
        "id": "A8a",
        "number": 15,
-       "x": 225.0,
-       "y": 460.0,
-       "facing": 270,
-       "poster": "forwarding-the-email-archive-stewarding-donna-j-haraway",
-       "reservedFor": null
+       "x": 772.8,
+       "y": 211.5,
+       "facing": "west",
+       "poster": null
       },
       {
        "id": "A8b",
        "number": 16,
-       "x": 255.0,
-       "y": 460.0,
-       "facing": 90,
-       "poster": "repository-native-documentation-for-research-data-preservation-with",
-       "reservedFor": null
+       "x": 811.2,
+       "y": 211.5,
+       "facing": "east",
+       "poster": null
       }
      ]
     },
     {
      "id": "A9",
-     "x": 360,
-     "y": 460,
-     "angle": 90,
-     "length": 104,
+     "x1": 882.0,
+     "y1": 174.0,
+     "x2": 882.0,
+     "y2": 249.0,
+     "thickness": 6.0,
+     "kind": "fin",
      "slots": [
       {
        "id": "A9a",
        "number": 17,
-       "x": 345.0,
-       "y": 460.0,
-       "facing": 270,
-       "poster": "transparent-referenceable-integrated-preservation-planning-tripp",
-       "reservedFor": null
+       "x": 862.8,
+       "y": 211.5,
+       "facing": "west",
+       "poster": null
       },
       {
        "id": "A9b",
        "number": 18,
-       "x": 375.0,
-       "y": 460.0,
-       "facing": 90,
-       "poster": "28-million-documents-and-counting-digital-preservation-and",
-       "reservedFor": null
+       "x": 901.2,
+       "y": 211.5,
+       "facing": "east",
+       "poster": null
       }
      ]
     }
    ]
   },
   {
-   "id": "B",
-   "name": "Nyhavn Row",
-   "hint": "Six single-sided walls along the side of the room.",
-   "labelX": 820,
-   "labelY": 150,
+   "id": "E",
+   "name": "Kaffe Korner",
+   "hint": "Two boards flat against the bottom wall, by the coffee.",
+   "labelX": 342.0,
+   "labelY": 624.0,
    "walls": [
     {
-     "id": "B1",
-     "x": 700,
-     "y": 210,
-     "angle": 0,
-     "length": 96,
+     "id": "E1",
+     "x1": 232.5,
+     "y1": 564.0,
+     "x2": 307.5,
+     "y2": 564.0,
+     "thickness": 6.0,
+     "kind": "flat",
      "slots": [
       {
-       "id": "B1",
+       "id": "E1",
        "number": 19,
-       "x": 700.0,
-       "y": 195.0,
-       "facing": 0,
-       "poster": "50-billion-objects-of-the-danish-web-visualizing",
-       "reservedFor": null
+       "x": 270.0,
+       "y": 538.8,
+       "facing": "north",
+       "poster": null
       }
      ]
     },
     {
-     "id": "B2",
-     "x": 820,
-     "y": 210,
-     "angle": 0,
-     "length": 96,
+     "id": "E2",
+     "x1": 373.5,
+     "y1": 564.0,
+     "x2": 448.5,
+     "y2": 564.0,
+     "thickness": 6.0,
+     "kind": "flat",
      "slots": [
       {
-       "id": "B2",
+       "id": "E2",
        "number": 20,
-       "x": 820.0,
-       "y": 195.0,
-       "facing": 0,
-       "poster": "ai-enabled-access-to-large-and-sensitive-collections",
-       "reservedFor": null
-      }
-     ]
-    },
-    {
-     "id": "B3",
-     "x": 940,
-     "y": 210,
-     "angle": 0,
-     "length": 96,
-     "slots": [
-      {
-       "id": "B3",
-       "number": 21,
-       "x": 940.0,
-       "y": 195.0,
-       "facing": 0,
-       "poster": "aida-a-network-based-approach-to-technical-partner",
-       "reservedFor": null
-      }
-     ]
-    },
-    {
-     "id": "B4",
-     "x": 700,
-     "y": 330,
-     "angle": 0,
-     "length": 96,
-     "slots": [
-      {
-       "id": "B4",
-       "number": 22,
-       "x": 700.0,
-       "y": 315.0,
-       "facing": 0,
-       "poster": null,
-       "reservedFor": "Reception"
-      }
-     ]
-    },
-    {
-     "id": "B5",
-     "x": 820,
-     "y": 330,
-     "angle": 0,
-     "length": 96,
-     "slots": [
-      {
-       "id": "B5",
-       "number": 23,
-       "x": 820.0,
-       "y": 315.0,
-       "facing": 0,
-       "poster": null,
-       "reservedFor": "nestor survey"
-      }
-     ]
-    },
-    {
-     "id": "B6",
-     "x": 940,
-     "y": 330,
-     "angle": 0,
-     "length": 96,
-     "slots": [
-      {
-       "id": "B6",
-       "number": 24,
-       "x": 940.0,
-       "y": 315.0,
-       "facing": 0,
-       "poster": null,
-       "reservedFor": "Trends in digital preservation: the future"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "C",
-   "name": "Kastellet Corner",
-   "hint": "Three double-sided walls tucked into the far corner.",
-   "labelX": 835,
-   "labelY": 496,
-   "walls": [
-    {
-     "id": "C1",
-     "x": 770,
-     "y": 580,
-     "angle": 90,
-     "length": 96,
-     "slots": [
-      {
-       "id": "C1a",
-       "number": 25,
-       "x": 755.0,
-       "y": 580.0,
-       "facing": 270,
-       "poster": "captioning-everything-everywhere-all-at-once-integrating-automated",
-       "reservedFor": null
-      },
-      {
-       "id": "C1b",
-       "number": 26,
-       "x": 785.0,
-       "y": 580.0,
-       "facing": 90,
-       "poster": "current-trends-in-fixity-practices-results-from-the",
-       "reservedFor": null
-      }
-     ]
-    },
-    {
-     "id": "C2",
-     "x": 850,
-     "y": 580,
-     "angle": 90,
-     "length": 96,
-     "slots": [
-      {
-       "id": "C2a",
-       "number": 27,
-       "x": 835.0,
-       "y": 580.0,
-       "facing": 270,
-       "poster": "exploring-a-holistic-approach-for-confronting-a-legacy",
-       "reservedFor": null
-      },
-      {
-       "id": "C2b",
-       "number": 28,
-       "x": 865.0,
-       "y": 580.0,
-       "facing": 90,
-       "poster": "how-well-did-we-do-measuring-digital-preservation",
-       "reservedFor": null
-      }
-     ]
-    },
-    {
-     "id": "C3",
-     "x": 930,
-     "y": 580,
-     "angle": 90,
-     "length": 96,
-     "slots": [
-      {
-       "id": "C3a",
-       "number": 29,
-       "x": 915.0,
-       "y": 580.0,
-       "facing": 270,
-       "poster": "keeping-open-books-usable-challenges-and-opportunities",
-       "reservedFor": null
-      },
-      {
-       "id": "C3b",
-       "number": 30,
-       "x": 945.0,
-       "y": 580.0,
-       "facing": 90,
-       "poster": "let-s-dowarc-semantic-modelling-of-web-archiving",
-       "reservedFor": null
+       "x": 411.0,
+       "y": 538.8,
+       "facing": "north",
+       "poster": null
       }
      ]
     }
@@ -516,186 +378,354 @@
    "id": "D",
    "name": "Strøget",
    "hint": "Five double-sided walls forming the main thoroughfare.",
-   "labelX": 546,
-   "labelY": 496,
+   "labelX": 972.0,
+   "labelY": 624.0,
    "walls": [
     {
      "id": "D1",
-     "x": 430,
-     "y": 580,
-     "angle": 90,
-     "length": 96,
+     "x1": 792.0,
+     "y1": 564.0,
+     "x2": 792.0,
+     "y2": 489.0,
+     "thickness": 6.0,
+     "kind": "fin",
      "slots": [
       {
        "id": "D1a",
-       "number": 31,
-       "x": 415.0,
-       "y": 580.0,
-       "facing": 270,
-       "poster": "lto-7-to-lto-10-migrating-holocaust-survivor",
-       "reservedFor": null
+       "number": 21,
+       "x": 772.8,
+       "y": 526.5,
+       "facing": "west",
+       "poster": null
       },
       {
        "id": "D1b",
-       "number": 32,
-       "x": 445.0,
-       "y": 580.0,
-       "facing": 90,
-       "poster": "preservation-as-a-service-the-cern-preserve-hub",
-       "reservedFor": null
+       "number": 22,
+       "x": 811.2,
+       "y": 526.5,
+       "facing": "east",
+       "poster": null
       }
      ]
     },
     {
      "id": "D2",
-     "x": 488,
-     "y": 580,
-     "angle": 90,
-     "length": 96,
+     "x1": 882.0,
+     "y1": 564.0,
+     "x2": 882.0,
+     "y2": 489.0,
+     "thickness": 6.0,
+     "kind": "fin",
      "slots": [
       {
        "id": "D2a",
-       "number": 33,
-       "x": 473.0,
-       "y": 580.0,
-       "facing": 270,
-       "poster": "repository-autoscaling-through-use-of-containers-and-operational",
-       "reservedFor": null
+       "number": 23,
+       "x": 862.8,
+       "y": 526.5,
+       "facing": "west",
+       "poster": null
       },
       {
        "id": "D2b",
-       "number": 34,
-       "x": 503.0,
-       "y": 580.0,
-       "facing": 90,
-       "poster": "sgp-vsd-packager-for-sip-packets-originating-from",
-       "reservedFor": null
+       "number": 24,
+       "x": 901.2,
+       "y": 526.5,
+       "facing": "east",
+       "poster": null
       }
      ]
     },
     {
      "id": "D3",
-     "x": 546,
-     "y": 580,
-     "angle": 90,
-     "length": 96,
+     "x1": 972.0,
+     "y1": 564.0,
+     "x2": 972.0,
+     "y2": 489.0,
+     "thickness": 6.0,
+     "kind": "fin",
      "slots": [
       {
        "id": "D3a",
-       "number": 35,
-       "x": 531.0,
-       "y": 580.0,
-       "facing": 270,
-       "poster": "shrinking-the-digital-heap-triaging-digital-carriers-at",
-       "reservedFor": null
+       "number": 25,
+       "x": 952.8,
+       "y": 526.5,
+       "facing": "west",
+       "poster": null
       },
       {
        "id": "D3b",
-       "number": 36,
-       "x": 561.0,
-       "y": 580.0,
-       "facing": 90,
-       "poster": "sustainable-and-systematic-building-a-search-index-of",
-       "reservedFor": null
+       "number": 26,
+       "x": 991.2,
+       "y": 526.5,
+       "facing": "east",
+       "poster": null
       }
      ]
     },
     {
      "id": "D4",
-     "x": 604,
-     "y": 580,
-     "angle": 90,
-     "length": 96,
+     "x1": 1062.0,
+     "y1": 564.0,
+     "x2": 1062.0,
+     "y2": 489.0,
+     "thickness": 6.0,
+     "kind": "fin",
      "slots": [
       {
        "id": "D4a",
-       "number": 37,
-       "x": 589.0,
-       "y": 580.0,
-       "facing": 270,
-       "poster": "the-diskovery-pilot-amiga-coverdisk-emulation-and-videogaming",
-       "reservedFor": null
+       "number": 27,
+       "x": 1042.8,
+       "y": 526.5,
+       "facing": "west",
+       "poster": null
       },
       {
        "id": "D4b",
-       "number": 38,
-       "x": 619.0,
-       "y": 580.0,
-       "facing": 90,
-       "poster": "the-dlcm-technology-the-swiss-army-knife-of",
-       "reservedFor": null
+       "number": 28,
+       "x": 1081.2,
+       "y": 526.5,
+       "facing": "east",
+       "poster": null
       }
      ]
     },
     {
      "id": "D5",
-     "x": 662,
-     "y": 580,
-     "angle": 90,
-     "length": 96,
+     "x1": 1152.0,
+     "y1": 564.0,
+     "x2": 1152.0,
+     "y2": 489.0,
+     "thickness": 6.0,
+     "kind": "fin",
      "slots": [
       {
        "id": "D5a",
-       "number": 39,
-       "x": 647.0,
-       "y": 580.0,
-       "facing": 270,
-       "poster": "the-good-the-grey-and-the-redundant-data",
-       "reservedFor": null
+       "number": 29,
+       "x": 1132.8,
+       "y": 526.5,
+       "facing": "west",
+       "poster": null
       },
       {
        "id": "D5b",
-       "number": 40,
-       "x": 677.0,
-       "y": 580.0,
-       "facing": 90,
-       "poster": "roadmap-to-preservation-maybe-the-real-treasure-was",
-       "reservedFor": null
+       "number": 30,
+       "x": 1171.2,
+       "y": 526.5,
+       "facing": "east",
+       "poster": null
       }
      ]
     }
    ]
   },
   {
-   "id": "E",
-   "name": "Kaffe Korner",
-   "hint": "Two walls by the coffee - linger here.",
-   "labelX": 185,
-   "labelY": 595,
+   "id": "B",
+   "name": "Nyhavn Row",
+   "hint": "Six boards flat against the top wall.",
+   "labelX": 1353.0,
+   "labelY": 105.0,
    "walls": [
     {
-     "id": "E1",
-     "x": 120,
-     "y": 640,
-     "angle": 0,
-     "length": 96,
+     "id": "B1",
+     "x1": 1090.5,
+     "y1": 174.0,
+     "x2": 1165.5,
+     "y2": 174.0,
+     "thickness": 6.0,
+     "kind": "flat",
      "slots": [
       {
-       "id": "E1",
-       "number": 41,
-       "x": 120.0,
-       "y": 625.0,
-       "facing": 0,
-       "poster": "we-can-t-keep-everything-forever-a-landscape",
-       "reservedFor": null
+       "id": "B1",
+       "number": 31,
+       "x": 1128.0,
+       "y": 199.2,
+       "facing": "south",
+       "poster": null
       }
      ]
     },
     {
-     "id": "E2",
-     "x": 250,
-     "y": 640,
-     "angle": 0,
-     "length": 96,
+     "id": "B2",
+     "x1": 1180.5,
+     "y1": 174.0,
+     "x2": 1255.5,
+     "y2": 174.0,
+     "thickness": 6.0,
+     "kind": "flat",
      "slots": [
       {
-       "id": "E2",
+       "id": "B2",
+       "number": 32,
+       "x": 1218.0,
+       "y": 199.2,
+       "facing": "south",
+       "poster": null
+      }
+     ]
+    },
+    {
+     "id": "B3",
+     "x1": 1270.5,
+     "y1": 174.0,
+     "x2": 1345.5,
+     "y2": 174.0,
+     "thickness": 6.0,
+     "kind": "flat",
+     "slots": [
+      {
+       "id": "B3",
+       "number": 33,
+       "x": 1308.0,
+       "y": 199.2,
+       "facing": "south",
+       "poster": null
+      }
+     ]
+    },
+    {
+     "id": "B4",
+     "x1": 1360.5,
+     "y1": 174.0,
+     "x2": 1435.5,
+     "y2": 174.0,
+     "thickness": 6.0,
+     "kind": "flat",
+     "slots": [
+      {
+       "id": "B4",
+       "number": 34,
+       "x": 1398.0,
+       "y": 199.2,
+       "facing": "south",
+       "poster": null
+      }
+     ]
+    },
+    {
+     "id": "B5",
+     "x1": 1450.5,
+     "y1": 174.0,
+     "x2": 1525.5,
+     "y2": 174.0,
+     "thickness": 6.0,
+     "kind": "flat",
+     "slots": [
+      {
+       "id": "B5",
+       "number": 35,
+       "x": 1488.0,
+       "y": 199.2,
+       "facing": "south",
+       "poster": null
+      }
+     ]
+    },
+    {
+     "id": "B6",
+     "x1": 1540.5,
+     "y1": 174.0,
+     "x2": 1615.5,
+     "y2": 174.0,
+     "thickness": 6.0,
+     "kind": "flat",
+     "slots": [
+      {
+       "id": "B6",
+       "number": 36,
+       "x": 1578.0,
+       "y": 199.2,
+       "facing": "south",
+       "poster": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "C",
+   "name": "Kastellet Corner",
+   "hint": "Three double-sided walls in the far corner.",
+   "labelX": 1428.0,
+   "labelY": 624.0,
+   "walls": [
+    {
+     "id": "C1",
+     "x1": 1338.0,
+     "y1": 564.0,
+     "x2": 1338.0,
+     "y2": 489.0,
+     "thickness": 6.0,
+     "kind": "fin",
+     "slots": [
+      {
+       "id": "C1a",
+       "number": 37,
+       "x": 1318.8,
+       "y": 526.5,
+       "facing": "west",
+       "poster": null
+      },
+      {
+       "id": "C1b",
+       "number": 38,
+       "x": 1357.2,
+       "y": 526.5,
+       "facing": "east",
+       "poster": null
+      }
+     ]
+    },
+    {
+     "id": "C2",
+     "x1": 1428.0,
+     "y1": 564.0,
+     "x2": 1428.0,
+     "y2": 489.0,
+     "thickness": 6.0,
+     "kind": "fin",
+     "slots": [
+      {
+       "id": "C2a",
+       "number": 39,
+       "x": 1408.8,
+       "y": 526.5,
+       "facing": "west",
+       "poster": null
+      },
+      {
+       "id": "C2b",
+       "number": 40,
+       "x": 1447.2,
+       "y": 526.5,
+       "facing": "east",
+       "poster": null
+      }
+     ]
+    },
+    {
+     "id": "C3",
+     "x1": 1518.0,
+     "y1": 564.0,
+     "x2": 1518.0,
+     "y2": 489.0,
+     "thickness": 6.0,
+     "kind": "fin",
+     "slots": [
+      {
+       "id": "C3a",
+       "number": 41,
+       "x": 1498.8,
+       "y": 526.5,
+       "facing": "west",
+       "poster": null
+      },
+      {
+       "id": "C3b",
        "number": 42,
-       "x": 250.0,
-       "y": 625.0,
-       "facing": 0,
-       "poster": null,
-       "reservedFor": null
+       "x": 1537.2,
+       "y": 526.5,
+       "facing": "east",
+       "poster": null
       }
      ]
     }

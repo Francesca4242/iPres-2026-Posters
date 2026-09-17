@@ -13,7 +13,7 @@ hall layout? See [ADDING-POSTERS.md](ADDING-POSTERS.md).**
 | `index.html` | Landing page: counts, the eight themes, trail teasers, a shuffle button |
 | `posters.html` | Every poster, searchable across titles, abstracts, authors, institutions and keywords; filter by theme; sort by walk order, title, author or theme |
 | `poster.html?id=…` | One poster: the PDF readable in the page (paged, zoomable, downloadable), the full abstract, authors with their institutions, keywords, its board number, and the trails it is on |
-| `map.html` | The poster hall as a bright, blocky, clickable board. Every board is colour-coded by theme; pick a trail and the route lights up; toggle the real venue floor plan underneath |
+| `map.html` | The foyer drawn to scale from the venue plan: 25 walls, 42 numbered boards, a metre grid and a scale bar. Click a board for what is on it; once posters are assigned they colour by theme and trails draw their route; toggle the scanned floor plan underneath, registered to the same grid |
 | `trails.html` | Twelve themed walks through the hall, plus a quiz that picks one for you |
 
 Running through all of them: a **Vote** button wired to the best-poster poll, a
@@ -51,10 +51,11 @@ tools/poster_files.csv┘                                      │
   institutions, keywords, topics, themes, orientation, whether it is presented
   online, and the path to its PDF (or `null` if it has not arrived). Regenerate
   with `python3 tools/build_data.py`.
-* **`data/layout.json`** — the hall: 25 walls in five clusters, 42 boards, and
-  which poster hangs on each. Currently **provisional**. Posters marked as
-  presented online in the CSV get no board here, but stay everywhere else on
-  the site.
+* **`data/layout.json`** — the hall: 25 walls in five groups and 42 numbered
+  boards, drawn to the scale of the venue plan. **No poster is on a board yet**
+  — set a board's `poster` to a poster id to place one, and the map, the
+  gallery and the trails light up around it. Posters marked as presented online
+  get no board, but stay everywhere else on the site.
 * **`data/config.json`** — the poll URL and the conference details.
 * **`assets/thumbs/*.webp`** — page 1 of each poster, ~50KB each, so the gallery
   does not have to download 55MB of PDFs to show its cards. Regenerate with

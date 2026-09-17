@@ -121,34 +121,67 @@ or "tidied" — `tools/check_verbatim.py` fails the build if anything drifts, an
 the same check runs in CI on every push. If a typo needs fixing, fix it in
 `poster_metadata.csv` and the site follows.
 
-## Setting the real hall layout
+## Putting posters on boards
 
-`data/layout.json` is currently a **provisional** arrangement: the right number
-of walls in the right clusters (25 walls, 42 boards, from
-`map/Poster layout.pptx`), but not the real positions, and the posters are assigned
-to boards automatically so that each theme stays together.
-
-When the hall is set up for real, edit `data/layout.json` directly. Every board
-has plain numbers you can nudge:
+The map shows **42 numbered boards on 25 walls**, drawn to the venue's own
+measurements, and every one of them is empty. Putting a poster on a board is
+one line in `data/layout.json`: find the board by its number and set `poster`
+to a poster id.
 
 ```json
-{ "id": "A1a", "number": 1, "x": 105, "y": 180, "facing": 270,
-  "poster": "dignified-deletion-toward-a-philosophy-of-letting-go",
-  "reservedFor": null }
+{ "id": "A1a", "number": 1, "x": 80.8, "y": 197.5, "facing": "west",
+  "poster": "dignified-deletion-toward-a-philosophy-of-letting-go" }
 ```
 
-* `x` / `y` — position on the map, in a 1000 × 700 grid where (0,0) is the
-  top-left corner of the room.
-* `poster` — the id of the poster on that board, or `null` for an empty one.
-* `reservedFor` — text shown instead of a poster (three boards are held for
-  Reception, the nestor survey and "Trends in digital preservation").
+Poster ids are the `"id"` of each entry in `data/posters.json` — they are the
+title in lower case with dashes. `python3 tools/build_layout.py` prints a
+warning if a board points at an id that does not exist.
 
-Then set `"provisional": false` at the top of the file and the orange "this
-layout is provisional" banner disappears from the map page.
+As soon as any board has a poster on it, the site turns the rest back on by
+itself:
 
-Do **not** re-run `tools/build_layout.py` after that — it regenerates the
-positions from scratch. (`--keep` preserves the poster assignments but still
-resets the coordinates.)
+* boards take the colour of their poster's theme, and the theme filter and
+  trail routes reappear on the map;
+* each poster's page gains "Board #N" with a link to it on the map;
+* the gallery shows board numbers and offers "Walk order (map)" as a sort;
+* trails run in board order, so they become a real walk round the room.
+
+Boards you have not filled in stay plain blue and say "no poster on this board
+yet". You can do them a few at a time.
+
+A poster marked `online` in the CSV should not be given a board — it is not in
+the room. See above.
+
+## Where the map's shape comes from
+
+Everything on the map is measured off `map/Poster layout.pptx`:
+
+* its dimension annotation reads 13.5 m by 6 m, and those rules are 323 px and
+  143 px long, which fixes the drawing at 23.9 px per metre;
+* the four wall marks on it are 29.9 px long — **1.25 m**, one board wide;
+* two of those marks stand at right angles to the long wall (a wall with a
+  poster on each face) and two lie flat against it (one poster);
+* the wall counts and the five groups are the drawing's own — 9, 6, 3, 5 and 2
+  walls making 18, 6, 6, 10 and 2 posters, 25 walls and 42 boards in total;
+* the five red captions on it fix where each group sits along the foyer.
+
+**"Real floor plan"** on the map overlays the scanned plan, registered to the
+same metre grid — the plan's own 13.5 m rule lines up with the dashed box.
+
+What is *not* from the drawing is the spacing within each group, which is an
+even guess. If the walls end up somewhere else, edit `tools/build_layout.py`:
+the `CLUSTERS` table gives each group's positions in metres along the foyer, so
+moving a wall is changing one number. Then:
+
+```bash
+python3 tools/build_layout.py --keep   # --keep leaves assigned boards alone
+```
+
+Once the real positions are in, set `"provisional": false` at the top of
+`data/layout.json` and the orange banner disappears from the map page.
+
+The three extra posters the drawing mentions (Reception, the nestor survey and
+"Trends in digital preservation") are not on the walls and are not on the map.
 
 ## Changing the poll link
 

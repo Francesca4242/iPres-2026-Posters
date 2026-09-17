@@ -55,6 +55,10 @@ html[data-theme='dark'] {
 
 * { box-sizing: border-box; }
 
+/* A class that sets `display` beats the browser's own [hidden] rule, which
+   silently un-hides anything hidden via the attribute. Settle it here. */
+[hidden] { display: none !important; }
+
 html { scroll-behavior: smooth; }
 
 body {
@@ -361,7 +365,7 @@ html[data-theme='dark'] .map-canvas { background: #0e3a52; }
   /* Shrunk to phone width the boards become too small to tap, so let the map
      scroll sideways at a usable size instead. */
   .map-canvas { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  .map-canvas svg { width: 720px; max-width: none; }
+  .map-canvas svg { width: 1100px; max-width: none; }
   .map-canvas::after {
     content: 'Swipe the map sideways \2192';
     position: sticky; left: 0; bottom: 0; display: block;
@@ -374,15 +378,16 @@ html[data-theme='dark'] .map-canvas { background: #0e3a52; }
 /* The board itself */
 .map-board { fill: #bdeafd; stroke: var(--ink); stroke-width: 6; }
 html[data-theme='dark'] .map-board { fill: #123c55; }
-.map-tile-a { fill: #ffffff; opacity: .55; }
-.map-tile-b { fill: #6ec9f0; opacity: .32; }
+.map-tile-a { fill: #ffffff; opacity: .45; }
+.map-tile-b { fill: #6ec9f0; opacity: .25; }
 html[data-theme='dark'] .map-tile-a { fill: #1b5878; opacity: .5; }
 html[data-theme='dark'] .map-tile-b { fill: #0b2f45; opacity: .5; }
 
 /* Walls are chunky blocks with a hard drop shadow */
-.map-wall-shadow { fill: rgba(8, 19, 28, .45); }
-.map-wall { fill: #2b3f52; stroke: var(--ink); stroke-width: 3; }
-html[data-theme='dark'] .map-wall { fill: #cdd9e4; }
+/* Walls are line segments drawn to scale: 1.25 m per board. */
+.map-wall-shadow { stroke: rgba(8, 19, 28, .4); }
+.map-wall { stroke: #2b3f52; }
+html[data-theme='dark'] .map-wall { stroke: #cdd9e4; }
 
 /* Poster tiles: the clickable bit */
 .map-slot { cursor: pointer; }
@@ -397,8 +402,8 @@ html[data-theme='dark'] .map-wall { fill: #cdd9e4; }
 .map-slot:focus-visible .slot-face { stroke: #ffd166; stroke-width: 5; }
 .map-slot--dim { opacity: .2; }
 .map-slot--seen .slot-face { stroke: #10b981; stroke-width: 5; }
-.map-slot--reserved .slot-face { fill: #e7eef4; }
-.map-slot--reserved text { fill: var(--ink); stroke: #fff; }
+/* A board with no poster on it yet: still a real board, just plain. */
+.map-slot--free .slot-face { fill: var(--brand); }
 .map-slot--hit { animation: slot-pop .45s ease; }
 @keyframes slot-pop {
   0% { transform: scale(1); } 40% { transform: scale(1.5) rotate(-6deg); } 100% { transform: scale(1); }
@@ -409,6 +414,16 @@ html[data-theme='dark'] .map-wall { fill: #cdd9e4; }
 .map-furniture .furn-face { stroke: var(--ink); stroke-width: 3; }
 .map-furniture text { font-family: var(--display); font-size: 15px; fill: var(--ink); font-weight: 700; }
 .map-furniture .furn-icon { font-size: 26px; }
+
+/* The 13.5 x 6 m area the venue drawing actually gives dimensions for. */
+.map-measured { fill: none; stroke: var(--ink); stroke-width: 2.5; stroke-dasharray: 10 7; opacity: .5; }
+.map-measured-label {
+  font-family: var(--display); font-weight: 700; font-size: 15px;
+  fill: var(--ink); opacity: .55; letter-spacing: .04em;
+}
+
+.map-scalebar line { stroke: var(--ink); stroke-width: 3; stroke-linecap: round; }
+.map-scalebar text { font-family: var(--display); font-weight: 700; font-size: 15px; fill: var(--ink); }
 
 .map-cluster-label-box { fill: var(--ink); }
 .map-cluster-label { font-family: var(--display); font-weight: 700; font-size: 17px; fill: #fff; text-transform: uppercase; letter-spacing: .09em; }
@@ -532,10 +547,6 @@ html[data-theme='dark'] .site-footer img { filter: invert(1) hue-rotate(180deg) 
 /* A poster presented online: shown in the gallery, absent from the map. */
 .chip--online { background: #ffd166; color: #08131c; border-color: var(--ink); }
 
-/* A board with nothing on it yet. */
-.map-slot--empty .slot-face { fill: var(--paper); stroke-dasharray: 5 4; }
-.map-slot--empty text { fill: var(--ink-faint); stroke: none; }
-.map-slot--empty .slot-shine { display: none; }
 
 /* The instant preview on a poster page, replaced by the live PDF canvas. */
 .viewer__preview { max-width: 100%; height: auto; box-shadow: 0 6px 24px rgba(0, 0, 0, .25); }

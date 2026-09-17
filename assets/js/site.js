@@ -94,7 +94,10 @@ const IPRES = (() => {
       slot: slotByPoster[poster.id] || null,
       themeObjects: (poster.themes || []).map((id) => themes[id]).filter(Boolean),
     }));
-    posters.sort((a, b) => (a.slot?.number || 999) - (b.slot?.number || 999));
+    /* Board order where boards are assigned, title order where they are not. */
+    posters.sort((a, b) =>
+      (a.slot?.number || 9999) - (b.slot?.number || 9999)
+      || a.title.localeCompare(b.title));
     return { posters, themes, themeList: posterData.themes, counts: posterData.counts, layout: layoutData };
   }
 
