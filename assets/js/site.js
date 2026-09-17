@@ -94,7 +94,10 @@ const IPRES = (() => {
       slot: slotByPoster[poster.id] || null,
       themeObjects: (poster.themes || []).map((id) => themes[id]).filter(Boolean),
     }));
-    posters.sort((a, b) => (a.slot?.number || 999) - (b.slot?.number || 999));
+    /* Board order where boards are assigned, title order where they are not. */
+    posters.sort((a, b) =>
+      (a.slot?.number || 9999) - (b.slot?.number || 9999)
+      || a.title.localeCompare(b.title));
     return { posters, themes, themeList: posterData.themes, counts: posterData.counts, layout: layoutData };
   }
 
@@ -193,7 +196,17 @@ const IPRES = (() => {
     return docCache.get(url);
   }
 
+  /* pdf.js refuses two concurrent renders onto one canvas, which is easy to
+     trigger by clicking zoom or next-page twice quickly. Cancel whatever that
+     canvas was drawing before starting again. */
+  const renderTasks = new WeakMap();
+
   async function renderPage(doc, pageNumber, canvas, targetWidth) {
+    const inFlight = renderTasks.get(canvas);
+    if (inFlight) {
+      inFlight.cancel();
+      try { await inFlight.promise; } catch (err) { /* cancelled, as intended */ }
+    }
     const page = await doc.getPage(pageNumber);
     const base = page.getViewport({ scale: 1 });
     const scale = targetWidth / base.width;
@@ -205,7 +218,15 @@ const IPRES = (() => {
     canvas.style.height = `${Math.floor(viewport.height)}px`;
     const context = canvas.getContext('2d', { alpha: false });
     context.setTransform(ratio, 0, 0, ratio, 0, 0);
-    await page.render({ canvasContext: context, viewport }).promise;
+    const task = page.render({ canvasContext: context, viewport });
+    renderTasks.set(canvas, task);
+    try {
+      await task.promise;
+    } catch (err) {
+      if (err && err.name !== 'RenderingCancelledException') throw err;
+    } finally {
+      if (renderTasks.get(canvas) === task) renderTasks.delete(canvas);
+    }
     return viewport;
   }
 
@@ -274,17 +295,37 @@ const IPRES = (() => {
     </div>`;
   }
 
+  /* ---------- poster thumbnails ---------- */
+
+  /* A pre-rendered WebP if tools/build_thumbs.py has run (the normal case:
+     ~50KB instead of downloading a whole PDF), the in-browser pdf.js renderer
+     only as a fallback for a poster whose thumbnail has not been built yet. */
+  function thumbnailFor(poster, className = 'poster-card__thumb') {
+    if (poster.thumb) {
+      return `<div class="${className}">
+        <img src="${esc(poster.thumb)}" alt="First page of ${esc(poster.title)}"
+             ${poster.thumbWidth ? `width="${poster.thumbWidth}" height="${poster.thumbHeight}"` : ''}
+             loading="lazy" decoding="async">
+      </div>`;
+    }
+    if (poster.file) {
+      return `<div class="${className}" data-pdf-thumb="${esc(poster.file)}"
+                   data-thumb-alt="First page of ${esc(poster.title)}">
+        ${loader('Pedalling', 'bike-loader--inline')}
+      </div>`;
+    }
+    return `<div class="${className}">
+      <div class="placeholder">\u{1F4EC}<br>PDF on its way<br><small>Abstract is here already</small></div>
+    </div>`;
+  }
+
   /* ---------- poster cards ---------- */
 
   function posterCard(poster, options = {}) {
     const seen = passport.has(poster.id);
     const themeChips = (poster.themeObjects || []).slice(0, 2).map((theme) =>
       `<span class="chip chip--solid" style="background:${theme.color}">${theme.emoji} ${esc(theme.short)}</span>`).join('');
-    const thumb = poster.file
-      ? `<div class="poster-card__thumb" data-pdf-thumb="${esc(poster.file)}" data-thumb-alt="First page of ${esc(poster.title)}">
-           ${loader('Pedalling', 'bike-loader--inline')}
-         </div>`
-      : `<div class="poster-card__thumb"><div class="placeholder">\u{1F4EC}<br>PDF on its way<br><small>Abstract is here already</small></div></div>`;
+    const thumb = thumbnailFor(poster);
     return `<a class="card poster-card" href="poster.html?id=${encodeURIComponent(poster.id)}">
       ${poster.slot ? `<span class="slot-badge">#${poster.slot.number}</span>` : ''}
       ${seen ? '<span class="seen-badge" title="You marked this as seen">✓</span>' : ''}
@@ -390,7 +431,7 @@ const IPRES = (() => {
 
   return {
     esc, el, store, data, hall, byId, chrome, passport, renderPassport,
-    thumbnails, pdfLib, openPdf, renderPage, posterCard, loader,
+    thumbnails, thumbnailFor, pdfLib, openPdf, renderPage, posterCard, loader,
     pollBanner, pollButton, wirePollPending, BADGES,
   };
 })();

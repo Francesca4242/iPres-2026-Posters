@@ -13,7 +13,7 @@ hall layout? See [ADDING-POSTERS.md](ADDING-POSTERS.md).**
 | `index.html` | Landing page: counts, the eight themes, trail teasers, a shuffle button |
 | `posters.html` | Every poster, searchable across titles, abstracts, authors, institutions and keywords; filter by theme; sort by walk order, title, author or theme |
 | `poster.html?id=…` | One poster: the PDF readable in the page (paged, zoomable, downloadable), the full abstract, authors with their institutions, keywords, its board number, and the trails it is on |
-| `map.html` | The poster hall as a bright, blocky, clickable board. Every board is colour-coded by theme; pick a trail and the route lights up; toggle the real venue floor plan underneath |
+| `map.html` | The foyer drawn to scale from the venue plan: 25 walls, 42 numbered boards, a metre grid and a scale bar. Click a board for what is on it; once posters are assigned they colour by theme and trails draw their route; toggle the scanned floor plan underneath, registered to the same grid |
 | `trails.html` | Twelve themed walks through the hall, plus a quiz that picks one for you |
 
 Running through all of them: a **Vote** button wired to the best-poster poll, a
@@ -42,7 +42,8 @@ Opening `index.html` as a `file://` URL will *not* work — browsers block the
 poster_metadata.csv  ─┐
 posters/*.pdf        ─┼─►  tools/build_data.py    ─►  data/posters.json
 tools/poster_files.csv┘                                      │
-                                                             ▼
+                              tools/build_thumbs.py  ─►  assets/thumbs/*.webp
+                                                             │
                           tools/build_layout.py   ─►  data/layout.json
 ```
 
@@ -50,14 +51,19 @@ tools/poster_files.csv┘                                      │
   institutions, keywords, topics, themes, orientation, whether it is presented
   online, and the path to its PDF (or `null` if it has not arrived). Regenerate
   with `python3 tools/build_data.py`.
-* **`data/layout.json`** — the hall: 25 walls in five clusters, 42 boards, and
-  which poster hangs on each. Currently **provisional**. Posters marked as
-  presented online in the CSV get no board here, but stay everywhere else on
-  the site.
+* **`data/layout.json`** — the hall: 25 walls in five groups and 42 numbered
+  boards, drawn to the scale of the venue plan. **No poster is on a board yet**
+  — set a board's `poster` to a poster id to place one, and the map, the
+  gallery and the trails light up around it. Posters marked as presented online
+  get no board, but stay everywhere else on the site.
 * **`data/config.json`** — the poll URL and the conference details.
+* **`assets/thumbs/*.webp`** — page 1 of each poster, ~50KB each, so the gallery
+  does not have to download 55MB of PDFs to show its cards. Regenerate with
+  `python3 tools/build_thumbs.py` (needs `pip install pypdfium2 Pillow`; without
+  them the browser falls back to rendering previews itself).
 
-A GitHub Action rebuilds `data/posters.json` whenever a PDF is added, so
-uploading a poster through the GitHub web interface is enough.
+A GitHub Action rebuilds `data/posters.json` and the thumbnails whenever a PDF
+is added, so uploading a poster through the GitHub web interface is enough.
 
 ## The metadata is shown exactly as submitted
 
@@ -93,12 +99,13 @@ one by editing that table; nothing else needs to change.
 index.html posters.html poster.html map.html trails.html
 assets/css/site.css          one stylesheet for every page
 assets/js/site.js            shared: data loading, chrome, passport, PDF rendering
+assets/thumbs/               pre-rendered gallery thumbnails, one per poster
 assets/js/trails.js          the trail definitions and the quiz
 assets/img/floorplan.png     the venue plan from map/Poster layout.pptx
 data/                        posters.json, layout.json, config.json
 posters/                     the poster PDFs
 iPRES2026_Logos/             conference logos
-tools/                       the three Python scripts, plus the filename overrides
+tools/                       the four Python scripts, plus the filename overrides
 poster_metadata.csv          the source of truth for all poster metadata; its
                              file_name column says which PDF belongs to which row
 map/Poster layout.pptx       the venue's wall plan, where the map numbers come from

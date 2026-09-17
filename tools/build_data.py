@@ -29,6 +29,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CSV_PATH = os.path.join(ROOT, "poster_metadata.csv")
 PDF_DIR = os.path.join(ROOT, "posters")
 OVERRIDES = os.path.join(ROOT, "tools", "poster_files.csv")
+THUMB_DIR = os.path.join(ROOT, "assets", "thumbs")
 OUT = os.path.join(ROOT, "data", "posters.json")
 
 # The iPRES topic taxonomy arrives as one line per topic group. Each group
@@ -277,6 +278,18 @@ def main():
     if not os.path.exists(CSV_PATH):
         sys.exit("Cannot find {}".format(CSV_PATH))
 
+    # Thumbnail dimensions are only known to build_thumbs.py, so keep whatever
+    # the last run recorded rather than dropping them.
+    previous_thumbs = {}
+    if os.path.exists(OUT):
+        try:
+            for old_record in json.load(open(OUT, encoding="utf-8")).get("posters", []):
+                if old_record.get("thumbWidth"):
+                    previous_thumbs[old_record["id"]] = (
+                        old_record["thumbWidth"], old_record["thumbHeight"])
+        except (ValueError, KeyError):
+            pass
+
     rows = read_metadata()
     pdfs = sorted(f for f in os.listdir(PDF_DIR) if f.lower().endswith(".pdf"))
     # Accented filenames can be stored decomposed on disk but composed in the
@@ -364,6 +377,17 @@ def main():
             record["status"] = "awaited"
             record["number"] = None
         record.pop("csvFileName", None)
+        # Carry over a thumbnail that tools/build_thumbs.py already made, so
+        # the two scripts can be run in either order without losing it.
+        thumb = os.path.join(THUMB_DIR, "{}.webp".format(record["id"]))
+        if record["file"] and os.path.exists(thumb):
+            record["thumb"] = os.path.relpath(thumb, ROOT).replace(os.sep, "/")
+            record["thumbWidth"] = previous_thumbs.get(record["id"], (None, None))[0]
+            record["thumbHeight"] = previous_thumbs.get(record["id"], (None, None))[1]
+        else:
+            record["thumb"] = None
+            record["thumbWidth"] = None
+            record["thumbHeight"] = None
         # "online/ in-person" is still being collected, so read it generously:
         # anything that says online / virtual / remote counts as online, and
         # anything mentioning a person counts as in the room. The raw cell is

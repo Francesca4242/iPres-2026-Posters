@@ -21,9 +21,9 @@ Still awaited:
    **`file_name`** column, replacing the word `placeholder`.
 
 A GitHub Action (`.github/workflows/build-data.yml`) rebuilds
-`data/posters.json` within a minute or two and commits the result, and the
-poster appears on the site — in the gallery, in the search index, on its own
-page and on the map.
+`data/posters.json`, renders the poster's thumbnail, and commits both within a
+minute or two. The poster then appears on the site — in the gallery, in the
+search index, on its own page and on the map.
 
 
 
@@ -48,12 +48,18 @@ The left-hand column is the poster's id; `build_data.py` prints it in its log.
 cp ~/Downloads/the-new-poster.pdf posters/
 # ...then put that filename in the row's file_name column
 python3 tools/build_data.py        # rebuilds data/posters.json
+python3 tools/build_thumbs.py      # renders its gallery thumbnail
 python3 tools/check_verbatim.py    # confirms no metadata text was altered
-git add posters data && git commit -m "Add the Netarkivet poster" && git push
+git add posters data assets/thumbs && git commit -m "Add the Netarkivet poster" && git push
 ```
 
-`build_data.py` needs nothing but a standard Python 3 — no pip, no node.
-It prints what it matched, what it could not match, and what is still awaited.
+`build_data.py` needs nothing but a standard Python 3 — no pip, no node. It
+prints what it matched, what it could not match, and what is still awaited.
+
+`build_thumbs.py` needs two libraries (`pip install pypdfium2 Pillow`) and only
+renders what is missing or out of date, so it takes a second. If they are not
+installed it says so and does nothing, and the site still works — the browser
+falls back to rendering previews itself, just more slowly.
 
 ## Adding a poster that is not in the CSV at all
 
@@ -96,6 +102,17 @@ Nothing else needs changing — no code, no layout file. Edit the column and the
 rebuild Action does the rest, including taking the poster off the map. Change
 your mind and clear the cell, and it gets a board again on the next rebuild.
 
+## Why the thumbnails are committed
+
+`assets/thumbs/` holds a ~50KB WebP of page 1 of each poster, rendered by
+`tools/build_thumbs.py`. The gallery shows those instead of downloading the
+PDFs: the page went from pulling 55MB and taking a few seconds to show anything,
+to 2MB and showing everything at once. The PDFs are only fetched when somebody
+opens a poster.
+
+They are committed rather than generated on the fly because the site is plain
+static files — there is no server to render them on demand.
+
 ## The metadata is never edited
 
 Titles, abstracts, author names, institutions and keywords are copied to the
@@ -104,34 +121,67 @@ or "tidied" — `tools/check_verbatim.py` fails the build if anything drifts, an
 the same check runs in CI on every push. If a typo needs fixing, fix it in
 `poster_metadata.csv` and the site follows.
 
-## Setting the real hall layout
+## Putting posters on boards
 
-`data/layout.json` is currently a **provisional** arrangement: the right number
-of walls in the right clusters (25 walls, 42 boards, from
-`map/Poster layout.pptx`), but not the real positions, and the posters are assigned
-to boards automatically so that each theme stays together.
-
-When the hall is set up for real, edit `data/layout.json` directly. Every board
-has plain numbers you can nudge:
+The map shows **42 numbered boards on 25 walls**, drawn to the venue's own
+measurements, and every one of them is empty. Putting a poster on a board is
+one line in `data/layout.json`: find the board by its number and set `poster`
+to a poster id.
 
 ```json
-{ "id": "A1a", "number": 1, "x": 105, "y": 180, "facing": 270,
-  "poster": "dignified-deletion-toward-a-philosophy-of-letting-go",
-  "reservedFor": null }
+{ "id": "A1a", "number": 1, "x": 80.8, "y": 197.5, "facing": "west",
+  "poster": "dignified-deletion-toward-a-philosophy-of-letting-go" }
 ```
 
-* `x` / `y` — position on the map, in a 1000 × 700 grid where (0,0) is the
-  top-left corner of the room.
-* `poster` — the id of the poster on that board, or `null` for an empty one.
-* `reservedFor` — text shown instead of a poster (three boards are held for
-  Reception, the nestor survey and "Trends in digital preservation").
+Poster ids are the `"id"` of each entry in `data/posters.json` — they are the
+title in lower case with dashes. `python3 tools/build_layout.py` prints a
+warning if a board points at an id that does not exist.
 
-Then set `"provisional": false` at the top of the file and the orange "this
-layout is provisional" banner disappears from the map page.
+As soon as any board has a poster on it, the site turns the rest back on by
+itself:
 
-Do **not** re-run `tools/build_layout.py` after that — it regenerates the
-positions from scratch. (`--keep` preserves the poster assignments but still
-resets the coordinates.)
+* boards take the colour of their poster's theme, and the theme filter and
+  trail routes reappear on the map;
+* each poster's page gains "Board #N" with a link to it on the map;
+* the gallery shows board numbers and offers "Walk order (map)" as a sort;
+* trails run in board order, so they become a real walk round the room.
+
+Boards you have not filled in stay plain blue and say "no poster on this board
+yet". You can do them a few at a time.
+
+A poster marked `online` in the CSV should not be given a board — it is not in
+the room. See above.
+
+## Where the map's shape comes from
+
+Everything on the map is measured off `map/Poster layout.pptx`:
+
+* its dimension annotation reads 13.5 m by 6 m, and those rules are 323 px and
+  143 px long, which fixes the drawing at 23.9 px per metre;
+* the four wall marks on it are 29.9 px long — **1.25 m**, one board wide;
+* two of those marks stand at right angles to the long wall (a wall with a
+  poster on each face) and two lie flat against it (one poster);
+* the wall counts and the five groups are the drawing's own — 9, 6, 3, 5 and 2
+  walls making 18, 6, 6, 10 and 2 posters, 25 walls and 42 boards in total;
+* the five red captions on it fix where each group sits along the foyer.
+
+**"Real floor plan"** on the map overlays the scanned plan, registered to the
+same metre grid — the plan's own 13.5 m rule lines up with the dashed box.
+
+What is *not* from the drawing is the spacing within each group, which is an
+even guess. If the walls end up somewhere else, edit `tools/build_layout.py`:
+the `CLUSTERS` table gives each group's positions in metres along the foyer, so
+moving a wall is changing one number. Then:
+
+```bash
+python3 tools/build_layout.py --keep   # --keep leaves assigned boards alone
+```
+
+Once the real positions are in, set `"provisional": false` at the top of
+`data/layout.json` and the orange banner disappears from the map page.
+
+The three extra posters the drawing mentions (Reception, the nestor survey and
+"Trends in digital preservation") are not on the walls and are not on the map.
 
 ## Changing the poll link
 
