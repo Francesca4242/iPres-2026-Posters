@@ -1,0 +1,705 @@
+{
+ "provisional": true,
+ "note": "Wall counts come from Poster layout.pptx (Option 4). The exact positions and which poster goes where are NOT confirmed yet - edit data/layout.json to set the real ones.",
+ "source": "Poster layout.pptx",
+ "viewBox": [
+  0,
+  0,
+  1000,
+  700
+ ],
+ "dimensions": {
+  "widthMetres": 13.5,
+  "depthMetres": 6
+ },
+ "floorPlanImage": "assets/img/floorplan.png",
+ "counts": {
+  "walls": 25,
+  "slots": 42,
+  "reserved": 3
+ },
+ "furniture": [
+  {
+   "kind": "entrance",
+   "label": "Entrance",
+   "x": 24,
+   "y": 300,
+   "w": 28,
+   "h": 120
+  },
+  {
+   "kind": "coffee",
+   "label": "Coffee",
+   "x": 45,
+   "y": 520,
+   "w": 112,
+   "h": 50
+  },
+  {
+   "kind": "reception",
+   "label": "Reception",
+   "x": 700,
+   "y": 34,
+   "w": 260,
+   "h": 52
+  },
+  {
+   "kind": "seating",
+   "label": "Seating",
+   "x": 455,
+   "y": 190,
+   "w": 180,
+   "h": 120
+  }
+ ],
+ "clusters": [
+  {
+   "id": "A",
+   "name": "Havnegade Block",
+   "hint": "Nine double-sided walls - the busiest corner of the hall.",
+   "labelX": 240,
+   "labelY": 105,
+   "walls": [
+    {
+     "id": "A1",
+     "x": 120,
+     "y": 180,
+     "angle": 90,
+     "length": 104,
+     "slots": [
+      {
+       "id": "A1a",
+       "number": 1,
+       "x": 105.0,
+       "y": 180.0,
+       "facing": 270,
+       "poster": "overcoming-barriers-to-preserving-and-sharing-qualitative-data",
+       "reservedFor": null
+      },
+      {
+       "id": "A1b",
+       "number": 2,
+       "x": 135.0,
+       "y": 180.0,
+       "facing": 90,
+       "poster": "accessing-quantum-history-in-the-new-century-a",
+       "reservedFor": null
+      }
+     ]
+    },
+    {
+     "id": "A2",
+     "x": 240,
+     "y": 180,
+     "angle": 90,
+     "length": 104,
+     "slots": [
+      {
+       "id": "A2a",
+       "number": 3,
+       "x": 225.0,
+       "y": 180.0,
+       "facing": 270,
+       "poster": "adapting-to-context-generating-collaboration-opportunities",
+       "reservedFor": null
+      },
+      {
+       "id": "A2b",
+       "number": 4,
+       "x": 255.0,
+       "y": 180.0,
+       "facing": 90,
+       "poster": "advocacy-as-a-core-digital-preservation-competency-strengthening",
+       "reservedFor": null
+      }
+     ]
+    },
+    {
+     "id": "A3",
+     "x": 360,
+     "y": 180,
+     "angle": 90,
+     "length": 104,
+     "slots": [
+      {
+       "id": "A3a",
+       "number": 5,
+       "x": 345.0,
+       "y": 180.0,
+       "facing": 270,
+       "poster": "are-we-on-the-right-track",
+       "reservedFor": null
+      },
+      {
+       "id": "A3b",
+       "number": 6,
+       "x": 375.0,
+       "y": 180.0,
+       "facing": 90,
+       "poster": "ddi-for-beginners-free-bilingual-training-resources-to",
+       "reservedFor": null
+      }
+     ]
+    },
+    {
+     "id": "A4",
+     "x": 120,
+     "y": 320,
+     "angle": 90,
+     "length": 104,
+     "slots": [
+      {
+       "id": "A4a",
+       "number": 7,
+       "x": 105.0,
+       "y": 320.0,
+       "facing": 270,
+       "poster": "digital-preservation-on-a-national-level-a-canada",
+       "reservedFor": null
+      },
+      {
+       "id": "A4b",
+       "number": 8,
+       "x": 135.0,
+       "y": 320.0,
+       "facing": 90,
+       "poster": "from-simulation-to-reality-china-s-first-authentic",
+       "reservedFor": null
+      }
+     ]
+    },
+    {
+     "id": "A5",
+     "x": 240,
+     "y": 320,
+     "angle": 90,
+     "length": 104,
+     "slots": [
+      {
+       "id": "A5a",
+       "number": 9,
+       "x": 225.0,
+       "y": 320.0,
+       "facing": 270,
+       "poster": "introducing-dataflow-diagrams-communicating-digital-preservation-workflows",
+       "reservedFor": null
+      },
+      {
+       "id": "A5b",
+       "number": 10,
+       "x": 255.0,
+       "y": 320.0,
+       "facing": 90,
+       "poster": "lower-saxony-state-initiative-for-digital-preservation",
+       "reservedFor": null
+      }
+     ]
+    },
+    {
+     "id": "A6",
+     "x": 360,
+     "y": 320,
+     "angle": 90,
+     "length": 104,
+     "slots": [
+      {
+       "id": "A6a",
+       "number": 11,
+       "x": 345.0,
+       "y": 320.0,
+       "facing": 270,
+       "poster": "taking-a-risk",
+       "reservedFor": null
+      },
+      {
+       "id": "A6b",
+       "number": 12,
+       "x": 375.0,
+       "y": 320.0,
+       "facing": 90,
+       "poster": "arch-i-scan-archiving-our-biggest-digital-collection",
+       "reservedFor": null
+      }
+     ]
+    },
+    {
+     "id": "A7",
+     "x": 120,
+     "y": 460,
+     "angle": 90,
+     "length": 104,
+     "slots": [
+      {
+       "id": "A7a",
+       "number": 13,
+       "x": 105.0,
+       "y": 460.0,
+       "facing": 270,
+       "poster": "digital-forensics-and-contemporary-practice-updating-and-reframing",
+       "reservedFor": null
+      },
+      {
+       "id": "A7b",
+       "number": 14,
+       "x": 135.0,
+       "y": 460.0,
+       "facing": 90,
+       "poster": "don-t-stop-retrievin-ensuring-version-integrity-in",
+       "reservedFor": null
+      }
+     ]
+    },
+    {
+     "id": "A8",
+     "x": 240,
+     "y": 460,
+     "angle": 90,
+     "length": 104,
+     "slots": [
+      {
+       "id": "A8a",
+       "number": 15,
+       "x": 225.0,
+       "y": 460.0,
+       "facing": 270,
+       "poster": "forwarding-the-email-archive-stewarding-donna-j-haraway",
+       "reservedFor": null
+      },
+      {
+       "id": "A8b",
+       "number": 16,
+       "x": 255.0,
+       "y": 460.0,
+       "facing": 90,
+       "poster": "repository-native-documentation-for-research-data-preservation-with",
+       "reservedFor": null
+      }
+     ]
+    },
+    {
+     "id": "A9",
+     "x": 360,
+     "y": 460,
+     "angle": 90,
+     "length": 104,
+     "slots": [
+      {
+       "id": "A9a",
+       "number": 17,
+       "x": 345.0,
+       "y": 460.0,
+       "facing": 270,
+       "poster": "transparent-referenceable-integrated-preservation-planning-tripp",
+       "reservedFor": null
+      },
+      {
+       "id": "A9b",
+       "number": 18,
+       "x": 375.0,
+       "y": 460.0,
+       "facing": 90,
+       "poster": "28-million-documents-and-counting-digital-preservation-and",
+       "reservedFor": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "B",
+   "name": "Nyhavn Row",
+   "hint": "Six single-sided walls along the side of the room.",
+   "labelX": 820,
+   "labelY": 150,
+   "walls": [
+    {
+     "id": "B1",
+     "x": 700,
+     "y": 210,
+     "angle": 0,
+     "length": 96,
+     "slots": [
+      {
+       "id": "B1",
+       "number": 19,
+       "x": 700.0,
+       "y": 195.0,
+       "facing": 0,
+       "poster": "50-billion-objects-of-the-danish-web-visualizing",
+       "reservedFor": null
+      }
+     ]
+    },
+    {
+     "id": "B2",
+     "x": 820,
+     "y": 210,
+     "angle": 0,
+     "length": 96,
+     "slots": [
+      {
+       "id": "B2",
+       "number": 20,
+       "x": 820.0,
+       "y": 195.0,
+       "facing": 0,
+       "poster": "ai-enabled-access-to-large-and-sensitive-collections",
+       "reservedFor": null
+      }
+     ]
+    },
+    {
+     "id": "B3",
+     "x": 940,
+     "y": 210,
+     "angle": 0,
+     "length": 96,
+     "slots": [
+      {
+       "id": "B3",
+       "number": 21,
+       "x": 940.0,
+       "y": 195.0,
+       "facing": 0,
+       "poster": "aida-a-network-based-approach-to-technical-partner",
+       "reservedFor": null
+      }
+     ]
+    },
+    {
+     "id": "B4",
+     "x": 700,
+     "y": 330,
+     "angle": 0,
+     "length": 96,
+     "slots": [
+      {
+       "id": "B4",
+       "number": 22,
+       "x": 700.0,
+       "y": 315.0,
+       "facing": 0,
+       "poster": null,
+       "reservedFor": "Reception"
+      }
+     ]
+    },
+    {
+     "id": "B5",
+     "x": 820,
+     "y": 330,
+     "angle": 0,
+     "length": 96,
+     "slots": [
+      {
+       "id": "B5",
+       "number": 23,
+       "x": 820.0,
+       "y": 315.0,
+       "facing": 0,
+       "poster": null,
+       "reservedFor": "nestor survey"
+      }
+     ]
+    },
+    {
+     "id": "B6",
+     "x": 940,
+     "y": 330,
+     "angle": 0,
+     "length": 96,
+     "slots": [
+      {
+       "id": "B6",
+       "number": 24,
+       "x": 940.0,
+       "y": 315.0,
+       "facing": 0,
+       "poster": null,
+       "reservedFor": "Trends in digital preservation: the future"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "C",
+   "name": "Kastellet Corner",
+   "hint": "Three double-sided walls tucked into the far corner.",
+   "labelX": 835,
+   "labelY": 496,
+   "walls": [
+    {
+     "id": "C1",
+     "x": 770,
+     "y": 580,
+     "angle": 90,
+     "length": 96,
+     "slots": [
+      {
+       "id": "C1a",
+       "number": 25,
+       "x": 755.0,
+       "y": 580.0,
+       "facing": 270,
+       "poster": "captioning-everything-everywhere-all-at-once-integrating-automated",
+       "reservedFor": null
+      },
+      {
+       "id": "C1b",
+       "number": 26,
+       "x": 785.0,
+       "y": 580.0,
+       "facing": 90,
+       "poster": "current-trends-in-fixity-practices-results-from-the",
+       "reservedFor": null
+      }
+     ]
+    },
+    {
+     "id": "C2",
+     "x": 850,
+     "y": 580,
+     "angle": 90,
+     "length": 96,
+     "slots": [
+      {
+       "id": "C2a",
+       "number": 27,
+       "x": 835.0,
+       "y": 580.0,
+       "facing": 270,
+       "poster": "exploring-a-holistic-approach-for-confronting-a-legacy",
+       "reservedFor": null
+      },
+      {
+       "id": "C2b",
+       "number": 28,
+       "x": 865.0,
+       "y": 580.0,
+       "facing": 90,
+       "poster": "how-well-did-we-do-measuring-digital-preservation",
+       "reservedFor": null
+      }
+     ]
+    },
+    {
+     "id": "C3",
+     "x": 930,
+     "y": 580,
+     "angle": 90,
+     "length": 96,
+     "slots": [
+      {
+       "id": "C3a",
+       "number": 29,
+       "x": 915.0,
+       "y": 580.0,
+       "facing": 270,
+       "poster": "keeping-open-books-usable-challenges-and-opportunities",
+       "reservedFor": null
+      },
+      {
+       "id": "C3b",
+       "number": 30,
+       "x": 945.0,
+       "y": 580.0,
+       "facing": 90,
+       "poster": "let-s-dowarc-semantic-modelling-of-web-archiving",
+       "reservedFor": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "D",
+   "name": "Strøget",
+   "hint": "Five double-sided walls forming the main thoroughfare.",
+   "labelX": 546,
+   "labelY": 496,
+   "walls": [
+    {
+     "id": "D1",
+     "x": 430,
+     "y": 580,
+     "angle": 90,
+     "length": 96,
+     "slots": [
+      {
+       "id": "D1a",
+       "number": 31,
+       "x": 415.0,
+       "y": 580.0,
+       "facing": 270,
+       "poster": "lto-7-to-lto-10-migrating-holocaust-survivor",
+       "reservedFor": null
+      },
+      {
+       "id": "D1b",
+       "number": 32,
+       "x": 445.0,
+       "y": 580.0,
+       "facing": 90,
+       "poster": "preservation-as-a-service-the-cern-preserve-hub",
+       "reservedFor": null
+      }
+     ]
+    },
+    {
+     "id": "D2",
+     "x": 488,
+     "y": 580,
+     "angle": 90,
+     "length": 96,
+     "slots": [
+      {
+       "id": "D2a",
+       "number": 33,
+       "x": 473.0,
+       "y": 580.0,
+       "facing": 270,
+       "poster": "repository-autoscaling-through-use-of-containers-and-operational",
+       "reservedFor": null
+      },
+      {
+       "id": "D2b",
+       "number": 34,
+       "x": 503.0,
+       "y": 580.0,
+       "facing": 90,
+       "poster": "sgp-vsd-packager-for-sip-packets-originating-from",
+       "reservedFor": null
+      }
+     ]
+    },
+    {
+     "id": "D3",
+     "x": 546,
+     "y": 580,
+     "angle": 90,
+     "length": 96,
+     "slots": [
+      {
+       "id": "D3a",
+       "number": 35,
+       "x": 531.0,
+       "y": 580.0,
+       "facing": 270,
+       "poster": "shrinking-the-digital-heap-triaging-digital-carriers-at",
+       "reservedFor": null
+      },
+      {
+       "id": "D3b",
+       "number": 36,
+       "x": 561.0,
+       "y": 580.0,
+       "facing": 90,
+       "poster": "sustainable-and-systematic-building-a-search-index-of",
+       "reservedFor": null
+      }
+     ]
+    },
+    {
+     "id": "D4",
+     "x": 604,
+     "y": 580,
+     "angle": 90,
+     "length": 96,
+     "slots": [
+      {
+       "id": "D4a",
+       "number": 37,
+       "x": 589.0,
+       "y": 580.0,
+       "facing": 270,
+       "poster": "the-diskovery-pilot-amiga-coverdisk-emulation-and-videogaming",
+       "reservedFor": null
+      },
+      {
+       "id": "D4b",
+       "number": 38,
+       "x": 619.0,
+       "y": 580.0,
+       "facing": 90,
+       "poster": "the-dlcm-technology-the-swiss-army-knife-of",
+       "reservedFor": null
+      }
+     ]
+    },
+    {
+     "id": "D5",
+     "x": 662,
+     "y": 580,
+     "angle": 90,
+     "length": 96,
+     "slots": [
+      {
+       "id": "D5a",
+       "number": 39,
+       "x": 647.0,
+       "y": 580.0,
+       "facing": 270,
+       "poster": "the-good-the-grey-and-the-redundant-data",
+       "reservedFor": null
+      },
+      {
+       "id": "D5b",
+       "number": 40,
+       "x": 677.0,
+       "y": 580.0,
+       "facing": 90,
+       "poster": "dignified-deletion-toward-a-philosophy-of-letting-go",
+       "reservedFor": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "E",
+   "name": "Kaffe Korner",
+   "hint": "Two walls by the coffee - linger here.",
+   "labelX": 185,
+   "labelY": 595,
+   "walls": [
+    {
+     "id": "E1",
+     "x": 120,
+     "y": 640,
+     "angle": 0,
+     "length": 96,
+     "slots": [
+      {
+       "id": "E1",
+       "number": 41,
+       "x": 120.0,
+       "y": 625.0,
+       "facing": 0,
+       "poster": "roadmap-to-preservation-maybe-the-real-treasure-was",
+       "reservedFor": null
+      }
+     ]
+    },
+    {
+     "id": "E2",
+     "x": 250,
+     "y": 640,
+     "angle": 0,
+     "length": 96,
+     "slots": [
+      {
+       "id": "E2",
+       "number": 42,
+       "x": 250.0,
+       "y": 625.0,
+       "facing": 0,
+       "poster": "we-can-t-keep-everything-forever-a-landscape",
+       "reservedFor": null
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

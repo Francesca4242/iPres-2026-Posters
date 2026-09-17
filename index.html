@@ -1,1 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>iPRES 2026 Poster Hall</title>
+<meta name="description" content="Browse, search and vote on every poster from iPRES 2026 in Copenhagen. Themed trails, an interactive hall map and the full abstracts.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230b82c6'/><rect x='24' y='18' width='52' height='64' rx='5' fill='white'/><rect x='32' y='28' width='36' height='6' fill='%230b82c6'/><rect x='32' y='42' width='36' height='4' fill='%23cfdde8'/><rect x='32' y='52' width='28' height='4' fill='%23cfdde8'/><rect x='32' y='62' width='34' height='4' fill='%23cfdde8'/></svg>">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header data-site-header></header>
 
+<main id="main">
+  <section class="hero wrap">
+    <span class="hero__kicker">Copenhagen &middot; Community / Preservation / Horizon</span>
+    <h1>The <span>poster hall</span>,<br>open all hours.</h1>
+    <p class="hero__lead">Every iPRES 2026 poster, with its full abstract, authors and a readable copy of the
+      PDF. Search it, filter it, follow a themed trail round the room, or just hit shuffle and see
+      where you end up.</p>
+    <div class="hero__actions">
+      <a class="btn btn--primary" href="posters.html">Browse all posters</a>
+      <a class="btn" href="trails.html">Follow a trail</a>
+      <a class="btn" href="map.html">See the hall map</a>
+      <button class="btn btn--ghost" type="button" data-shuffle>Surprise me</button>
+    </div>
+    <div class="stat-row" data-stats></div>
+  </section>
+
+  <section class="wrap">
+    <div data-poll-banner></div>
+  </section>
+
+  <section class="section wrap">
+    <div class="section__head">
+      <div>
+        <h2>Pick a theme, pick a direction</h2>
+        <p>Every poster is tagged with the iPRES topic groups it was submitted under. Tap one to jump
+          straight into a filtered gallery.</p>
+      </div>
+      <a class="btn btn--sm" href="trails.html">Themed trails &rarr;</a>
+    </div>
+    <div class="grid grid--themes" data-themes></div>
+  </section>
+
+  <section class="section wrap">
+    <div class="section__head">
+      <div>
+        <h2>Three trails to start with</h2>
+        <p>Curated walks through the hall: a handful of posters that talk to each other, in the order
+          you would pass them.</p>
+      </div>
+      <a class="btn btn--sm" href="trails.html">All trails &amp; the quiz &rarr;</a>
+    </div>
+    <div class="grid grid--themes" data-trail-teasers></div>
+  </section>
+
+  <section class="section wrap">
+    <div class="section__head">
+      <div>
+        <h2>Fresh off the wall</h2>
+        <p>A random handful. Reload for a different set.</p>
+      </div>
+      <a class="btn btn--sm" href="posters.html">See all &rarr;</a>
+    </div>
+    <div class="grid grid--posters" data-featured></div>
+  </section>
+
+  <section class="section wrap">
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
+      <div class="passport" data-passport></div>
+      <div class="passport">
+        <h3>How this works</h3>
+        <p><strong>Every poster page</strong> shows the abstract, the authors and their institutions,
+          the topics it was tagged with, and the poster itself - readable in the browser or
+          downloadable as a PDF.</p>
+        <p><strong>The map</strong> shows where each poster hangs in the room. Wall positions are
+          still provisional, so treat it as a plan rather than a promise.</p>
+        <p><strong>The poll</strong> is separate and runs during the conference - the star button
+          follows you around every page.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer data-site-footer></footer>
+
+<script src="assets/js/site.js"></script>
+<script src="assets/js/trails.js"></script>
+<script>
+(async () => {
+  document.querySelector('[data-featured]').innerHTML = IPRES.loader('Rolling in the posters');
+  const config = await IPRES.chrome('index.html');
+  const { posters, themeList, counts } = await IPRES.hall();
+
+  document.querySelector('[data-poll-banner]').innerHTML = IPRES.pollBanner(config);
+  IPRES.wirePollPending();
+
+  const orgs = new Set(posters.flatMap((p) => p.organisations));
+  const people = new Set(posters.flatMap((p) => p.authors.map((a) => a.name)));
+  document.querySelector('[data-stats]').innerHTML = [
+    [counts.total, 'posters'],
+    [people.size, 'authors'],
+    [orgs.size, 'institutions'],
+    [themeList.length, 'themes'],
+  ].map(([value, label]) => `<div class="stat"><b>${value}</b><span>${label}</span></div>`).join('');
+
+  const themeCounts = {};
+  posters.forEach((p) => (p.themes || []).forEach((t) => { themeCounts[t] = (themeCounts[t] || 0) + 1; }));
+  document.querySelector('[data-themes]').innerHTML = themeList.map((theme) => `
+    <a class="theme-card" href="posters.html?theme=${theme.id}" style="border-left-color:${theme.color}">
+      <em style="color:${theme.color}">${theme.emoji} ${IPRES.esc(theme.short)}</em>
+      <b>${IPRES.esc(theme.name)}</b>
+      <span>${IPRES.esc(theme.blurb)}</span>
+      <span><strong>${themeCounts[theme.id] || 0}</strong> posters</span>
+    </a>`).join('');
+
+  const trails = buildTrails(posters);
+  const teasers = ['workflows', 'letting-go', 'quick']
+    .map((id) => trails.find((t) => t.id === id)).filter(Boolean);
+  document.querySelector('[data-trail-teasers]').innerHTML = teasers.map((trail) => `
+    <a class="theme-card" href="trails.html#trail-${trail.id}" style="border-left-color:${trail.color}">
+      <em style="color:${trail.color}">${trail.emoji} ${trail.stops.length} stops</em>
+      <b>${IPRES.esc(trail.name)}</b>
+      <span>${IPRES.esc(trail.blurb)}</span>
+    </a>`).join('');
+
+  const featured = document.querySelector('[data-featured]');
+  const shuffle = () => {
+    const pick = [...posters].sort(() => Math.random() - 0.5).slice(0, 4);
+    featured.innerHTML = pick.map((p) => IPRES.posterCard(p)).join('');
+    IPRES.thumbnails(featured);
+  };
+  shuffle();
+
+  document.querySelector('[data-shuffle]').addEventListener('click', () => {
+    const pick = posters[Math.floor(Math.random() * posters.length)];
+    window.location.href = `poster.html?id=${encodeURIComponent(pick.id)}`;
+  });
+
+  IPRES.renderPassport(document.querySelector('[data-passport]'), counts.total);
+})();
+</script>
+</body>
+</html>

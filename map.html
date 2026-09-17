@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hall map &middot; iPRES 2026 Poster Hall</title>
+<meta name="description" content="A clickable, blocky map of the iPRES 2026 poster hall. Tap a board to read the poster hanging on it.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230b82c6'/><circle cx='50' cy='42' r='16' fill='white'/><circle cx='50' cy='42' r='6' fill='%230b82c6'/><path d='M50 58 L64 84 H36 Z' fill='white'/></svg>">
+<link rel="stylesheet" href="assets/css/site.css">
+<style>
+  .map-page { display: grid; grid-template-columns: minmax(0, 1fr) 350px; gap: 1.5rem; align-items: start; }
+  @media (max-width: 1040px) { .map-page { grid-template-columns: 1fr; } }
+  .map-side { position: sticky; top: 86px; display: grid; gap: 1.2rem; }
+  @media (max-width: 1040px) { .map-side { position: static; } }
+  .map-side .meta-block { margin: 0; }
+  .map-preview { border: 3px solid var(--ink); border-radius: var(--radius-sm); overflow: hidden; background: var(--paper-3); aspect-ratio: 4/3; display: grid; place-items: center; }
+  .map-preview canvas, .map-preview img { width: 100%; height: 100%; object-fit: contain; }
+  .map-blurb { font-size: .88rem; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header data-site-header></header>
+
+<main id="main" class="wrap-wide">
+  <section style="padding:2rem 0 0">
+    <h1>Find it in the room</h1>
+    <p class="hero__lead">Every board in the hall, colour-coded by theme. Click one to read the poster
+      hanging on it &mdash; or pick a trail and watch the route light up.</p>
+  </section>
+
+  <div class="banner-note" data-provisional hidden>
+    <span aria-hidden="true" style="font-size:1.6rem">&#128679;</span>
+    <div>
+      <b>This layout is provisional.</b>
+      <span data-provisional-text></span>
+    </div>
+  </div>
+
+  <div class="map-page">
+    <div class="map-shell">
+      <div class="map-shell__bar">
+        <label class="visually-hidden" for="map-theme">Highlight a theme</label>
+        <select class="filter" id="map-theme" style="padding:.45rem .8rem"><option value="">All themes</option></select>
+        <label class="visually-hidden" for="map-trail">Show a trail</label>
+        <select class="filter" id="map-trail" style="padding:.45rem .8rem"><option value="">No trail</option></select>
+        <button class="filter" type="button" data-plan aria-pressed="false">&#128506;&#65039; Real floor plan</button>
+        <button class="filter" type="button" data-shuffle>&#127922; Random board</button>
+      </div>
+      <div class="map-canvas" data-canvas>
+        <div class="map-tip" data-tip></div>
+      </div>
+      <div class="map-legend" data-legend></div>
+    </div>
+
+    <aside class="map-side">
+      <div class="meta-block" data-detail>
+        <h3>Pick a board</h3>
+        <p style="color:var(--ink-soft);font-size:.92rem">Hover for the title, click for the poster.
+          Boards you have already ticked off glow green.</p>
+      </div>
+      <div class="passport" data-passport></div>
+    </aside>
+  </div>
+
+  <div data-poll-banner></div>
+</main>
+
+<footer data-site-footer></footer>
+
+<script src="assets/js/site.js"></script>
+<script src="assets/js/trails.js"></script>
+<script>
+(async () => {
+  document.querySelector('[data-canvas]').insertAdjacentHTML('beforeend', IPRES.loader('Building the hall'));
+  const config = await IPRES.chrome('map.html');
+  const { posters, themeList, counts, layout } = await IPRES.hall();
+  const esc = IPRES.esc;
+  const lookup = IPRES.byId(posters);
+  const trails = buildTrails(posters);
+  const params = new URLSearchParams(window.location.search);
+  const [, , VIEW_W, VIEW_H] = layout.viewBox;
+
+  document.querySelector('[data-poll-banner]').innerHTML = IPRES.pollBanner(config);
+  IPRES.wirePollPending();
+  IPRES.renderPassport(document.querySelector('[data-passport]'), counts.total);
+
+  if (layout.provisional) {
+    document.querySelector('[data-provisional]').hidden = false;
+    document.querySelector('[data-provisional-text]').textContent = ' ' + layout.note;
+  }
+
+  /* ---------- draw the hall as a board game ---------- */
+
+  const SVG = 'http://www.w3.org/2000/svg';
+  const make = (name, attrs = {}) => {
+    const node = document.createElementNS(SVG, name);
+    Object.entries(attrs).forEach(([key, value]) => node.setAttribute(key, value));
+    return node;
+  };
+  const text = (content, attrs) => {
+    const node = make('text', attrs);
+    node.textContent = content;
+    return node;
+  };
+
+  const svg = make('svg', {
+    viewBox: layout.viewBox.join(' '),
+    role: 'group',
+    'aria-label': 'Map of the poster hall',
+  });
+
+  /* The board: a chunky tiled floor with a fat outline. */
+  const board = make('g');
+  board.appendChild(make('rect', { class: 'map-board', x: 14, y: 14, width: VIEW_W - 28, height: VIEW_H - 28, rx: 24 }));
+  const tiles = make('g');
+  const TILE = 40;
+  for (let row = 0; 24 + row * TILE < VIEW_H - 24; row += 1) {
+    for (let col = 0; 24 + col * TILE < VIEW_W - 24; col += 1) {
+      tiles.appendChild(make('rect', {
+        class: (row + col) % 2 ? 'map-tile-a' : 'map-tile-b',
+        x: 24 + col * TILE, y: 24 + row * TILE,
+        width: TILE - 3, height: TILE - 3, rx: 5,
+      }));
+    }
+  }
+  board.appendChild(tiles);
+  svg.appendChild(board);
+
+  if (layout.floorPlanImage) {
+    svg.appendChild(make('image', {
+      href: layout.floorPlanImage, class: 'map-plan-img',
+      x: 30, y: 60, width: VIEW_W - 60, height: VIEW_H - 140,
+      preserveAspectRatio: 'xMidYMid meet',
+    }));
+  }
+
+  /* Furniture blocks, with a big emoji so the room reads at a glance. */
+  const FURNITURE_ICONS = { entrance: '\u{1F6AA}', coffee: '☕', reception: '\u{1F6CE}️', seating: '\u{1FA91}' };
+  const FURNITURE_FILLS = { entrance: '#10b981', coffee: '#f59e0b', reception: '#f472b6', seating: '#a3e635' };
+  const furniture = make('g', { class: 'map-furniture' });
+  (layout.furniture || []).forEach((item) => {
+    furniture.appendChild(make('rect', { class: 'furn-shadow', x: item.x + 5, y: item.y + 6, width: item.w, height: item.h, rx: 10 }));
+    furniture.appendChild(make('rect', {
+      class: 'furn-face', x: item.x, y: item.y, width: item.w, height: item.h, rx: 10,
+      fill: FURNITURE_FILLS[item.kind] || '#cbd5e1',
+    }));
+    const roomy = item.w >= 100;
+    furniture.appendChild(text(FURNITURE_ICONS[item.kind] || '', {
+      class: 'furn-icon',
+      x: item.x + item.w / 2,
+      y: item.y + item.h / 2 + (roomy ? -4 : 9),
+      'text-anchor': 'middle',
+    }));
+    /* A narrow block (the entrance) has no room for a label inside it. */
+    furniture.appendChild(text(item.label, roomy
+      ? { x: item.x + item.w / 2, y: item.y + item.h / 2 + 18, 'text-anchor': 'middle' }
+      : { x: item.x, y: item.y + item.h + 20, 'text-anchor': 'start' }));
+  });
+  svg.appendChild(furniture);
+
+  /* Trail route sits under the boards so the tiles stay clickable. */
+  const trailUnder = make('path', { class: 'map-trail-under' });
+  const trailPath = make('path', { class: 'map-trail' });
+  svg.appendChild(trailUnder);
+  svg.appendChild(trailPath);
+
+  const slotNodes = new Map();
+  const slotPoints = new Map();
+  const labelsToFit = [];
+
+  layout.clusters.forEach((cluster) => {
+    const group = make('g', { class: 'map-cluster' });
+    const xs = cluster.walls.map((w) => w.x);
+    const ys = cluster.walls.map((w) => w.y);
+    const labelX = cluster.labelX ?? (Math.min(...xs) + Math.max(...xs)) / 2;
+    const labelY = cluster.labelY ?? (Math.min(...ys) - 72);
+    const caption = `${cluster.id} · ${cluster.name}`;
+    const pill = make('rect', { class: 'map-cluster-label-box', y: labelY - 16, height: 26, rx: 13 });
+    const label = text(caption, { class: 'map-cluster-label', x: labelX, y: labelY + 2, 'text-anchor': 'middle' });
+    group.appendChild(pill);
+    group.appendChild(label);
+    /* Size the pill from the text once it is in the document, so it fits
+       whatever font actually loaded rather than a guessed character width. */
+    labelsToFit.push([pill, label, labelX]);
+
+    cluster.walls.forEach((wall) => {
+      const spin = `rotate(${wall.angle} ${wall.x} ${wall.y})`;
+      group.appendChild(make('rect', {
+        class: 'map-wall-shadow', x: wall.x - wall.length / 2 + 4, y: wall.y - 5 + 5,
+        width: wall.length, height: 11, rx: 5, transform: spin,
+      }));
+      group.appendChild(make('rect', {
+        class: 'map-wall', x: wall.x - wall.length / 2, y: wall.y - 5,
+        width: wall.length, height: 11, rx: 5, transform: spin,
+      }));
+
+      wall.slots.forEach((slot) => {
+        const poster = slot.poster ? lookup[slot.poster] : null;
+        const theme = poster && poster.themeObjects[0];
+        const fill = slot.reservedFor ? '#e7eef4' : (theme ? theme.color : '#94a3b8');
+        const node = make('g', {
+          class: 'map-slot' + (slot.reservedFor ? ' map-slot--reserved' : ''),
+          tabindex: 0, role: 'button',
+          'data-slot': slot.id,
+          'aria-label': slot.reservedFor
+            ? `Board ${slot.number}, reserved for ${slot.reservedFor}`
+            : `Board ${slot.number}: ${poster ? poster.title : 'empty'}`,
+        });
+        const lift = make('g', { class: 'slot-lift' });
+        lift.appendChild(make('rect', { class: 'slot-shadow', x: slot.x - 13, y: slot.y - 11, width: 30, height: 28, rx: 6 }));
+        lift.appendChild(make('rect', { class: 'slot-face', x: slot.x - 16, y: slot.y - 14, width: 30, height: 28, rx: 6, fill }));
+        lift.appendChild(make('rect', { class: 'slot-shine', x: slot.x - 13, y: slot.y - 11, width: 24, height: 7, rx: 3 }));
+        lift.appendChild(text(slot.number, { x: slot.x - 1, y: slot.y + 6, 'text-anchor': 'middle' }));
+        node.appendChild(lift);
+        group.appendChild(node);
+        slotNodes.set(slot.id, { node, lift, slot, poster, cluster });
+        if (slot.poster) slotPoints.set(slot.poster, [slot.x, slot.y]);
+      });
+    });
+    svg.appendChild(group);
+  });
+
+  const canvas = document.querySelector('[data-canvas]');
+  canvas.querySelector('.bike-loader')?.remove();
+  canvas.appendChild(svg);
+
+  const fitLabels = () => labelsToFit.forEach(([pill, label, centre]) => {
+    const width = label.getComputedTextLength() + 28;
+    pill.setAttribute('x', centre - width / 2);
+    pill.setAttribute('width', width);
+  });
+  fitLabels();
+  /* Web fonts land after first paint and change the measurement. */
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitLabels);
+
+  /* ---------- legend ---------- */
+
+  document.querySelector('[data-legend]').innerHTML = [
+    ...themeList.map((theme) =>
+      `<span class="chip chip--solid" style="background:${theme.color}">${theme.emoji} ${esc(theme.short)}</span>`),
+    '<span class="chip chip--plain">Grey = reserved board</span>',
+    '<span class="chip chip--plain">Green outline = you have seen it</span>',
+  ].join('');
+
+  /* ---------- side panel ---------- */
+
+  const detail = document.querySelector('[data-detail]');
+
+  function showSlot(entry) {
+    const { slot, poster, cluster, lift } = entry;
+    lift.classList.remove('map-slot--hit');
+    void lift.getBoundingClientRect();  // force a reflow so the pop replays
+    lift.classList.add('map-slot--hit');
+
+    if (slot.reservedFor) {
+      detail.innerHTML = `<h3>Board #${slot.number}</h3>
+        <p><span class="chip chip--awaited">Reserved</span></p>
+        <p>Held for <strong>${esc(slot.reservedFor)}</strong>.</p>
+        <p style="font-size:.85rem;color:var(--ink-soft)">${esc(cluster.name)}</p>`;
+      return;
+    }
+    if (!poster) {
+      detail.innerHTML = `<h3>Board #${slot.number}</h3><p>Nothing assigned yet.</p>`;
+      return;
+    }
+    const seen = IPRES.passport.has(poster.id);
+    detail.innerHTML = `
+      <div class="poster-card__foot" style="margin-bottom:.7rem">
+        <span class="chip chip--solid" style="background:var(--ink)">Board #${slot.number}</span>
+        ${poster.themeObjects.map((theme) =>
+          `<span class="chip chip--solid" style="background:${theme.color}">${theme.emoji} ${esc(theme.short)}</span>`).join('')}
+      </div>
+      <div class="map-preview" ${poster.file
+        ? `data-pdf-thumb="${esc(poster.file)}" data-thumb-alt="First page of ${esc(poster.title)}"`
+        : ''}>${poster.file ? IPRES.loader('Pedalling', 'bike-loader--inline')
+        : '<span style="font-size:.85rem;color:var(--ink-soft)">PDF on its way</span>'}</div>
+      <h3 style="margin-top:.9rem">${esc(poster.title)}</h3>
+      <p style="font-size:.88rem;color:var(--ink-soft)">${esc(poster.authorLine)}</p>
+      <p class="map-blurb">${esc(poster.abstract)}</p>
+      <p style="font-size:.8rem;color:var(--ink-soft)">${esc(cluster.name)}</p>
+      <div class="poster-card__foot">
+        <a class="btn btn--sm btn--primary" href="poster.html?id=${encodeURIComponent(poster.id)}">Read the poster</a>
+        <button class="btn btn--sm" type="button" data-seen>${seen ? '✓ Seen it' : 'Mark as seen'}</button>
+      </div>`;
+    IPRES.thumbnails(detail);
+    const seenButton = detail.querySelector('[data-seen]');
+    if (seenButton) {
+      seenButton.addEventListener('click', () => {
+        const now = IPRES.passport.toggle(poster.id);
+        seenButton.textContent = now ? '✓ Seen it' : 'Mark as seen';
+      });
+    }
+  }
+
+  const tip = document.querySelector('[data-tip]');
+  slotNodes.forEach((entry) => {
+    const { node, slot, poster } = entry;
+    const open = () => showSlot(entry);
+    node.addEventListener('click', open);
+    node.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); open(); }
+    });
+    node.addEventListener('focus', open);
+    node.addEventListener('mousemove', (event) => {
+      const box = canvas.getBoundingClientRect();
+      const title = slot.reservedFor ? `Reserved: ${slot.reservedFor}` : (poster ? poster.title : 'Empty board');
+      tip.innerHTML = `<b>Board #${slot.number}</b>${esc(title)}`;
+      tip.classList.add('is-on');
+      tip.style.left = `${Math.max(4, Math.min(event.clientX - box.left + 14, box.width - 270))}px`;
+      tip.style.top = `${event.clientY - box.top + 14}px`;
+    });
+    node.addEventListener('mouseleave', () => tip.classList.remove('is-on'));
+  });
+
+  /* ---------- filters, trails and deep links ---------- */
+
+  const themeSelect = document.getElementById('map-theme');
+  themeSelect.insertAdjacentHTML('beforeend', themeList.map((theme) =>
+    `<option value="${theme.id}">${theme.emoji} ${esc(theme.name)}</option>`).join(''));
+
+  const trailSelect = document.getElementById('map-trail');
+  trailSelect.insertAdjacentHTML('beforeend', trails.map((trail) =>
+    `<option value="${trail.id}">${trail.emoji} ${esc(trail.name)} (${trail.stops.length})</option>`).join(''));
+
+  function applyHighlight() {
+    const themeId = themeSelect.value;
+    const trail = trails.find((t) => t.id === trailSelect.value);
+    const onTrail = trail ? new Set(trail.stops.map((s) => s.id)) : null;
+    const seen = IPRES.passport.seen();
+
+    slotNodes.forEach(({ node, poster }) => {
+      let dim = false;
+      if (themeId && !(poster && poster.themes.includes(themeId))) dim = true;
+      if (onTrail && !(poster && onTrail.has(poster.id))) dim = true;
+      node.classList.toggle('map-slot--dim', dim);
+      node.classList.toggle('map-slot--seen', !!(poster && seen.has(poster.id)));
+    });
+
+    const route = trail
+      ? trail.stops.map((stop) => slotPoints.get(stop.id)).filter(Boolean)
+        .map((point, index) => `${index ? 'L' : 'M'}${point[0]} ${point[1]}`).join(' ')
+      : '';
+    trailPath.setAttribute('d', route);
+    trailUnder.setAttribute('d', route);
+    if (trail) trailPath.style.setProperty('--trail-color', trail.color);
+  }
+
+  themeSelect.addEventListener('change', applyHighlight);
+  trailSelect.addEventListener('change', applyHighlight);
+  document.addEventListener('passport:change', applyHighlight);
+
+  document.querySelector('[data-plan]').addEventListener('click', (event) => {
+    const image = svg.querySelector('.map-plan-img');
+    if (!image) return;
+    const on = image.classList.toggle('is-on');
+    event.currentTarget.setAttribute('aria-pressed', String(on));
+  });
+
+  document.querySelector('[data-shuffle]').addEventListener('click', () => {
+    const entries = [...slotNodes.values()].filter((entry) => entry.poster);
+    const pick = entries[Math.floor(Math.random() * entries.length)];
+    pick.node.focus();
+    showSlot(pick);
+  });
+
+  if (params.get('trail')) trailSelect.value = params.get('trail');
+  if (params.get('theme')) themeSelect.value = params.get('theme');
+  applyHighlight();
+
+  const wantedPoster = params.get('poster');
+  if (wantedPoster) {
+    const entry = [...slotNodes.values()].find((item) => item.poster && item.poster.id === wantedPoster);
+    if (entry) { entry.node.focus(); showSlot(entry); }
+  }
+})();
+</script>
+</body>
+</html>

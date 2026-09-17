@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trails &middot; iPRES 2026 Poster Hall</title>
+<meta name="description" content="Themed walking trails through the iPRES 2026 poster hall, plus a quiz that picks one for you.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2310b981'/><path d='M22 78 C40 58 30 42 50 30 C66 20 62 34 78 22' stroke='white' stroke-width='9' fill='none' stroke-linecap='round' stroke-dasharray='2 16'/></svg>">
+<link rel="stylesheet" href="assets/css/site.css">
+<style>
+  .trail-index { display: flex; gap: .5rem; flex-wrap: wrap; margin: 1.5rem 0 2.5rem; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header data-site-header></header>
+
+<main id="main" class="wrap">
+  <section style="padding:2rem 0 0">
+    <h1>Take the scenic route</h1>
+    <p class="hero__lead">Themed walks through the hall. Each one strings together posters that are
+      arguing about the same thing, in the order you would pass them if you set off from the entrance.
+      Not sure which? Let the quiz decide.</p>
+  </section>
+
+  <section class="section">
+    <h2>Which trail is for me?</h2>
+    <form class="quiz" data-quiz>
+      <div data-questions></div>
+      <button class="btn btn--primary" type="submit">Pick my trail</button>
+      <button class="btn btn--ghost" type="reset">Start over</button>
+      <div class="quiz__result" data-quiz-result aria-live="polite"></div>
+    </form>
+  </section>
+
+  <section class="section">
+    <div class="section__head">
+      <div>
+        <h2>All the trails</h2>
+        <p>Jump straight to one, or open it on the map to see the route.</p>
+      </div>
+    </div>
+    <div class="trail-index" data-index></div>
+    <div data-trails></div>
+  </section>
+
+  <div data-poll-banner></div>
+</main>
+
+<footer data-site-footer></footer>
+
+<script src="assets/js/site.js"></script>
+<script src="assets/js/trails.js"></script>
+<script>
+(async () => {
+  document.querySelector('[data-trails]').innerHTML = IPRES.loader('Plotting the routes');
+  const config = await IPRES.chrome('trails.html');
+  const { posters } = await IPRES.hall();
+  const esc = IPRES.esc;
+  const trails = buildTrails(posters);
+
+  document.querySelector('[data-poll-banner]').innerHTML = IPRES.pollBanner(config);
+  IPRES.wirePollPending();
+
+  /* ---------- the quiz ---------- */
+
+  document.querySelector('[data-questions]').innerHTML = QUIZ.map((question) => `
+    <fieldset>
+      <legend>${esc(question.question)}</legend>
+      <div class="quiz__options">
+        ${question.options.map((option, index) => `
+          <label><input type="radio" name="${question.id}" value="${index}">${esc(option.label)}</label>`).join('')}
+      </div>
+    </fieldset>`).join('');
+
+  const form = document.querySelector('[data-quiz]');
+  const resultBox = document.querySelector('[data-quiz-result]');
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const answers = QUIZ
+      .map((question) => {
+        const chosen = form.querySelector(`input[name="${question.id}"]:checked`);
+        return chosen ? { questionId: question.id, optionIndex: Number(chosen.value) } : null;
+      })
+      .filter(Boolean);
+
+    if (!answers.length) {
+      resultBox.innerHTML = '<p class="chip chip--awaited">Answer at least one question and try again.</p>';
+      return;
+    }
+
+    const ranked = scoreQuiz(answers, trails);
+    if (!ranked.length) {
+      resultBox.innerHTML = '<p>No strong match &mdash; have a wander through all of them below.</p>';
+      return;
+    }
+    const [best, ...rest] = ranked;
+    resultBox.innerHTML = `
+      <div class="trail" style="--trail-color:${best.trail.color};margin-top:1.2rem">
+        <div class="trail__head">
+          <span class="emoji">${best.trail.emoji}</span>
+          <div>
+            <div class="trail__meta">Your trail &middot; ${best.trail.stops.length} stops</div>
+            <h3>${esc(best.trail.name)}</h3>
+            <p>${esc(best.trail.blurb)}</p>
+            <p style="margin-top:.7rem">
+              <a class="btn btn--sm btn--primary" href="#trail-${best.trail.id}">See the stops</a>
+              <a class="btn btn--sm" href="map.html?trail=${best.trail.id}">Walk it on the map</a>
+            </p>
+          </div>
+        </div>
+      </div>
+      ${rest.length ? `<p style="margin-top:1rem;font-size:.9rem;color:var(--ink-soft)">Runners-up:
+        ${rest.slice(0, 3).map((entry) =>
+          `<a href="#trail-${entry.trail.id}">${entry.trail.emoji} ${esc(entry.trail.name)}</a>`).join(' &middot; ')}</p>` : ''}`;
+    resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  form.addEventListener('reset', () => { resultBox.innerHTML = ''; });
+
+  /* ---------- every trail ---------- */
+
+  document.querySelector('[data-index]').innerHTML = trails.map((trail) =>
+    `<a class="chip chip--solid" style="background:${trail.color}" href="#trail-${trail.id}">
+      ${trail.emoji} ${esc(trail.name)} (${trail.stops.length})</a>`).join('');
+
+  document.querySelector('[data-trails]').innerHTML = trails.map((trail) => `
+    <section class="trail" id="trail-${trail.id}" style="--trail-color:${trail.color}">
+      <div class="trail__head">
+        <span class="emoji">${trail.emoji}</span>
+        <div>
+          <div class="trail__meta">${trail.stops.length} stops</div>
+          <h3>${esc(trail.name)}</h3>
+          <p>${esc(trail.blurb)}</p>
+          <p style="margin-top:.7rem">
+            <a class="btn btn--sm" href="map.html?trail=${trail.id}">&#128205; Walk it on the map</a>
+          </p>
+        </div>
+      </div>
+      <ol class="trail__stops">
+        ${trail.stops.map((poster) => `
+          <li>
+            <a href="poster.html?id=${encodeURIComponent(poster.id)}">${esc(poster.title)}</a>
+            <span>${esc(poster.authorLine)}${poster.slot ? ` &middot; board #${poster.slot.number}` : ''}${poster.status === 'awaited' ? ' &middot; PDF coming soon' : ''}</span>
+          </li>`).join('')}
+      </ol>
+    </section>`).join('');
+
+  if (window.location.hash) {
+    const target = document.querySelector(window.location.hash);
+    if (target) target.scrollIntoView();
+  }
+})();
+</script>
+</body>
+</html>
