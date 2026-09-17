@@ -11,6 +11,9 @@
   --brand-dark: #0769a3;
   --brand-deep: #065a8a;
   --brand-soft: #e3f2fb;
+  /* An empty board. Deliberately not --brand: that is also the Infrastructure
+     theme colour, and an empty board must not look like a filled one. */
+  --board-empty: #90a4b8;
 
   --ink: #08131c;
   --ink-soft: #3d5162;
@@ -359,13 +362,16 @@ mark { background: #ffd166; color: #08131c; border-radius: 3px; padding: 0 .15em
 .map-shell__bar { display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; padding: .7rem .9rem; border-bottom: 4px solid var(--ink); background: var(--paper); }
 .map-canvas { position: relative; background: #7fd4f5; }
 html[data-theme='dark'] .map-canvas { background: #0e3a52; }
+html[data-theme='dark'] { --board-empty: #5d7b93; }
+/* The map is drawn close to square now, so it can simply fill the width. */
+.map-canvas { overflow-x: auto; }
 .map-canvas svg { display: block; width: 100%; height: auto; touch-action: manipulation; }
 
 @media (max-width: 760px) {
   /* Shrunk to phone width the boards become too small to tap, so let the map
      scroll sideways at a usable size instead. */
-  .map-canvas { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  .map-canvas svg { width: 1100px; max-width: none; }
+  .map-canvas { -webkit-overflow-scrolling: touch; }
+  .map-canvas svg { width: 680px; max-width: none; }
   .map-canvas::after {
     content: 'Swipe the map sideways \2192';
     position: sticky; left: 0; bottom: 0; display: block;
@@ -376,10 +382,10 @@ html[data-theme='dark'] .map-canvas { background: #0e3a52; }
 }
 
 /* The board itself */
-.map-board { fill: #bdeafd; stroke: var(--ink); stroke-width: 6; }
+.map-board { fill: #bdeafd; stroke: var(--ink); stroke-width: 8; }
 html[data-theme='dark'] .map-board { fill: #123c55; }
-.map-tile-a { fill: #ffffff; opacity: .45; }
-.map-tile-b { fill: #6ec9f0; opacity: .25; }
+.map-tile-a { fill: #ffffff; opacity: .62; }
+.map-tile-b { fill: #4cc2ef; opacity: .42; }
 html[data-theme='dark'] .map-tile-a { fill: #1b5878; opacity: .5; }
 html[data-theme='dark'] .map-tile-b { fill: #0b2f45; opacity: .5; }
 
@@ -392,18 +398,18 @@ html[data-theme='dark'] .map-wall { stroke: #cdd9e4; }
 /* Poster tiles: the clickable bit */
 .map-slot { cursor: pointer; }
 .map-slot .slot-shadow { fill: rgba(8, 19, 28, .55); }
-.map-slot .slot-face { stroke: var(--ink); stroke-width: 3; }
+.map-slot .slot-face { stroke: var(--ink); stroke-width: 4; }
 .map-slot .slot-shine { fill: #fff; opacity: .32; }
-.map-slot text { font-family: var(--display); font-weight: 700; font-size: 15px; fill: #fff; pointer-events: none; paint-order: stroke; stroke: rgba(8,19,28,.55); stroke-width: 3px; }
+.map-slot text { font-family: var(--display); font-weight: 700; font-size: 34px; fill: #fff; pointer-events: none; paint-order: stroke; stroke: rgba(8,19,28,.6); stroke-width: 4px; }
 .map-slot .slot-lift { transition: transform .12s cubic-bezier(.3, 1.6, .5, 1); transform-box: fill-box; transform-origin: center; }
-.map-slot:hover .slot-lift, .map-slot:focus-visible .slot-lift { transform: translate(-3px, -5px) scale(1.18); }
+.map-slot:hover .slot-lift, .map-slot:focus-visible .slot-lift { transform: translate(-3px, -7px) scale(1.26) rotate(-3deg); }
 .map-slot:active .slot-lift { transform: translate(1px, 2px) scale(1.05); }
 .map-slot:focus-visible { outline: none; }
 .map-slot:focus-visible .slot-face { stroke: #ffd166; stroke-width: 5; }
 .map-slot--dim { opacity: .2; }
 .map-slot--seen .slot-face { stroke: #10b981; stroke-width: 5; }
 /* A board with no poster on it yet: still a real board, just plain. */
-.map-slot--free .slot-face { fill: var(--brand); }
+.map-slot--free .slot-face { fill: var(--board-empty); }
 .map-slot--hit { animation: slot-pop .45s ease; }
 @keyframes slot-pop {
   0% { transform: scale(1); } 40% { transform: scale(1.5) rotate(-6deg); } 100% { transform: scale(1); }
@@ -411,9 +417,9 @@ html[data-theme='dark'] .map-wall { stroke: #cdd9e4; }
 
 /* Furniture as bright labelled blocks */
 .map-furniture .furn-shadow { fill: rgba(8, 19, 28, .35); }
-.map-furniture .furn-face { stroke: var(--ink); stroke-width: 3; }
-.map-furniture text { font-family: var(--display); font-size: 15px; fill: var(--ink); font-weight: 700; }
-.map-furniture .furn-icon { font-size: 26px; }
+.map-furniture .furn-face { stroke: var(--ink); stroke-width: 3.5; }
+.map-furniture text { font-family: var(--display); font-size: 25px; fill: var(--ink); font-weight: 700; }
+.map-furniture .furn-icon { font-size: 42px; }
 
 /* The 13.5 x 6 m area the venue drawing actually gives dimensions for. */
 .map-measured { fill: none; stroke: var(--ink); stroke-width: 2.5; stroke-dasharray: 10 7; opacity: .5; }
@@ -424,6 +430,17 @@ html[data-theme='dark'] .map-wall { stroke: #cdd9e4; }
 
 .map-scalebar line { stroke: var(--ink); stroke-width: 3; stroke-linecap: round; }
 .map-scalebar text { font-family: var(--display); font-weight: 700; font-size: 15px; fill: var(--ink); }
+
+/* "Start here" flag by the stairs, where board 1 is. */
+.map-startflag .flag-pole { stroke: var(--ink); stroke-width: 4; stroke-linecap: round; }
+.map-startflag .flag-cloth { fill: #ff3d71; stroke: var(--ink); stroke-width: 3.5; }
+.map-startflag .flag-banner-shadow { fill: var(--ink); opacity: .35; }
+.map-startflag .flag-banner { fill: #ff3d71; stroke: var(--ink); stroke-width: 4; }
+.map-startflag .flag-banner-text {
+  font-family: var(--display); font-weight: 800; font-size: 34px; fill: #fff;
+  text-transform: uppercase; letter-spacing: .06em;
+  paint-order: stroke; stroke: var(--ink); stroke-width: 5px; stroke-linejoin: round;
+}
 
 .map-cluster-label-box { fill: var(--ink); }
 .map-cluster-label { font-family: var(--display); font-weight: 700; font-size: 17px; fill: #fff; text-transform: uppercase; letter-spacing: .09em; }
@@ -553,3 +570,10 @@ html[data-theme='dark'] .site-footer img { filter: invert(1) hue-rotate(180deg) 
 .viewer__stage:has(.viewer__preview) { justify-items: center; }
 .viewer__stage:has(.viewer__preview) { gap: 1rem; }
 .viewer__stage.is-rendering canvas { opacity: .55; transition: opacity .15s ease; }
+
+/* The Community Survey table is a link, so it should look like one. */
+.map-furniture .furn-link { cursor: pointer; }
+.map-furniture .furn-link .furn-face { stroke-width: 3.5; }
+.map-furniture .furn-link:hover .furn-face,
+.map-furniture .furn-link:focus-visible .furn-face { stroke: #b45309; stroke-width: 5; }
+.map-furniture .furn-link:focus-visible { outline: none; }

@@ -76,15 +76,11 @@ const IPRES = (() => {
   async function hall() {
     const [posterData, layoutData] = await Promise.all([data.posters(), data.layout()]);
     const slotByPoster = {};
-    layoutData.clusters.forEach((cluster) => {
-      cluster.walls.forEach((wall) => {
-        wall.slots.forEach((slot) => {
-          if (slot.poster) {
-            slotByPoster[slot.poster] = {
-              id: slot.id, number: slot.number, cluster: cluster.id, clusterName: cluster.name,
-            };
-          }
-        });
+    (layoutData.walls || []).forEach((wall) => {
+      wall.slots.forEach((slot) => {
+        if (slot.poster) {
+          slotByPoster[slot.poster] = { id: slot.id, number: slot.number, hint: wall.hint };
+        }
       });
     });
     const themes = {};

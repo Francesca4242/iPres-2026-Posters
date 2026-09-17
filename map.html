@@ -54,7 +54,6 @@
         <label class="visually-hidden" for="map-trail">Show a trail</label>
         <select class="filter" id="map-trail" data-needs-assignment hidden
                 style="padding:.45rem .8rem"><option value="">No trail</option></select>
-        <button class="filter" type="button" data-plan aria-pressed="false">&#128506;&#65039; Real floor plan</button>
         <button class="filter" type="button" data-shuffle>&#127922; Random board</button>
       </div>
       <div class="map-canvas" data-canvas>
@@ -131,10 +130,13 @@
     'aria-label': 'Map of the poster hall',
   });
 
-  /* ---------- the room, drawn to the scale of the venue plan ---------- */
+  const detail = document.querySelector('[data-detail]');
+  const tip = document.querySelector('[data-tip]');
+  const canvasNode = document.querySelector('[data-canvas]');
+
+  /* ---------- the room, deliberately not to scale ---------- */
 
   const room = layout.room;
-  const ppm = layout.scale.pxPerMetre;
 
   const floor = make('g');
   floor.appendChild(make('rect', {
@@ -142,73 +144,106 @@
   }));
   /* A one-metre grid, so the plan reads as a measured drawing. */
   const tiles = make('g');
-  for (let row = 0; row * ppm < room.h - 2; row += 1) {
-    for (let col = 0; col * ppm < room.w - 2; col += 1) {
+  const TILE = 108;
+  for (let row = 0; row * TILE < room.h - 2; row += 1) {
+    for (let col = 0; col * TILE < room.w - 2; col += 1) {
       tiles.appendChild(make('rect', {
         class: (row + col) % 2 ? 'map-tile-a' : 'map-tile-b',
-        x: room.x + col * ppm + 1.5, y: room.y + row * ppm + 1.5,
-        width: Math.min(ppm - 3, room.w - col * ppm - 3),
-        height: Math.min(ppm - 3, room.h - row * ppm - 3),
-        rx: 4,
+        x: room.x + col * TILE + 2, y: room.y + row * TILE + 2,
+        width: Math.min(TILE - 4, room.w - col * TILE - 4),
+        height: Math.min(TILE - 4, room.h - row * TILE - 4),
+        rx: 8,
       }));
     }
   }
   floor.appendChild(tiles);
   svg.appendChild(floor);
 
-  if (layout.floorPlan) {
-    /* Registered to the same metre grid, so it lines up with the boards. */
-    svg.appendChild(make('image', {
-      href: layout.floorPlan.image, class: 'map-plan-img',
-      x: layout.floorPlan.x, y: layout.floorPlan.y,
-      width: layout.floorPlan.w, height: layout.floorPlan.h,
-      preserveAspectRatio: 'none',
-    }));
-  }
-
-  /* The part of the foyer the plan actually gives dimensions for. */
-  if (layout.measuredArea) {
-    const area = layout.measuredArea;
-    svg.appendChild(make('rect', {
-      class: 'map-measured', x: area.x, y: area.y, width: area.w, height: area.h, rx: 8,
-    }));
-    svg.appendChild(text(area.label, {
-      /* Clear of both rows of boards, inside the area it describes. */
-      class: 'map-measured-label', x: area.x + 14, y: area.y + 96,
-      'text-anchor': 'start',
-    }));
-  }
-
   /* Fixed features from the plan. */
-  const FURNITURE_ICONS = { entrance: '\u{1F6AA}', coffee: '\u2615', stairs: '\u{1FA9C}' };
-  const FURNITURE_FILLS = { entrance: '#10b981', coffee: '#f59e0b', stairs: '#c084fc' };
+  const FURNITURE_ICONS = { stairs: '\u{1FA9C}', survey: '\u{1F4CB}' };
+  const FURNITURE_FILLS = { stairs: '#10b981', survey: '#fbbf24' };
+  const survey = config.survey || {};
   const furniture = make('g', { class: 'map-furniture' });
   (layout.furniture || []).forEach((item) => {
-    furniture.appendChild(make('rect', { class: 'furn-shadow', x: item.x + 4, y: item.y + 5, width: item.w, height: item.h, rx: 9 }));
-    furniture.appendChild(make('rect', {
+    const isSurvey = item.kind === 'survey';
+    const label = isSurvey ? (survey.name || item.label) : item.label;
+    /* Only a block big enough to hold its own caption gets one inside it. */
+    const roomy = item.w >= 200;
+
+    const group = make('g', isSurvey ? {
+      class: 'furn-link', tabindex: 0, role: 'button',
+      'aria-label': `${label}${survey.url ? '' : ' - link coming soon'}`,
+    } : {});
+    group.appendChild(make('rect', { class: 'furn-shadow', x: item.x + 4, y: item.y + 5, width: item.w, height: item.h, rx: 9 }));
+    group.appendChild(make('rect', {
       class: 'furn-face', x: item.x, y: item.y, width: item.w, height: item.h, rx: 9,
       fill: FURNITURE_FILLS[item.kind] || '#cbd5e1',
     }));
-    const roomy = item.w >= 90;
-    furniture.appendChild(text(FURNITURE_ICONS[item.kind] || '', {
+    group.appendChild(text(FURNITURE_ICONS[item.kind] || '', {
       class: 'furn-icon', x: item.x + item.w / 2,
-      y: item.y + item.h / 2 + (roomy ? -2 : 8), 'text-anchor': 'middle',
+      y: item.y + item.h / 2 + (roomy ? -30 : 7), 'text-anchor': 'middle',
     }));
-    furniture.appendChild(text(item.label, roomy
-      ? { x: item.x + item.w / 2, y: item.y + item.h / 2 + 20, 'text-anchor': 'middle' }
-      : { x: item.x + item.w / 2, y: item.y + item.h + 18, 'text-anchor': 'middle' }));
+    group.appendChild(text(label, roomy
+      ? { x: item.x + item.w / 2, y: item.y + item.h / 2 - 8, 'text-anchor': 'middle' }
+      : { x: item.x + item.w / 2, y: item.y + item.h + 19, 'text-anchor': 'middle' }));
+
+    if (isSurvey) {
+      const open = () => {
+        if (survey.url) { window.open(survey.url, '_blank', 'noopener'); return; }
+        detail.innerHTML = `<h3>${esc(label)}</h3>
+          <p>${esc(survey.blurb || 'A table by the stairs.')}</p>
+          <p><span class="chip chip--awaited">Link coming soon</span></p>`;
+      };
+      group.addEventListener('click', open);
+      group.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); open(); }
+      });
+      group.addEventListener('mousemove', (event) => {
+        const box = canvasNode.getBoundingClientRect();
+        tip.innerHTML = `<b>${esc(label)}</b>${survey.url ? 'Open the survey' : 'Link coming soon'}`;
+        tip.classList.add('is-on');
+        tip.style.left = `${Math.max(4, Math.min(event.clientX - box.left + 14, box.width - 270))}px`;
+        tip.style.top = `${event.clientY - box.top + 14}px`;
+      });
+      group.addEventListener('mouseleave', () => tip.classList.remove('is-on'));
+    }
+    furniture.appendChild(group);
   });
   svg.appendChild(furniture);
 
-  /* A scale bar, because this is a measured plan and not a doodle. */
-  const bar = make('g', { class: 'map-scalebar' });
-  const barY = layout.scaleBarY ?? (room.y + room.h + 26);
-  const barLen = 5 * ppm;
-  bar.appendChild(make('line', { x1: room.x, y1: barY, x2: room.x + barLen, y2: barY }));
-  [0, barLen].forEach((dx) => bar.appendChild(
-    make('line', { x1: room.x + dx, y1: barY - 6, x2: room.x + dx, y2: barY + 6 })));
-  bar.appendChild(text('5 m', { x: room.x + barLen + 12, y: barY + 5 }));
-  svg.appendChild(bar);
+  /* Board 1 is the one by the stairs, so plant a flag where people come up. */
+  const stairs = (layout.furniture || []).find((f) => f.kind === 'stairs');
+  if (stairs) {
+    const flag = make('g', { class: 'map-startflag' });
+    const cx = stairs.x + stairs.w / 2;
+
+    /* A proper flagpole standing on the staircase, left of its caption. */
+    const fx = stairs.x + 22;
+    const fy = stairs.y + stairs.h - 14;
+    flag.appendChild(make('line', { class: 'flag-pole', x1: fx, y1: fy, x2: fx, y2: fy - 120 }));
+    flag.appendChild(make('path', {
+      class: 'flag-cloth',
+      d: `M${fx} ${fy - 120} C${fx + 26} ${fy - 112} ${fx + 38} ${fy - 96} ${fx + 62} ${fy - 100}
+          C${fx + 46} ${fy - 82} ${fx + 36} ${fy - 62} ${fx} ${fy - 70} Z`,
+    }));
+
+    /* ...and a banner big enough to read at a glance. */
+    const bw = 300;
+    const bh = 68;
+    const bx = cx - bw / 2 + 18;
+    const by = stairs.y + stairs.h - 82;
+    flag.appendChild(make('rect', {
+      class: 'flag-banner-shadow', x: bx + 4, y: by + 5, width: bw, height: bh, rx: bh / 2,
+    }));
+    flag.appendChild(make('rect', {
+      class: 'flag-banner', x: bx, y: by, width: bw, height: bh, rx: bh / 2,
+    }));
+    flag.appendChild(text('Start here', {
+      class: 'flag-banner-text', x: bx + bw / 2, y: by + bh / 2 + 12, 'text-anchor': 'middle',
+    }));
+
+    svg.appendChild(flag);
+  }
 
   /* Trail route sits under the boards so the tiles stay clickable. */
   const trailUnder = make('path', { class: 'map-trail-under' });
@@ -218,80 +253,61 @@
 
   const slotNodes = new Map();
   const slotPoints = new Map();
-  const labelsToFit = [];
 
-  layout.clusters.forEach((cluster) => {
-    const group = make('g', { class: 'map-cluster' });
-    const caption = `${cluster.id} \u00B7 ${cluster.name}`;
-    const pill = make('rect', { class: 'map-cluster-label-box', y: cluster.labelY - 15, height: 24, rx: 12 });
-    const label = text(caption, { class: 'map-cluster-label', x: cluster.labelX, y: cluster.labelY + 2, 'text-anchor': 'middle' });
-    group.appendChild(pill);
-    group.appendChild(label);
-    /* Size the pill from the text once it is in the document, so it fits
-       whatever font actually loaded rather than a guessed character width. */
-    labelsToFit.push([pill, label, cluster.labelX]);
+  /* Walls are a flat list: a run stands out from the long wall with a board on
+     each face, a flat one lies along it with a single board. Groups are not
+     named on the map - the numbers are what people use. */
+  const wallsGroup = make('g');
+  layout.walls.forEach((wall) => {
+    const thick = Math.max(wall.thickness, 7);
+    /* A flat board sits on the edge of the room, so nudge it inside or it
+       vanishes into the outline. */
+    const inset = wall.kind === 'flat'
+      ? (wall.y1 <= room.y + 1 ? thick / 2 : -thick / 2)
+      : 0;
+    const geom = {
+      x1: wall.x1, y1: wall.y1 + inset, x2: wall.x2, y2: wall.y2 + inset,
+      'stroke-width': thick, 'stroke-linecap': 'round',
+    };
+    wallsGroup.appendChild(make('line', { ...geom, class: 'map-wall-shadow',
+      x1: geom.x1 + 3, y1: geom.y1 + 4, x2: geom.x2 + 3, y2: geom.y2 + 4 }));
+    wallsGroup.appendChild(make('line', { ...geom, class: 'map-wall' }));
 
-    cluster.walls.forEach((wall) => {
-      /* Walls are line segments now: a fin sticks out from the wall it is
-         attached to, a flat board lies along it. */
-      /* A flat board lies on the edge of the room, so nudge it inside by half
-         its thickness or it disappears into the outline. */
-      const thick = Math.max(wall.thickness, 7);
-      const inset = wall.kind === 'flat'
-        ? (wall.y1 <= room.y + 1 ? thick / 2 : -thick / 2)
-        : 0;
-      const shared = {
-        x1: wall.x1, y1: wall.y1 + inset, x2: wall.x2, y2: wall.y2 + inset,
-        'stroke-width': thick, 'stroke-linecap': 'round',
-      };
-      group.appendChild(make('line', { ...shared, class: 'map-wall-shadow',
-        x1: shared.x1 + 3, y1: shared.y1 + 4, x2: shared.x2 + 3, y2: shared.y2 + 4 }));
-      group.appendChild(make('line', { ...shared, class: 'map-wall' }));
-
-      wall.slots.forEach((slot) => {
-        const poster = slot.poster ? lookup[slot.poster] : null;
-        const theme = poster && poster.themeObjects[0];
-        const node = make('g', {
-          class: 'map-slot' + (poster ? '' : ' map-slot--free'),
-          tabindex: 0, role: 'button',
-          'data-slot': slot.id,
-          'aria-label': poster
-            ? `Board ${slot.number}: ${poster.title}`
-            : `Board ${slot.number}, no poster assigned yet`,
-        });
-        const w = 38;
-        const h = 30;
-        const x = slot.x - w / 2;
-        const y = slot.y - h / 2;
-        const lift = make('g', { class: 'slot-lift' });
-        lift.appendChild(make('rect', { class: 'slot-shadow', x: x + 3, y: y + 3, width: w, height: h, rx: 7 }));
-        lift.appendChild(make('rect', {
-          class: 'slot-face', x, y, width: w, height: h, rx: 7,
-          fill: theme ? theme.color : 'var(--brand)',
-        }));
-        lift.appendChild(make('rect', { class: 'slot-shine', x: x + 3, y: y + 3, width: w - 6, height: 6, rx: 3 }));
-        lift.appendChild(text(slot.number, { x: x + w / 2, y: y + h / 2 + 6, 'text-anchor': 'middle' }));
-        node.appendChild(lift);
-        group.appendChild(node);
-        slotNodes.set(slot.id, { node, lift, slot, poster, cluster });
-        if (slot.poster) slotPoints.set(slot.poster, [slot.x, slot.y]);
+    wall.slots.forEach((slot) => {
+      const poster = slot.poster ? lookup[slot.poster] : null;
+      const theme = poster && poster.themeObjects[0];
+      const node = make('g', {
+        class: 'map-slot' + (poster ? '' : ' map-slot--free'),
+        tabindex: 0, role: 'button',
+        'data-slot': slot.id,
+        'aria-label': poster
+          ? `Board ${slot.number}: ${poster.title}`
+          : `Board ${slot.number}, no poster assigned yet`,
       });
+      const w = 80;
+      const h = 64;
+      const x = slot.x - w / 2;
+      const y = slot.y - h / 2;
+      const lift = make('g', { class: 'slot-lift' });
+      lift.appendChild(make('rect', { class: 'slot-shadow', x: x + 3, y: y + 3, width: w, height: h, rx: 7 }));
+      lift.appendChild(make('rect', {
+        class: 'slot-face', x, y, width: w, height: h, rx: 7,
+        fill: theme ? theme.color : 'var(--board-empty)',
+      }));
+      lift.appendChild(make('rect', { class: 'slot-shine', x: x + 3, y: y + 3, width: w - 6, height: 6, rx: 3 }));
+      lift.appendChild(text(slot.number, { x: x + w / 2, y: y + h / 2 + 6, 'text-anchor': 'middle' }));
+      node.appendChild(lift);
+      wallsGroup.appendChild(node);
+      slotNodes.set(slot.id, { node, lift, slot, poster, wall });
+      if (slot.poster) slotPoints.set(slot.poster, [slot.x, slot.y]);
     });
-    svg.appendChild(group);
   });
+  svg.appendChild(wallsGroup);
 
-  const canvas = document.querySelector('[data-canvas]');
+  const canvas = canvasNode;
   canvas.querySelector('.bike-loader')?.remove();
   canvas.appendChild(svg);
 
-  const fitLabels = () => labelsToFit.forEach(([pill, label, centre]) => {
-    const width = label.getComputedTextLength() + 28;
-    pill.setAttribute('x', centre - width / 2);
-    pill.setAttribute('width', width);
-  });
-  fitLabels();
-  /* Web fonts land after first paint and change the measurement. */
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitLabels);
 
   /* ---------- legend ---------- */
 
@@ -306,9 +322,9 @@
     ]
     : [
       `<span class="chip chip--plain">${layout.counts.walls} walls &middot; ${layout.counts.slots} boards</span>`,
-      `<span class="chip chip--plain">${layout.dimensions.lengthMetres} m &times; ${layout.dimensions.depthMetres} m foyer</span>`,
-      `<span class="chip chip--plain">Boards are ${layout.dimensions.boardWidthMetres} m wide</span>`,
       '<span class="chip chip--plain">Double walls carry a poster each side</span>',
+      '<span class="chip chip--plain">\u{1F6A9} Board 1 is by the stairs</span>',
+      '<span class="chip chip--plain">Not to scale</span>',
     ]).join('');
 
   /* Filtering by theme or walking a trail needs posters on boards. Until they
@@ -321,16 +337,14 @@
     document.querySelector('[data-unassigned-note]').innerHTML = `
       <span aria-hidden="true" style="font-size:1.6rem">\u{1F4CC}</span>
       <div><b>The boards are numbered but empty.</b> ${esc(layout.counts.slots)} boards
-      across ${esc(layout.counts.walls)} walls, drawn to the venue's own measurements.
+      across ${esc(layout.counts.walls)} walls, in the order you will walk past them.
       Which poster goes on which board has not been decided yet.</div>`;
   }
 
   /* ---------- side panel ---------- */
 
-  const detail = document.querySelector('[data-detail]');
-
   function showSlot(entry) {
-    const { slot, poster, cluster, lift } = entry;
+    const { slot, poster, wall, lift } = entry;
     lift.classList.remove('map-slot--hit');
     void lift.getBoundingClientRect();  // force a reflow so the pop replays
     lift.classList.add('map-slot--hit');
@@ -338,8 +352,7 @@
     if (!poster) {
       detail.innerHTML = `<h3>Board #${slot.number}</h3>
         <p>No poster on this board yet.</p>
-        <p style="font-size:.85rem;color:var(--ink-soft)">${esc(cluster.name)} &middot;
-          ${esc(cluster.hint || '')}</p>`;
+        <p style="font-size:.85rem;color:var(--ink-soft)">${esc(wall.hint || '')}</p>`;
       return;
     }
     const seen = IPRES.passport.has(poster.id);
@@ -353,7 +366,7 @@
       <h3 style="margin-top:.9rem">${esc(poster.title)}</h3>
       <p style="font-size:.88rem;color:var(--ink-soft)">${esc(poster.authorLine)}</p>
       <p class="map-blurb">${esc(poster.abstract)}</p>
-      <p style="font-size:.8rem;color:var(--ink-soft)">${esc(cluster.name)}</p>
+      <p style="font-size:.8rem;color:var(--ink-soft)">${esc(wall.hint || '')}</p>
       <div class="poster-card__foot">
         <a class="btn btn--sm btn--primary" href="poster.html?id=${encodeURIComponent(poster.id)}">Read the poster</a>
         <button class="btn btn--sm" type="button" data-seen>${seen ? '✓ Seen it' : 'Mark as seen'}</button>
@@ -368,7 +381,6 @@
     }
   }
 
-  const tip = document.querySelector('[data-tip]');
   slotNodes.forEach((entry) => {
     const { node, slot, poster } = entry;
     const open = () => showSlot(entry);
@@ -424,13 +436,6 @@
   themeSelect.addEventListener('change', applyHighlight);
   trailSelect.addEventListener('change', applyHighlight);
   document.addEventListener('passport:change', applyHighlight);
-
-  document.querySelector('[data-plan]').addEventListener('click', (event) => {
-    const image = svg.querySelector('.map-plan-img');
-    if (!image) return;
-    const on = image.classList.toggle('is-on');
-    event.currentTarget.setAttribute('aria-pressed', String(on));
-  });
 
   document.querySelector('[data-shuffle]').addEventListener('click', () => {
     const entries = [...slotNodes.values()];

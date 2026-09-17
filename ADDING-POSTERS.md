@@ -123,13 +123,13 @@ the same check runs in CI on every push. If a typo needs fixing, fix it in
 
 ## Putting posters on boards
 
-The map shows **42 numbered boards on 25 walls**, drawn to the venue's own
-measurements, and every one of them is empty. Putting a poster on a board is
-one line in `data/layout.json`: find the board by its number and set `poster`
-to a poster id.
+The map shows **42 numbered boards on 22 walls**, and every one of them is
+empty — they are slate grey until a poster is put on them. Putting a poster on
+a board is one line in `data/layout.json`: find the board by its number and set
+`poster` to a poster id.
 
 ```json
-{ "id": "A1a", "number": 1, "x": 80.8, "y": 197.5, "facing": "west",
+{ "id": "X248-1e", "number": 1, "x": 1678.0, "y": 834.8, "facing": "east",
   "poster": "dignified-deletion-toward-a-philosophy-of-letting-go" }
 ```
 
@@ -140,48 +140,61 @@ warning if a board points at an id that does not exist.
 As soon as any board has a poster on it, the site turns the rest back on by
 itself:
 
-* boards take the colour of their poster's theme, and the theme filter and
-  trail routes reappear on the map;
+* boards take the colour of their poster's **first theme**, so the map reads as
+  a themed floor plan at a glance, and the theme filter and trail routes
+  reappear on the map;
 * each poster's page gains "Board #N" with a link to it on the map;
 * the gallery shows board numbers and offers "Walk order (map)" as a sort;
 * trails run in board order, so they become a real walk round the room.
 
-Boards you have not filled in stay plain blue and say "no poster on this board
-yet". You can do them a few at a time.
+Boards you have not filled in stay grey and say "no poster on this board yet".
+You can do them a few at a time.
 
 A poster marked `online` in the CSV should not be given a board — it is not in
 the room. See above.
 
+## How the boards are numbered
+
+Board 1 is the one nearest the stairs, where people come up, and the numbers
+count away from there. Walk up to a run of three walls and the three boards
+facing you are **1, 2, 3** from the bottom; the three on the back of those same
+walls are **4, 5, 6**, so 4 is behind 1.
+
+The order comes from the order of the `RUNS` table in `tools/build_layout.py`,
+which is written in walking order. To renumber a group, move its entry up or
+down that list and rerun the script — nothing else has to change, because a
+board's id comes from where it is, not from the number on it.
+
 ## Where the map's shape comes from
 
-Everything on the map is measured off `map/Poster layout.pptx`:
+The board size and the wall counts are measured off `map/Poster layout.pptx`:
+its dimension annotation reads 13.5 m by 6 m against rules of 323 px and 143 px,
+which fixes the drawing at 23.9 px per metre, and the wall marks on it are
+29.9 px — **1.25 m**, one board wide. The counts are the drawing's own: 22
+double- and single-sided walls making 42 boards.
 
-* its dimension annotation reads 13.5 m by 6 m, and those rules are 323 px and
-  143 px long, which fixes the drawing at 23.9 px per metre;
-* the four wall marks on it are 29.9 px long — **1.25 m**, one board wide;
-* two of those marks stand at right angles to the long wall (a wall with a
-  poster on each face) and two lie flat against it (one poster);
-* the wall counts and the five groups are the drawing's own — 9, 6, 3, 5 and 2
-  walls making 18, 6, 6, 10 and 2 posters, 25 walls and 42 boards in total;
-* the five red captions on it fix where each group sits along the foyer.
+The map is **deliberately not to scale**. The real foyer is 34.5 m x 9 m, a 3.5:1
+strip in which the boards would be too small to tap, so the short side is
+stretched and the map is drawn at about 2.3:1. Every board keeps its real order,
+its real side of the room and its real neighbours, so the walk you do on the map
+is the walk you do in the foyer.
 
-**"Real floor plan"** on the map overlays the scanned plan, registered to the
-same metre grid — the plan's own 13.5 m rule lines up with the dashed box.
-
-What is *not* from the drawing is the spacing within each group, which is an
-even guess. If the walls end up somewhere else, edit `tools/build_layout.py`:
-the `CLUSTERS` table gives each group's positions in metres along the foyer, so
-moving a wall is changing one number. Then:
+Where each run of walls sits along the foyer is still being confirmed. Each one
+is a single number in the `RUNS` table — its position in metres along the room —
+so moving a wall is changing one number:
 
 ```bash
 python3 tools/build_layout.py --keep   # --keep leaves assigned boards alone
 ```
 
+Two cautions. Moving a wall changes its board ids (they are derived from its
+position), so settle the positions **before** you start assigning posters —
+after that, `--keep` can only keep boards that have not moved. And the three
+extra posters the drawing mentions (Reception, the nestor survey and "Trends in
+digital preservation") are not on the walls and are not on the map.
+
 Once the real positions are in, set `"provisional": false` at the top of
 `data/layout.json` and the orange banner disappears from the map page.
-
-The three extra posters the drawing mentions (Reception, the nestor survey and
-"Trends in digital preservation") are not on the walls and are not on the map.
 
 ## Changing the poll link
 
