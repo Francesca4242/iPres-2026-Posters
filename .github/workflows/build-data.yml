@@ -1,8 +1,9 @@
 name: Rebuild poster data
 
 # Drop a PDF into posters/ (or edit poster_metadata.csv) and this regenerates
-# data/posters.json and commits it, so the website picks the poster up without
-# anybody needing to run anything locally. See ADDING-POSTERS.md.
+# data/posters.json, renders the poster's thumbnail, and commits both - so the
+# website picks the poster up without anybody running anything locally.
+# See ADDING-POSTERS.md.
 
 on:
   push:
@@ -25,8 +26,14 @@ jobs:
         with:
           python-version: '3.x'
 
+      - name: Install the PDF rasteriser for thumbnails
+        run: pip install --quiet pypdfium2 Pillow
+
       - name: Rebuild data/posters.json
         run: python3 tools/build_data.py
+
+      - name: Render a thumbnail for any new poster
+        run: python3 tools/build_thumbs.py
 
       - name: Give any new poster a board, keeping the existing assignments
         run: python3 tools/build_layout.py --keep
@@ -36,12 +43,13 @@ jobs:
 
       - name: Commit the regenerated data
         run: |
-          if git diff --quiet -- data; then
+          if git diff --quiet -- data assets/thumbs && \
+             [ -z "$(git status --porcelain -- assets/thumbs)" ]; then
             echo "Nothing changed."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data
-          git commit -m "Rebuild poster data"
+          git add data assets/thumbs
+          git commit -m "Rebuild poster data and thumbnails"
           git push

@@ -42,7 +42,8 @@ Opening `index.html` as a `file://` URL will *not* work — browsers block the
 poster_metadata.csv  ─┐
 posters/*.pdf        ─┼─►  tools/build_data.py    ─►  data/posters.json
 tools/poster_files.csv┘                                      │
-                                                             ▼
+                              tools/build_thumbs.py  ─►  assets/thumbs/*.webp
+                                                             │
                           tools/build_layout.py   ─►  data/layout.json
 ```
 
@@ -55,9 +56,13 @@ tools/poster_files.csv┘                                      │
   presented online in the CSV get no board here, but stay everywhere else on
   the site.
 * **`data/config.json`** — the poll URL and the conference details.
+* **`assets/thumbs/*.webp`** — page 1 of each poster, ~50KB each, so the gallery
+  does not have to download 55MB of PDFs to show its cards. Regenerate with
+  `python3 tools/build_thumbs.py` (needs `pip install pypdfium2 Pillow`; without
+  them the browser falls back to rendering previews itself).
 
-A GitHub Action rebuilds `data/posters.json` whenever a PDF is added, so
-uploading a poster through the GitHub web interface is enough.
+A GitHub Action rebuilds `data/posters.json` and the thumbnails whenever a PDF
+is added, so uploading a poster through the GitHub web interface is enough.
 
 ## The metadata is shown exactly as submitted
 
@@ -93,12 +98,13 @@ one by editing that table; nothing else needs to change.
 index.html posters.html poster.html map.html trails.html
 assets/css/site.css          one stylesheet for every page
 assets/js/site.js            shared: data loading, chrome, passport, PDF rendering
+assets/thumbs/               pre-rendered gallery thumbnails, one per poster
 assets/js/trails.js          the trail definitions and the quiz
 assets/img/floorplan.png     the venue plan from map/Poster layout.pptx
 data/                        posters.json, layout.json, config.json
 posters/                     the poster PDFs
 iPRES2026_Logos/             conference logos
-tools/                       the three Python scripts, plus the filename overrides
+tools/                       the four Python scripts, plus the filename overrides
 poster_metadata.csv          the source of truth for all poster metadata; its
                              file_name column says which PDF belongs to which row
 map/Poster layout.pptx       the venue's wall plan, where the map numbers come from

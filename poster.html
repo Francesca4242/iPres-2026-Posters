@@ -53,6 +53,20 @@
   const description = document.querySelector('meta[name="description"]');
   if (description) description.content = `${poster.title} - an iPRES 2026 poster by ${poster.authorLine}.`;
 
+  /* Share links (Slack, Mastodon, email previews) show the poster itself. */
+  const meta = (attr, key, value) => {
+    const node = document.createElement('meta');
+    node.setAttribute(attr, key);
+    node.content = value;
+    document.head.appendChild(node);
+  };
+  meta('property', 'og:title', poster.title);
+  meta('property', 'og:description', `An iPRES 2026 poster by ${poster.authorLine}.`);
+  meta('property', 'og:type', 'article');
+  meta('property', 'og:url', window.location.href);
+  meta('name', 'twitter:card', poster.thumb ? 'summary_large_image' : 'summary');
+  if (poster.thumb) meta('property', 'og:image', new URL(poster.thumb, window.location.href).href);
+
   const esc = IPRES.esc;
   const trails = buildTrails(posters).filter((trail) => trail.stops.some((s) => s.id === poster.id));
   const related = posters
@@ -194,6 +208,13 @@
     const width = view.fitWidth ? available : available * view.zoom;
     await IPRES.renderPage(view.doc, view.page, canvas, Math.max(280, width));
     drawBar();
+  }
+
+  /* The thumbnail is already a few tens of KB and cached from the gallery, so
+     show the poster immediately instead of a spinner while the PDF arrives. */
+  if (poster.thumb) {
+    stage.innerHTML = `<img class="viewer__preview" src="${esc(poster.thumb)}"
+      alt="First page of ${esc(poster.title)}">${IPRES.loader('Fetching the full poster')}`;
   }
 
   try {

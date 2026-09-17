@@ -21,9 +21,9 @@ Still awaited:
    **`file_name`** column, replacing the word `placeholder`.
 
 A GitHub Action (`.github/workflows/build-data.yml`) rebuilds
-`data/posters.json` within a minute or two and commits the result, and the
-poster appears on the site — in the gallery, in the search index, on its own
-page and on the map.
+`data/posters.json`, renders the poster's thumbnail, and commits both within a
+minute or two. The poster then appears on the site — in the gallery, in the
+search index, on its own page and on the map.
 
 
 
@@ -48,12 +48,18 @@ The left-hand column is the poster's id; `build_data.py` prints it in its log.
 cp ~/Downloads/the-new-poster.pdf posters/
 # ...then put that filename in the row's file_name column
 python3 tools/build_data.py        # rebuilds data/posters.json
+python3 tools/build_thumbs.py      # renders its gallery thumbnail
 python3 tools/check_verbatim.py    # confirms no metadata text was altered
-git add posters data && git commit -m "Add the Netarkivet poster" && git push
+git add posters data assets/thumbs && git commit -m "Add the Netarkivet poster" && git push
 ```
 
-`build_data.py` needs nothing but a standard Python 3 — no pip, no node.
-It prints what it matched, what it could not match, and what is still awaited.
+`build_data.py` needs nothing but a standard Python 3 — no pip, no node. It
+prints what it matched, what it could not match, and what is still awaited.
+
+`build_thumbs.py` needs two libraries (`pip install pypdfium2 Pillow`) and only
+renders what is missing or out of date, so it takes a second. If they are not
+installed it says so and does nothing, and the site still works — the browser
+falls back to rendering previews itself, just more slowly.
 
 ## Adding a poster that is not in the CSV at all
 
@@ -95,6 +101,17 @@ half-finished.
 Nothing else needs changing — no code, no layout file. Edit the column and the
 rebuild Action does the rest, including taking the poster off the map. Change
 your mind and clear the cell, and it gets a board again on the next rebuild.
+
+## Why the thumbnails are committed
+
+`assets/thumbs/` holds a ~50KB WebP of page 1 of each poster, rendered by
+`tools/build_thumbs.py`. The gallery shows those instead of downloading the
+PDFs: the page went from pulling 55MB and taking a few seconds to show anything,
+to 2MB and showing everything at once. The PDFs are only fetched when somebody
+opens a poster.
+
+They are committed rather than generated on the fly because the site is plain
+static files — there is no server to render them on demand.
 
 ## The metadata is never edited
 

@@ -15,6 +15,8 @@
   .map-side .meta-block { margin: 0; }
   .map-preview { border: 3px solid var(--ink); border-radius: var(--radius-sm); overflow: hidden; background: var(--paper-3); aspect-ratio: 4/3; display: grid; place-items: center; }
   .map-preview canvas, .map-preview img { width: 100%; height: 100%; object-fit: contain; }
+  .map-preview .placeholder { font-family: var(--display); font-weight: 700; text-align: center;
+    padding: 1rem; color: var(--ink-soft); font-size: .85rem; }
   .map-blurb { font-size: .88rem; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
 </style>
 </head>
@@ -297,10 +299,7 @@
         ${poster.themeObjects.map((theme) =>
           `<span class="chip chip--solid" style="background:${theme.color}">${theme.emoji} ${esc(theme.short)}</span>`).join('')}
       </div>
-      <div class="map-preview" ${poster.file
-        ? `data-pdf-thumb="${esc(poster.file)}" data-thumb-alt="First page of ${esc(poster.title)}"`
-        : ''}>${poster.file ? IPRES.loader('Pedalling', 'bike-loader--inline')
-        : '<span style="font-size:.85rem;color:var(--ink-soft)">PDF on its way</span>'}</div>
+      ${IPRES.thumbnailFor(poster, 'map-preview')}
       <h3 style="margin-top:.9rem">${esc(poster.title)}</h3>
       <p style="font-size:.88rem;color:var(--ink-soft)">${esc(poster.authorLine)}</p>
       <p class="map-blurb">${esc(poster.abstract)}</p>
