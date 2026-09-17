@@ -113,7 +113,7 @@
   "available": 35,
   "awaited": 4,
   "inRoom": 38,
-  "onBoards": 0
+  "onBoards": 3
  },
  "posters": [
   {
@@ -882,7 +882,7 @@
     "The British Library, United Kingdom",
     "University of Cambridge Libraries and Archives, United Kingdom"
    ],
-   "locationHint": "",
+   "locationHint": "1",
    "presenting": "",
    "orientation": "portrait",
    "attendance": null,
@@ -894,7 +894,7 @@
    "thumbWidth": 520,
    "thumbHeight": 736,
    "presentedOnline": null,
-   "board": null,
+   "board": 1,
    "landscape": false,
    "authorLine": "McKean, Callum; Talboom, Leontien",
    "searchText": "digital forensics and contemporary practice: updating and reframing the dpc technology watch report (2012) this poster introduces the near final draft of the updated digital forensics technology watch report from the digital preservation coalition (dpc). originally published in 2012, the report has been revised to reflect the maturation of digital forensics within digital preservation and the changing nature of born-digital personal archives. the updated guide reframes digital forensics around preservation goals, emphasising context, experience, and research use, and provides expanded practical and ethical guidance. we invite feedback from the ipres community and aim to raise awareness of the guide as a resource for practitioners. mckean, callum; talboom, leontien forensics storage media archives content digital forensics personal digital archives file formats content integrity migrations content preservationappraisal / selection acquisition ingestlegal / ethical / environmental considerations policy strategy the british library, united kingdom university of cambridge libraries and archives, united kingdom"
@@ -1091,7 +1091,7 @@
    "organisations": [
     "KB national library of the Netherlands"
    ],
-   "locationHint": "",
+   "locationHint": "3",
    "presenting": "",
    "orientation": "portrait",
    "attendance": null,
@@ -1103,7 +1103,7 @@
    "thumbWidth": 520,
    "thumbHeight": 694,
    "presentedOnline": null,
-   "board": null,
+   "board": 3,
    "landscape": false,
    "authorLine": "Hofsink, Inge; Ligtenberg, Richard",
    "searchText": "don’t stop retrievin’: ensuring version integrity in publications and metadata this poster will show the specialized versioning workflow for e-books that was developed by kbnl last year. what makes this workflow so unique and special, is that it's the first implementation of versions in kbnl's e-depot, combined with the way these e-books and associated metadata are sent to kbnl: separately and asynchronously. the poster will also include a preview of a workflow for synchronously received materials. hofsink, inge; ligtenberg, richard ingest workflows content metadata versioning file formats content integrity migrations content preservationmetadata descriptionappraisal / selection acquisition ingest kb national library of the netherlands"
@@ -2059,7 +2059,7 @@
    "organisations": [
     "Oswaldo Cruz Foundation, Brazil"
    ],
-   "locationHint": "",
+   "locationHint": "2",
    "presenting": "",
    "orientation": "portrait",
    "attendance": null,
@@ -2071,7 +2071,7 @@
    "thumbWidth": 520,
    "thumbHeight": 1119,
    "presentedOnline": null,
-   "board": null,
+   "board": 2,
    "landscape": false,
    "authorLine": "Nogueira Machado, João Guilherme; Batista Pontes, Eliane; Huche Lopes, Cleomar; Mardero Arellano, Miguel Ángel",
    "searchText": "sgp-vsd: packager for sip packets originating from the digitization of video documents in healthcare. the oswaldo cruz foundation (fiocruz) is the largest public health research institution in brazil and a national leader in the production of vaccines for the unified health system (sus). throughout its 126 years, fiocruz has built a vast collection that constitutes a significant part of brazil's scientific and cultural heritage.created in 1988, in the context of the brazilian health reform, videosaúde - fiocruz distributor (vsd), linked to icict/fiocruz, is responsible for the management, preservation, production, dissemination and distribution of audiovisual material on health produced by fiocruz, partner institutions and independent producers.the vsd collection serves a diverse network of users, including researchers, students, the general public and technical staff involved in the management of fiocruz's collections. currently, it consists of more than 10,000 hours of video and approximately 9,000 items cataloged in its database of audiovisual resources in health (bravs), including analog and digital formats.as part of a broader preservation ecosystem, vsd developed the preservation management system (sgp-vsd), designed to support the creation of submission information packages (sips) compliant with the iso 14721 model (oais). the sgp-vsd provides a systemic application capable of managing and packaging video archive documents in the healthcare field, originating from magnetic tape digitization processes, allowing the recording of the summarized process history of the digitization event through the adoption of xml-encoded premis metadata generated by the system.this workflow integrates the registration of preservation description information (pdi), enabling oais packages that strengthen the chain of custody, the preservation chain, the presumption of protection, and reliability, with the generation of archival information packages (aips) via archivematica.the work proposed here aims to present a brief description of sgp-vsd as a system designed to be a packager of health video documents integrated with databases via api - rest, as well as the use of functionalities that apply the requirements of iso 14721 and 16363 standards and standards that support the generation of sips that complete the preservation chain with the generation of robust, authentic, interoperable and specific aips through the archivematica digital preservation tool. nogueira machado, joão guilherme; batista pontes, eliane; huche lopes, cleomar; mardero arellano, miguel ángel audiovisual content digitized content metadata workflows repository systems software file formats content integrity migrations content preservationtechnical infrastructure tools storage bit preservationmetadata descriptionappraisal / selection acquisition ingest oswaldo cruz foundation, brazil"
