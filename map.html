@@ -72,6 +72,10 @@
     </aside>
   </div>
 
+  <!-- The posters that are not in the room. Same blocky styling, but drawn as
+       a browser window, because that is where they are. -->
+  <section class="online-room" id="online-room" data-online-room hidden></section>
+
   <div data-poll-banner></div>
 </main>
 
@@ -95,13 +99,15 @@
   IPRES.renderPassport(document.querySelector('[data-passport]'), counts.total);
 
   const onlinePosters = posters.filter((poster) => poster.presentedOnline);
+  onlineRoom(onlinePosters);
   if (onlinePosters.length) {
     document.querySelector('[data-online-note]').innerHTML = `
       <span aria-hidden="true" style="font-size:1.6rem">\u{1F4BB}</span>
       <div><b>${onlinePosters.length} poster${onlinePosters.length === 1 ? ' is' : 's are'}
       presented online</b> and ${onlinePosters.length === 1 ? 'is' : 'are'} not in the hall, so
       ${onlinePosters.length === 1 ? 'it has' : 'they have'} no board here.
-      <a href="posters.html?online=1">Read ${onlinePosters.length === 1 ? 'it' : 'them'} in the gallery</a>.</div>`;
+      <a href="#online-room">${onlinePosters.length === 1 ? 'It is' : 'They are'} in the
+      Online Room below \u2193</a></div>`;
     document.querySelector('[data-online-note]').hidden = false;
   }
 
@@ -355,6 +361,56 @@
       <div><b>The boards are numbered but empty.</b> ${esc(layout.counts.slots)} boards
       across ${esc(layout.counts.walls)} walls, in the order you will walk past them.
       Which poster goes on which board has not been decided yet.</div>`;
+  }
+
+  /* ---------- the online room ---------- */
+
+  /* Posters presented online have no board, which on a map page can read as
+     "not really here". They get their own room instead: the same blocky
+     styling, drawn as a browser window, sitting under the floor plan where
+     anybody planning their walk will see it. */
+  function onlineRoom(list) {
+    const room = document.querySelector('[data-online-room]');
+    if (!list.length) return;
+    const site = (config.conference || {}).website || 'https://ipres2026.dk/';
+    const host = site.replace(/^https?:\/\//, '').replace(/\/$/, '');
+    const cards = list.map((poster) => `
+      <a class="online-card" href="poster.html?id=${encodeURIComponent(poster.id)}">
+        ${IPRES.thumbnailFor(poster, 'online-card__thumb')}
+        <div class="online-card__body">
+          <h3 class="online-card__title">${esc(poster.title)}</h3>
+          <p class="online-card__authors">${esc(poster.authorLine)}</p>
+          <div class="online-card__foot">
+            ${(poster.themeObjects || []).slice(0, 2).map((theme) =>
+              `<span class="chip chip--solid" style="background:${theme.color}">${theme.emoji} ${esc(theme.short)}</span>`).join('')}
+            <span class="online-card__go">Open \u2192</span>
+          </div>
+        </div>
+      </a>`).join('');
+
+    room.innerHTML = `
+      <div class="browser">
+        <div class="browser__bar">
+          <span class="browser__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="browser__tab">\u{1F310} The Online Room</span>
+          <span class="browser__url"><span aria-hidden="true">\u{1F512}</span>
+            ${esc(host)}/online-room<span class="browser__caret" aria-hidden="true"></span></span>
+        </div>
+        <div class="browser__screen">
+          <h2 class="browser__hello">Beamed in from elsewhere</h2>
+          <p class="browser__sub">${list.length} poster${list.length === 1 ? '' : 's'}
+            ${list.length === 1 ? 'is' : 'are'} presented online, so ${list.length === 1 ? 'it has' : 'they have'}
+            no board in the foyer. ${list.length === 1 ? 'It is' : 'They are'} every bit as
+            readable from here &mdash; no stairs, no queue.</p>
+          <div class="online-grid">${cards}</div>
+        </div>
+        <div class="browser__status">
+          <span class="browser__live" aria-hidden="true"></span>
+          Connected &middot; ${list.length} online &middot; open all night
+        </div>
+      </div>`;
+    room.hidden = false;
+    IPRES.thumbnails(room);
   }
 
   /* ---------- side panel ---------- */

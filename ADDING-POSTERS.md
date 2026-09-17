@@ -90,7 +90,13 @@ and, on the next rebuild, that poster:
   no board for it, and a 💻 note against it in any trail it belongs to;
 * becomes findable through a **💻 Presented online** filter on the All posters
   page. That filter stays hidden until at least one poster is marked online, so
-  it appears by itself once you start filling the column in.
+  it appears by itself once you start filling the column in;
+* **appears in the Online Room** at the bottom of the map page — a browser
+  window in the same blocky style as the map, with a card per online poster.
+  Somebody planning their walk round the foyer sees them in the same place and
+  the same style as the boards, rather than having to know a filter exists. The
+  room appears by itself when the first poster is marked online and hides again
+  if none are.
 
 Anything that says online, virtual or remote counts as online; anything saying
 in-person, in person or on-site counts as being in the room. Capitals and extra

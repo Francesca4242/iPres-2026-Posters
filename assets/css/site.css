@@ -577,3 +577,118 @@ html[data-theme='dark'] .site-footer img { filter: invert(1) hue-rotate(180deg) 
 .map-furniture .furn-link:hover .furn-face,
 .map-furniture .furn-link:focus-visible .furn-face { stroke: #b45309; stroke-width: 5; }
 .map-furniture .furn-link:focus-visible { outline: none; }
+
+/* ==========================================================================
+   The online room - the posters that are not in the foyer.
+
+   Same blocky, thick-outlined styling as the map, drawn as a browser window,
+   because a browser is where those posters are. It sits under the floor plan
+   on the map page and only appears when a poster is marked online.
+   ========================================================================== */
+
+.online-room { margin: 2.2rem 0 0; }
+
+.browser {
+  border: 4px solid var(--ink); border-radius: var(--radius);
+  box-shadow: var(--pop); overflow: hidden; background: var(--paper);
+}
+
+.browser__bar {
+  display: flex; align-items: center; gap: .7rem; flex-wrap: wrap;
+  padding: .6rem .9rem; border-bottom: 4px solid var(--ink);
+  background: linear-gradient(180deg, var(--paper), var(--paper-3));
+}
+.browser__dots { display: inline-flex; gap: .35rem; }
+.browser__dots i {
+  width: 14px; height: 14px; border-radius: 50%;
+  border: 2.5px solid var(--ink); display: block;
+}
+.browser__dots i:nth-child(1) { background: #ff5f57; }
+.browser__dots i:nth-child(2) { background: #ffd166; }
+.browser__dots i:nth-child(3) { background: #10b981; }
+.browser__tab {
+  font-family: var(--display); font-weight: 700; font-size: .92rem;
+  padding: .3rem .8rem; border: 3px solid var(--ink); border-radius: 999px;
+  background: var(--brand); color: #fff; white-space: nowrap;
+}
+.browser__url {
+  flex: 1 1 14rem; min-width: 0;
+  display: flex; align-items: center; gap: .4rem;
+  padding: .32rem .8rem; border: 3px solid var(--ink); border-radius: 999px;
+  background: var(--paper-2); color: var(--ink-soft);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .84rem;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.browser__caret {
+  width: 2px; height: 1em; background: var(--ink); margin-left: .1rem;
+  animation: blink 1.1s steps(1, end) infinite;
+}
+
+.browser__screen {
+  padding: 1.4rem 1.1rem 1.6rem;
+  background:
+    linear-gradient(rgba(11, 130, 198, .10), rgba(11, 130, 198, .10)),
+    repeating-linear-gradient(0deg, transparent 0 22px, rgba(8, 19, 28, .05) 22px 23px),
+    repeating-linear-gradient(90deg, transparent 0 22px, rgba(8, 19, 28, .05) 22px 23px),
+    var(--paper-2);
+}
+html[data-theme='dark'] .browser__screen {
+  background:
+    linear-gradient(rgba(11, 130, 198, .18), rgba(11, 130, 198, .18)),
+    repeating-linear-gradient(0deg, transparent 0 22px, rgba(233, 244, 252, .05) 22px 23px),
+    repeating-linear-gradient(90deg, transparent 0 22px, rgba(233, 244, 252, .05) 22px 23px),
+    var(--paper-2);
+}
+.browser__hello {
+  font-family: var(--display); font-size: clamp(1.4rem, 3.4vw, 2rem);
+  margin: 0 0 .3rem; letter-spacing: -.01em;
+}
+.browser__sub { margin: 0 0 1.2rem; color: var(--ink-soft); max-width: 60ch; }
+
+/* Fixed-width cards, centred, so one online poster does not sit in the corner
+   of an empty screen and forty do not turn into slivers. */
+.online-grid {
+  display: grid; gap: 1rem; justify-content: center;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 260px));
+}
+
+.online-card {
+  display: flex; flex-direction: column; text-decoration: none; color: inherit;
+  border: 4px solid var(--ink); border-radius: var(--radius);
+  background: var(--paper); box-shadow: 6px 6px 0 var(--ink);
+  overflow: hidden; transition: transform .12s ease, box-shadow .12s ease;
+}
+.online-card:hover, .online-card:focus-visible {
+  transform: translate(-3px, -3px); box-shadow: 9px 9px 0 var(--ink);
+}
+.online-card__thumb {
+  aspect-ratio: 4 / 3; display: grid; place-items: center; overflow: hidden;
+  background: var(--paper-3); border-bottom: 4px solid var(--ink);
+}
+.online-card__thumb img, .online-card__thumb canvas { width: 100%; height: 100%; object-fit: cover; }
+.online-card__body { padding: .8rem .85rem .9rem; display: flex; flex-direction: column; gap: .4rem; flex: 1; }
+.online-card__title { font-family: var(--display); font-size: 1rem; line-height: 1.25; margin: 0; }
+.online-card__authors { margin: 0; font-size: .82rem; color: var(--ink-soft); }
+.online-card__foot { margin-top: auto; display: flex; flex-wrap: wrap; gap: .35rem; align-items: center; }
+.online-card__go {
+  margin-left: auto; font-family: var(--display); font-weight: 700; font-size: .82rem;
+  padding: .2rem .6rem; border: 3px solid var(--ink); border-radius: 999px; background: #ffd166; color: #08131c;
+}
+
+.browser__status {
+  display: flex; align-items: center; gap: .5rem;
+  padding: .55rem .9rem; border-top: 4px solid var(--ink);
+  background: var(--paper); color: var(--ink-soft);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .8rem;
+}
+.browser__live {
+  width: 10px; height: 10px; border-radius: 50%; background: #10b981;
+  border: 2px solid var(--ink); animation: pulse-live 1.6s ease-in-out infinite;
+}
+
+@keyframes blink { 50% { opacity: 0; } }
+@keyframes pulse-live { 50% { opacity: .25; } }
+@media (prefers-reduced-motion: reduce) {
+  .browser__caret, .browser__live { animation: none; }
+  .online-card { transition: none; }
+}
