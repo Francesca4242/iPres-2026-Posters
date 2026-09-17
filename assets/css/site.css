@@ -11,6 +11,9 @@
   --brand-dark: #0769a3;
   --brand-deep: #065a8a;
   --brand-soft: #e3f2fb;
+  /* An empty board. Deliberately not --brand: that is also the Infrastructure
+     theme colour, and an empty board must not look like a filled one. */
+  --board-empty: #90a4b8;
 
   --ink: #08131c;
   --ink-soft: #3d5162;
@@ -359,13 +362,16 @@ mark { background: #ffd166; color: #08131c; border-radius: 3px; padding: 0 .15em
 .map-shell__bar { display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; padding: .7rem .9rem; border-bottom: 4px solid var(--ink); background: var(--paper); }
 .map-canvas { position: relative; background: #7fd4f5; }
 html[data-theme='dark'] .map-canvas { background: #0e3a52; }
+html[data-theme='dark'] { --board-empty: #5d7b93; }
+/* The map is drawn close to square now, so it can simply fill the width. */
+.map-canvas { overflow-x: auto; }
 .map-canvas svg { display: block; width: 100%; height: auto; touch-action: manipulation; }
 
 @media (max-width: 760px) {
   /* Shrunk to phone width the boards become too small to tap, so let the map
      scroll sideways at a usable size instead. */
-  .map-canvas { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  .map-canvas svg { width: 1100px; max-width: none; }
+  .map-canvas { -webkit-overflow-scrolling: touch; }
+  .map-canvas svg { width: 680px; max-width: none; }
   .map-canvas::after {
     content: 'Swipe the map sideways \2192';
     position: sticky; left: 0; bottom: 0; display: block;
@@ -376,10 +382,10 @@ html[data-theme='dark'] .map-canvas { background: #0e3a52; }
 }
 
 /* The board itself */
-.map-board { fill: #bdeafd; stroke: var(--ink); stroke-width: 6; }
+.map-board { fill: #bdeafd; stroke: var(--ink); stroke-width: 8; }
 html[data-theme='dark'] .map-board { fill: #123c55; }
-.map-tile-a { fill: #ffffff; opacity: .45; }
-.map-tile-b { fill: #6ec9f0; opacity: .25; }
+.map-tile-a { fill: #ffffff; opacity: .62; }
+.map-tile-b { fill: #4cc2ef; opacity: .42; }
 html[data-theme='dark'] .map-tile-a { fill: #1b5878; opacity: .5; }
 html[data-theme='dark'] .map-tile-b { fill: #0b2f45; opacity: .5; }
 
@@ -392,18 +398,18 @@ html[data-theme='dark'] .map-wall { stroke: #cdd9e4; }
 /* Poster tiles: the clickable bit */
 .map-slot { cursor: pointer; }
 .map-slot .slot-shadow { fill: rgba(8, 19, 28, .55); }
-.map-slot .slot-face { stroke: var(--ink); stroke-width: 3; }
+.map-slot .slot-face { stroke: var(--ink); stroke-width: 4; }
 .map-slot .slot-shine { fill: #fff; opacity: .32; }
-.map-slot text { font-family: var(--display); font-weight: 700; font-size: 15px; fill: #fff; pointer-events: none; paint-order: stroke; stroke: rgba(8,19,28,.55); stroke-width: 3px; }
+.map-slot text { font-family: var(--display); font-weight: 700; font-size: 34px; fill: #fff; pointer-events: none; paint-order: stroke; stroke: rgba(8,19,28,.6); stroke-width: 4px; }
 .map-slot .slot-lift { transition: transform .12s cubic-bezier(.3, 1.6, .5, 1); transform-box: fill-box; transform-origin: center; }
-.map-slot:hover .slot-lift, .map-slot:focus-visible .slot-lift { transform: translate(-3px, -5px) scale(1.18); }
+.map-slot:hover .slot-lift, .map-slot:focus-visible .slot-lift { transform: translate(-3px, -7px) scale(1.26) rotate(-3deg); }
 .map-slot:active .slot-lift { transform: translate(1px, 2px) scale(1.05); }
 .map-slot:focus-visible { outline: none; }
 .map-slot:focus-visible .slot-face { stroke: #ffd166; stroke-width: 5; }
 .map-slot--dim { opacity: .2; }
 .map-slot--seen .slot-face { stroke: #10b981; stroke-width: 5; }
 /* A board with no poster on it yet: still a real board, just plain. */
-.map-slot--free .slot-face { fill: var(--brand); }
+.map-slot--free .slot-face { fill: var(--board-empty); }
 .map-slot--hit { animation: slot-pop .45s ease; }
 @keyframes slot-pop {
   0% { transform: scale(1); } 40% { transform: scale(1.5) rotate(-6deg); } 100% { transform: scale(1); }
@@ -411,9 +417,9 @@ html[data-theme='dark'] .map-wall { stroke: #cdd9e4; }
 
 /* Furniture as bright labelled blocks */
 .map-furniture .furn-shadow { fill: rgba(8, 19, 28, .35); }
-.map-furniture .furn-face { stroke: var(--ink); stroke-width: 3; }
-.map-furniture text { font-family: var(--display); font-size: 15px; fill: var(--ink); font-weight: 700; }
-.map-furniture .furn-icon { font-size: 26px; }
+.map-furniture .furn-face { stroke: var(--ink); stroke-width: 3.5; }
+.map-furniture text { font-family: var(--display); font-size: 25px; fill: var(--ink); font-weight: 700; }
+.map-furniture .furn-icon { font-size: 42px; }
 
 /* The 13.5 x 6 m area the venue drawing actually gives dimensions for. */
 .map-measured { fill: none; stroke: var(--ink); stroke-width: 2.5; stroke-dasharray: 10 7; opacity: .5; }
@@ -424,6 +430,17 @@ html[data-theme='dark'] .map-wall { stroke: #cdd9e4; }
 
 .map-scalebar line { stroke: var(--ink); stroke-width: 3; stroke-linecap: round; }
 .map-scalebar text { font-family: var(--display); font-weight: 700; font-size: 15px; fill: var(--ink); }
+
+/* "Start here" flag by the stairs, where board 1 is. */
+.map-startflag .flag-pole { stroke: var(--ink); stroke-width: 4; stroke-linecap: round; }
+.map-startflag .flag-cloth { fill: #ff3d71; stroke: var(--ink); stroke-width: 3.5; }
+.map-startflag .flag-banner-shadow { fill: var(--ink); opacity: .35; }
+.map-startflag .flag-banner { fill: #ff3d71; stroke: var(--ink); stroke-width: 4; }
+.map-startflag .flag-banner-text {
+  font-family: var(--display); font-weight: 800; font-size: 34px; fill: #fff;
+  text-transform: uppercase; letter-spacing: .06em;
+  paint-order: stroke; stroke: var(--ink); stroke-width: 5px; stroke-linejoin: round;
+}
 
 .map-cluster-label-box { fill: var(--ink); }
 .map-cluster-label { font-family: var(--display); font-weight: 700; font-size: 17px; fill: #fff; text-transform: uppercase; letter-spacing: .09em; }
@@ -553,3 +570,164 @@ html[data-theme='dark'] .site-footer img { filter: invert(1) hue-rotate(180deg) 
 .viewer__stage:has(.viewer__preview) { justify-items: center; }
 .viewer__stage:has(.viewer__preview) { gap: 1rem; }
 .viewer__stage.is-rendering canvas { opacity: .55; transition: opacity .15s ease; }
+
+/* The Community Survey table is a link, so it should look like one. */
+.map-furniture .furn-link { cursor: pointer; }
+.map-furniture .furn-link .furn-face { stroke-width: 3.5; }
+.map-furniture .furn-link:hover .furn-face,
+.map-furniture .furn-link:focus-visible .furn-face { stroke: #b45309; stroke-width: 5; }
+.map-furniture .furn-link:focus-visible { outline: none; }
+
+/* ==========================================================================
+   The online room - the posters that are not in the foyer.
+
+   Same blocky, thick-outlined styling as the map, drawn as a browser window,
+   because a browser is where those posters are. It sits under the floor plan
+   on the map page and only appears when a poster is marked online.
+   ========================================================================== */
+
+.online-room { margin: 2.2rem 0 0; }
+
+.browser {
+  border: 4px solid var(--ink); border-radius: var(--radius);
+  box-shadow: var(--pop); overflow: hidden; background: var(--paper);
+}
+
+.browser__bar {
+  display: flex; align-items: center; gap: .7rem; flex-wrap: wrap;
+  padding: .6rem .9rem; border-bottom: 4px solid var(--ink);
+  background: linear-gradient(180deg, var(--paper), var(--paper-3));
+}
+.browser__dots { display: inline-flex; gap: .35rem; }
+.browser__dots i {
+  width: 14px; height: 14px; border-radius: 50%;
+  border: 2.5px solid var(--ink); display: block;
+}
+.browser__dots i:nth-child(1) { background: #ff5f57; }
+.browser__dots i:nth-child(2) { background: #ffd166; }
+.browser__dots i:nth-child(3) { background: #10b981; }
+.browser__tab {
+  font-family: var(--display); font-weight: 700; font-size: .92rem;
+  padding: .3rem .8rem; border: 3px solid var(--ink); border-radius: 999px;
+  background: var(--brand); color: #fff; white-space: nowrap;
+}
+.browser__url {
+  flex: 1 1 14rem; min-width: 0;
+  display: flex; align-items: center; gap: .4rem;
+  padding: .32rem .8rem; border: 3px solid var(--ink); border-radius: 999px;
+  background: var(--paper-2); color: var(--ink-soft);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .84rem;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.browser__caret {
+  width: 2px; height: 1em; background: var(--ink); margin-left: .1rem;
+  animation: blink 1.1s steps(1, end) infinite;
+}
+
+.browser__screen {
+  padding: 1.4rem 1.1rem 1.6rem;
+  background:
+    linear-gradient(rgba(11, 130, 198, .10), rgba(11, 130, 198, .10)),
+    repeating-linear-gradient(0deg, transparent 0 22px, rgba(8, 19, 28, .05) 22px 23px),
+    repeating-linear-gradient(90deg, transparent 0 22px, rgba(8, 19, 28, .05) 22px 23px),
+    var(--paper-2);
+}
+html[data-theme='dark'] .browser__screen {
+  background:
+    linear-gradient(rgba(11, 130, 198, .18), rgba(11, 130, 198, .18)),
+    repeating-linear-gradient(0deg, transparent 0 22px, rgba(233, 244, 252, .05) 22px 23px),
+    repeating-linear-gradient(90deg, transparent 0 22px, rgba(233, 244, 252, .05) 22px 23px),
+    var(--paper-2);
+}
+.browser__hello {
+  font-family: var(--display); font-size: clamp(1.4rem, 3.4vw, 2rem);
+  margin: 0 0 .3rem; letter-spacing: -.01em;
+}
+.browser__sub { margin: 0 0 1.2rem; color: var(--ink-soft); max-width: 60ch; }
+
+/* The cable map: a patch panel wired to every online poster. */
+.cable-map { position: relative; margin: 0 0 1.2rem; }
+.cable-map svg { width: 100%; height: auto; display: block; overflow: visible; }
+
+.wire { fill: none; stroke-linecap: round; }
+.wire--casing { stroke: var(--ink); stroke-width: 13; }
+.wire--core { stroke-width: 7; }
+.wire-plug { stroke: var(--ink); stroke-width: 3; }
+
+.hub__shadow { fill: rgba(8, 19, 28, .45); }
+.hub__face { fill: #1f2937; stroke: var(--ink); stroke-width: 4; }
+.hub__icon { font-size: 40px; }
+.hub__label {
+  font-family: var(--display); font-weight: 700; font-size: 17px; fill: #9fe7ff;
+  letter-spacing: .06em;
+}
+
+.to-foyer { cursor: pointer; }
+.to-foyer__label {
+  font-family: var(--display); font-weight: 700; font-size: 20px; fill: var(--ink);
+  paint-order: stroke; stroke: var(--paper); stroke-width: 5px;
+}
+.to-foyer:hover .wire--core, .to-foyer:focus-visible .wire--core { stroke: #ffd166; }
+
+.online-node { cursor: pointer; }
+.online-node__lift {
+  transition: transform .12s cubic-bezier(.3, 1.6, .5, 1);
+  transform-box: fill-box; transform-origin: center;
+}
+.online-node:hover .online-node__lift,
+.online-node:focus-visible .online-node__lift { transform: translate(-3px, -7px) scale(1.2) rotate(-3deg); }
+.node-shadow { fill: rgba(8, 19, 28, .55); }
+.node-face { stroke: var(--ink); stroke-width: 4; }
+.node-screen { fill: rgba(255, 255, 255, .85); stroke: var(--ink); stroke-width: 3; }
+.node-number {
+  font-family: var(--display); font-weight: 700; font-size: 20px; fill: #fff;
+  paint-order: stroke; stroke: rgba(8, 19, 28, .6); stroke-width: 4px;
+}
+.online-node:focus-visible .node-face { stroke: #ffd166; stroke-width: 6; }
+
+.cable-tip {
+  position: absolute; pointer-events: none; opacity: 0; transition: opacity .12s;
+  max-width: 270px; padding: .5rem .7rem; border: 3px solid var(--ink);
+  border-radius: 12px; background: var(--paper); box-shadow: 4px 4px 0 var(--ink);
+  font-size: .82rem; line-height: 1.3; z-index: 3;
+}
+.cable-tip.is-on { opacity: 1; }
+.cable-tip b { display: block; font-family: var(--display); margin-bottom: .15rem; }
+
+/* The same posters as plain text, for anybody who would rather read a list
+   than follow a cable - and for screen readers. */
+.online-list {
+  margin: 0; padding: 0 0 0 0; list-style: none;
+  display: grid; gap: .5rem; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+.online-list li {
+  display: grid; grid-template-columns: auto 1fr; gap: .1rem .6rem;
+  align-items: baseline; padding: .5rem .7rem;
+  border: 3px solid var(--ink); border-radius: 12px; background: var(--paper);
+}
+.online-list__n {
+  grid-row: span 2; font-family: var(--display); font-weight: 700;
+  min-width: 1.8rem; height: 1.8rem; display: grid; place-items: center;
+  border: 3px solid var(--ink); border-radius: 50%; background: var(--brand); color: #fff;
+  font-size: .8rem;
+}
+.online-list a { font-family: var(--display); font-weight: 700; font-size: .92rem; }
+.online-list__who { font-size: .78rem; color: var(--ink-soft); }
+
+.browser__status {
+  display: flex; align-items: center; gap: .5rem;
+  padding: .55rem .9rem; border-top: 4px solid var(--ink);
+  background: var(--paper); color: var(--ink-soft);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .8rem;
+}
+.browser__live {
+  width: 10px; height: 10px; border-radius: 50%; background: #10b981;
+  border: 2px solid var(--ink); animation: pulse-live 1.6s ease-in-out infinite;
+}
+
+@keyframes blink { 50% { opacity: 0; } }
+@keyframes pulse-live { 50% { opacity: .25; } }
+@media (prefers-reduced-motion: reduce) {
+  .browser__caret, .browser__live { animation: none; }
+  .online-node__lift { transition: none; }
+}

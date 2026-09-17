@@ -13,8 +13,18 @@
   "blurb": "Seen one you loved? Cast your vote in the best poster poll - it takes about ten seconds.",
   "opensText": "Voting opens at the conference."
  },
+ "survey": {
+  "//": "The Community Survey table by the stairs on the map. Put its link here and the table on the map becomes a link to it; leave it empty and clicking the table just explains what it is.",
+  "name": "Community Survey",
+  "url": "https://www.conftool.org/ipres2026/index.php?page=browseSessions&form_date=2026-09-23&form_session=120&mode=table&presentations=hide",
+  "blurb": "A table by the stairs where you can fill in the community survey."
+ },
  "hall": {
   "//": "Shown on the map page so people know when they can actually walk round.",
   "sessionText": "Poster sessions run alongside the coffee breaks."
+ },
+ "map": {
+  "//": "Boards with no poster on them. 'auto' shows them while the hall is being filled in and drops them once every poster in the room has a board; true always hides them, false always shows them.",
+  "hideEmptyBoards": "auto"
  }
 }

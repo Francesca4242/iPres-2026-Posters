@@ -1,733 +1,676 @@
 {
- "provisional": true,
- "note": "Wall counts, sizes and groups come from map/Poster layout.pptx and the plan is drawn to its scale, but the spacing within each group is an even guess and no poster has been put on a board yet. Set a board's \"poster\" here to fill it in.",
  "source": "map/Poster layout.pptx",
  "viewBox": [
   0,
   0,
-  1734,
-  756
+  2298,
+  981
  ],
+ "toScale": false,
  "scale": {
-  "pxPerMetre": 60,
+  "pxPerMetreX": 64,
+  "pxPerMetreY": 90,
   "margin": {
-   "left": 1.7,
-   "top": 2.9,
+   "left": 0.7,
+   "top": 0.9,
    "right": 0.7,
-   "bottom": 3.2
+   "bottom": 1.0
   }
  },
  "dimensions": {
-  "lengthMetres": 26.5,
-  "depthMetres": 6.5,
+  "lengthMetres": 34.5,
+  "depthMetres": 9.0,
   "boardWidthMetres": 1.25
  },
  "room": {
-  "x": 102.0,
-  "y": 174.0,
-  "w": 1590,
-  "h": 390
- },
- "scaleBarY": 696.0,
- "measuredArea": {
-  "x": 102.0,
-  "y": 196.8,
-  "w": 810,
-  "h": 360,
-  "label": "13.5 m × 6 m"
+  "x": 44.8,
+  "y": 81.0,
+  "w": 2208,
+  "h": 810
  },
  "furniture": [
   {
-   "kind": "entrance",
-   "label": "Entrance",
-   "x": 27.0,
-   "y": 294.0,
-   "w": 51,
-   "h": 150
-  },
-  {
-   "kind": "coffee",
-   "label": "Coffee",
-   "x": 990.0,
-   "y": 36.0,
-   "w": 162,
-   "h": 102
-  },
-  {
    "kind": "stairs",
-   "label": "Stairs",
-   "x": 1596.0,
-   "y": 438.0,
-   "w": 96,
-   "h": 126
+   "label": "Stairs up",
+   "x": 1792.0,
+   "y": 720.0,
+   "w": 448,
+   "h": 171
+  },
+  {
+   "kind": "survey",
+   "label": "Community Survey",
+   "x": 1939.2,
+   "y": 567.0,
+   "w": 115,
+   "h": 72
   }
  ],
- "floorPlan": {
-  "image": "assets/img/floorplan.png",
-  "x": -23.4,
-  "y": -264.9,
-  "w": 2252.0,
-  "h": 912.8
- },
  "counts": {
-  "walls": 25,
+  "walls": 22,
   "slots": 42,
   "assigned": 0
  },
- "clusters": [
+ "walls": [
   {
-   "id": "A",
-   "name": "Havnegade Block",
-   "hint": "Nine double-sided walls along the top of the open area.",
-   "labelX": 522.0,
-   "labelY": 105.0,
-   "walls": [
+   "id": "X248-1",
+   "group": 5,
+   "kind": "run",
+   "hint": "Free-standing wall, one poster on each face.",
+   "x1": 1632.0,
+   "y1": 891.0,
+   "x2": 1632.0,
+   "y2": 778.5,
+   "thickness": 9.0,
+   "slots": [
     {
-     "id": "A1",
-     "x1": 162.0,
-     "y1": 174.0,
-     "x2": 162.0,
-     "y2": 249.0,
-     "thickness": 6.0,
-     "kind": "fin",
-     "slots": [
-      {
-       "id": "A1a",
-       "number": 1,
-       "x": 142.8,
-       "y": 211.5,
-       "facing": "west",
-       "poster": null
-      },
-      {
-       "id": "A1b",
-       "number": 2,
-       "x": 181.2,
-       "y": 211.5,
-       "facing": "east",
-       "poster": null
-      }
-     ]
+     "id": "X248-1e",
+     "number": 1,
+     "x": 1689.0,
+     "y": 834.8,
+     "facing": "east",
+     "poster": null
     },
     {
-     "id": "A2",
-     "x1": 252.0,
-     "y1": 174.0,
-     "x2": 252.0,
-     "y2": 249.0,
-     "thickness": 6.0,
-     "kind": "fin",
-     "slots": [
-      {
-       "id": "A2a",
-       "number": 3,
-       "x": 232.8,
-       "y": 211.5,
-       "facing": "west",
-       "poster": null
-      },
-      {
-       "id": "A2b",
-       "number": 4,
-       "x": 271.2,
-       "y": 211.5,
-       "facing": "east",
-       "poster": null
-      }
-     ]
-    },
-    {
-     "id": "A3",
-     "x1": 342.0,
-     "y1": 174.0,
-     "x2": 342.0,
-     "y2": 249.0,
-     "thickness": 6.0,
-     "kind": "fin",
-     "slots": [
-      {
-       "id": "A3a",
-       "number": 5,
-       "x": 322.8,
-       "y": 211.5,
-       "facing": "west",
-       "poster": null
-      },
-      {
-       "id": "A3b",
-       "number": 6,
-       "x": 361.2,
-       "y": 211.5,
-       "facing": "east",
-       "poster": null
-      }
-     ]
-    },
-    {
-     "id": "A4",
-     "x1": 432.0,
-     "y1": 174.0,
-     "x2": 432.0,
-     "y2": 249.0,
-     "thickness": 6.0,
-     "kind": "fin",
-     "slots": [
-      {
-       "id": "A4a",
-       "number": 7,
-       "x": 412.8,
-       "y": 211.5,
-       "facing": "west",
-       "poster": null
-      },
-      {
-       "id": "A4b",
-       "number": 8,
-       "x": 451.2,
-       "y": 211.5,
-       "facing": "east",
-       "poster": null
-      }
-     ]
-    },
-    {
-     "id": "A5",
-     "x1": 522.0,
-     "y1": 174.0,
-     "x2": 522.0,
-     "y2": 249.0,
-     "thickness": 6.0,
-     "kind": "fin",
-     "slots": [
-      {
-       "id": "A5a",
-       "number": 9,
-       "x": 502.8,
-       "y": 211.5,
-       "facing": "west",
-       "poster": null
-      },
-      {
-       "id": "A5b",
-       "number": 10,
-       "x": 541.2,
-       "y": 211.5,
-       "facing": "east",
-       "poster": null
-      }
-     ]
-    },
-    {
-     "id": "A6",
-     "x1": 612.0,
-     "y1": 174.0,
-     "x2": 612.0,
-     "y2": 249.0,
-     "thickness": 6.0,
-     "kind": "fin",
-     "slots": [
-      {
-       "id": "A6a",
-       "number": 11,
-       "x": 592.8,
-       "y": 211.5,
-       "facing": "west",
-       "poster": null
-      },
-      {
-       "id": "A6b",
-       "number": 12,
-       "x": 631.2,
-       "y": 211.5,
-       "facing": "east",
-       "poster": null
-      }
-     ]
-    },
-    {
-     "id": "A7",
-     "x1": 702.0,
-     "y1": 174.0,
-     "x2": 702.0,
-     "y2": 249.0,
-     "thickness": 6.0,
-     "kind": "fin",
-     "slots": [
-      {
-       "id": "A7a",
-       "number": 13,
-       "x": 682.8,
-       "y": 211.5,
-       "facing": "west",
-       "poster": null
-      },
-      {
-       "id": "A7b",
-       "number": 14,
-       "x": 721.2,
-       "y": 211.5,
-       "facing": "east",
-       "poster": null
-      }
-     ]
-    },
-    {
-     "id": "A8",
-     "x1": 792.0,
-     "y1": 174.0,
-     "x2": 792.0,
-     "y2": 249.0,
-     "thickness": 6.0,
-     "kind": "fin",
-     "slots": [
-      {
-       "id": "A8a",
-       "number": 15,
-       "x": 772.8,
-       "y": 211.5,
-       "facing": "west",
-       "poster": null
-      },
-      {
-       "id": "A8b",
-       "number": 16,
-       "x": 811.2,
-       "y": 211.5,
-       "facing": "east",
-       "poster": null
-      }
-     ]
-    },
-    {
-     "id": "A9",
-     "x1": 882.0,
-     "y1": 174.0,
-     "x2": 882.0,
-     "y2": 249.0,
-     "thickness": 6.0,
-     "kind": "fin",
-     "slots": [
-      {
-       "id": "A9a",
-       "number": 17,
-       "x": 862.8,
-       "y": 211.5,
-       "facing": "west",
-       "poster": null
-      },
-      {
-       "id": "A9b",
-       "number": 18,
-       "x": 901.2,
-       "y": 211.5,
-       "facing": "east",
-       "poster": null
-      }
-     ]
+     "id": "X248-1w",
+     "number": 4,
+     "x": 1575.0,
+     "y": 834.8,
+     "facing": "west",
+     "poster": null
     }
    ]
   },
   {
-   "id": "E",
-   "name": "Kaffe Korner",
-   "hint": "Two boards flat against the bottom wall, by the coffee.",
-   "labelX": 342.0,
-   "labelY": 624.0,
-   "walls": [
+   "id": "X248-2",
+   "group": 5,
+   "kind": "run",
+   "hint": "Free-standing wall, one poster on each face.",
+   "x1": 1632.0,
+   "y1": 765.0,
+   "x2": 1632.0,
+   "y2": 652.5,
+   "thickness": 9.0,
+   "slots": [
     {
-     "id": "E1",
-     "x1": 232.5,
-     "y1": 564.0,
-     "x2": 307.5,
-     "y2": 564.0,
-     "thickness": 6.0,
-     "kind": "flat",
-     "slots": [
-      {
-       "id": "E1",
-       "number": 19,
-       "x": 270.0,
-       "y": 538.8,
-       "facing": "north",
-       "poster": null
-      }
-     ]
+     "id": "X248-2e",
+     "number": 2,
+     "x": 1689.0,
+     "y": 708.8,
+     "facing": "east",
+     "poster": null
     },
     {
-     "id": "E2",
-     "x1": 373.5,
-     "y1": 564.0,
-     "x2": 448.5,
-     "y2": 564.0,
-     "thickness": 6.0,
-     "kind": "flat",
-     "slots": [
-      {
-       "id": "E2",
-       "number": 20,
-       "x": 411.0,
-       "y": 538.8,
-       "facing": "north",
-       "poster": null
-      }
-     ]
+     "id": "X248-2w",
+     "number": 5,
+     "x": 1575.0,
+     "y": 708.8,
+     "facing": "west",
+     "poster": null
     }
    ]
   },
   {
-   "id": "D",
-   "name": "Strøget",
-   "hint": "Five double-sided walls forming the main thoroughfare.",
-   "labelX": 972.0,
-   "labelY": 624.0,
-   "walls": [
+   "id": "X248-3",
+   "group": 5,
+   "kind": "run",
+   "hint": "Free-standing wall, one poster on each face.",
+   "x1": 1632.0,
+   "y1": 639.0,
+   "x2": 1632.0,
+   "y2": 526.5,
+   "thickness": 9.0,
+   "slots": [
     {
-     "id": "D1",
-     "x1": 792.0,
-     "y1": 564.0,
-     "x2": 792.0,
-     "y2": 489.0,
-     "thickness": 6.0,
-     "kind": "fin",
-     "slots": [
-      {
-       "id": "D1a",
-       "number": 21,
-       "x": 772.8,
-       "y": 526.5,
-       "facing": "west",
-       "poster": null
-      },
-      {
-       "id": "D1b",
-       "number": 22,
-       "x": 811.2,
-       "y": 526.5,
-       "facing": "east",
-       "poster": null
-      }
-     ]
+     "id": "X248-3e",
+     "number": 3,
+     "x": 1689.0,
+     "y": 582.8,
+     "facing": "east",
+     "poster": null
     },
     {
-     "id": "D2",
-     "x1": 882.0,
-     "y1": 564.0,
-     "x2": 882.0,
-     "y2": 489.0,
-     "thickness": 6.0,
-     "kind": "fin",
-     "slots": [
-      {
-       "id": "D2a",
-       "number": 23,
-       "x": 862.8,
-       "y": 526.5,
-       "facing": "west",
-       "poster": null
-      },
-      {
-       "id": "D2b",
-       "number": 24,
-       "x": 901.2,
-       "y": 526.5,
-       "facing": "east",
-       "poster": null
-      }
-     ]
-    },
-    {
-     "id": "D3",
-     "x1": 972.0,
-     "y1": 564.0,
-     "x2": 972.0,
-     "y2": 489.0,
-     "thickness": 6.0,
-     "kind": "fin",
-     "slots": [
-      {
-       "id": "D3a",
-       "number": 25,
-       "x": 952.8,
-       "y": 526.5,
-       "facing": "west",
-       "poster": null
-      },
-      {
-       "id": "D3b",
-       "number": 26,
-       "x": 991.2,
-       "y": 526.5,
-       "facing": "east",
-       "poster": null
-      }
-     ]
-    },
-    {
-     "id": "D4",
-     "x1": 1062.0,
-     "y1": 564.0,
-     "x2": 1062.0,
-     "y2": 489.0,
-     "thickness": 6.0,
-     "kind": "fin",
-     "slots": [
-      {
-       "id": "D4a",
-       "number": 27,
-       "x": 1042.8,
-       "y": 526.5,
-       "facing": "west",
-       "poster": null
-      },
-      {
-       "id": "D4b",
-       "number": 28,
-       "x": 1081.2,
-       "y": 526.5,
-       "facing": "east",
-       "poster": null
-      }
-     ]
-    },
-    {
-     "id": "D5",
-     "x1": 1152.0,
-     "y1": 564.0,
-     "x2": 1152.0,
-     "y2": 489.0,
-     "thickness": 6.0,
-     "kind": "fin",
-     "slots": [
-      {
-       "id": "D5a",
-       "number": 29,
-       "x": 1132.8,
-       "y": 526.5,
-       "facing": "west",
-       "poster": null
-      },
-      {
-       "id": "D5b",
-       "number": 30,
-       "x": 1171.2,
-       "y": 526.5,
-       "facing": "east",
-       "poster": null
-      }
-     ]
+     "id": "X248-3w",
+     "number": 6,
+     "x": 1575.0,
+     "y": 582.8,
+     "facing": "west",
+     "poster": null
     }
    ]
   },
   {
-   "id": "B",
-   "name": "Nyhavn Row",
-   "hint": "Six boards flat against the top wall.",
-   "labelX": 1353.0,
-   "labelY": 105.0,
-   "walls": [
+   "id": "X212-1",
+   "group": 4,
+   "kind": "run",
+   "hint": "Free-standing wall, one poster on each face.",
+   "x1": 1401.6,
+   "y1": 891.0,
+   "x2": 1401.6,
+   "y2": 778.5,
+   "thickness": 9.0,
+   "slots": [
     {
-     "id": "B1",
-     "x1": 1090.5,
-     "y1": 174.0,
-     "x2": 1165.5,
-     "y2": 174.0,
-     "thickness": 6.0,
-     "kind": "flat",
-     "slots": [
-      {
-       "id": "B1",
-       "number": 31,
-       "x": 1128.0,
-       "y": 199.2,
-       "facing": "south",
-       "poster": null
-      }
-     ]
+     "id": "X212-1e",
+     "number": 7,
+     "x": 1458.6,
+     "y": 834.8,
+     "facing": "east",
+     "poster": null
     },
     {
-     "id": "B2",
-     "x1": 1180.5,
-     "y1": 174.0,
-     "x2": 1255.5,
-     "y2": 174.0,
-     "thickness": 6.0,
-     "kind": "flat",
-     "slots": [
-      {
-       "id": "B2",
-       "number": 32,
-       "x": 1218.0,
-       "y": 199.2,
-       "facing": "south",
-       "poster": null
-      }
-     ]
-    },
-    {
-     "id": "B3",
-     "x1": 1270.5,
-     "y1": 174.0,
-     "x2": 1345.5,
-     "y2": 174.0,
-     "thickness": 6.0,
-     "kind": "flat",
-     "slots": [
-      {
-       "id": "B3",
-       "number": 33,
-       "x": 1308.0,
-       "y": 199.2,
-       "facing": "south",
-       "poster": null
-      }
-     ]
-    },
-    {
-     "id": "B4",
-     "x1": 1360.5,
-     "y1": 174.0,
-     "x2": 1435.5,
-     "y2": 174.0,
-     "thickness": 6.0,
-     "kind": "flat",
-     "slots": [
-      {
-       "id": "B4",
-       "number": 34,
-       "x": 1398.0,
-       "y": 199.2,
-       "facing": "south",
-       "poster": null
-      }
-     ]
-    },
-    {
-     "id": "B5",
-     "x1": 1450.5,
-     "y1": 174.0,
-     "x2": 1525.5,
-     "y2": 174.0,
-     "thickness": 6.0,
-     "kind": "flat",
-     "slots": [
-      {
-       "id": "B5",
-       "number": 35,
-       "x": 1488.0,
-       "y": 199.2,
-       "facing": "south",
-       "poster": null
-      }
-     ]
-    },
-    {
-     "id": "B6",
-     "x1": 1540.5,
-     "y1": 174.0,
-     "x2": 1615.5,
-     "y2": 174.0,
-     "thickness": 6.0,
-     "kind": "flat",
-     "slots": [
-      {
-       "id": "B6",
-       "number": 36,
-       "x": 1578.0,
-       "y": 199.2,
-       "facing": "south",
-       "poster": null
-      }
-     ]
+     "id": "X212-1w",
+     "number": 10,
+     "x": 1344.6,
+     "y": 834.8,
+     "facing": "west",
+     "poster": null
     }
    ]
   },
   {
-   "id": "C",
-   "name": "Kastellet Corner",
-   "hint": "Three double-sided walls in the far corner.",
-   "labelX": 1428.0,
-   "labelY": 624.0,
-   "walls": [
+   "id": "X212-2",
+   "group": 4,
+   "kind": "run",
+   "hint": "Free-standing wall, one poster on each face.",
+   "x1": 1401.6,
+   "y1": 765.0,
+   "x2": 1401.6,
+   "y2": 652.5,
+   "thickness": 9.0,
+   "slots": [
     {
-     "id": "C1",
-     "x1": 1338.0,
-     "y1": 564.0,
-     "x2": 1338.0,
-     "y2": 489.0,
-     "thickness": 6.0,
-     "kind": "fin",
-     "slots": [
-      {
-       "id": "C1a",
-       "number": 37,
-       "x": 1318.8,
-       "y": 526.5,
-       "facing": "west",
-       "poster": null
-      },
-      {
-       "id": "C1b",
-       "number": 38,
-       "x": 1357.2,
-       "y": 526.5,
-       "facing": "east",
-       "poster": null
-      }
-     ]
+     "id": "X212-2e",
+     "number": 8,
+     "x": 1458.6,
+     "y": 708.8,
+     "facing": "east",
+     "poster": null
     },
     {
-     "id": "C2",
-     "x1": 1428.0,
-     "y1": 564.0,
-     "x2": 1428.0,
-     "y2": 489.0,
-     "thickness": 6.0,
-     "kind": "fin",
-     "slots": [
-      {
-       "id": "C2a",
-       "number": 39,
-       "x": 1408.8,
-       "y": 526.5,
-       "facing": "west",
-       "poster": null
-      },
-      {
-       "id": "C2b",
-       "number": 40,
-       "x": 1447.2,
-       "y": 526.5,
-       "facing": "east",
-       "poster": null
-      }
-     ]
+     "id": "X212-2w",
+     "number": 11,
+     "x": 1344.6,
+     "y": 708.8,
+     "facing": "west",
+     "poster": null
+    }
+   ]
+  },
+  {
+   "id": "X212-3",
+   "group": 4,
+   "kind": "run",
+   "hint": "Free-standing wall, one poster on each face.",
+   "x1": 1401.6,
+   "y1": 639.0,
+   "x2": 1401.6,
+   "y2": 526.5,
+   "thickness": 9.0,
+   "slots": [
+    {
+     "id": "X212-3e",
+     "number": 9,
+     "x": 1458.6,
+     "y": 582.8,
+     "facing": "east",
+     "poster": null
     },
     {
-     "id": "C3",
-     "x1": 1518.0,
-     "y1": 564.0,
-     "x2": 1518.0,
-     "y2": 489.0,
-     "thickness": 6.0,
-     "kind": "fin",
-     "slots": [
-      {
-       "id": "C3a",
-       "number": 41,
-       "x": 1498.8,
-       "y": 526.5,
-       "facing": "west",
-       "poster": null
-      },
-      {
-       "id": "C3b",
-       "number": 42,
-       "x": 1537.2,
-       "y": 526.5,
-       "facing": "east",
-       "poster": null
-      }
-     ]
+     "id": "X212-3w",
+     "number": 12,
+     "x": 1344.6,
+     "y": 582.8,
+     "facing": "west",
+     "poster": null
+    }
+   ]
+  },
+  {
+   "id": "X176-1",
+   "group": 3,
+   "kind": "run",
+   "hint": "Free-standing wall, one poster on each face.",
+   "x1": 1171.2,
+   "y1": 765.0,
+   "x2": 1171.2,
+   "y2": 652.5,
+   "thickness": 9.0,
+   "slots": [
+    {
+     "id": "X176-1e",
+     "number": 13,
+     "x": 1228.2,
+     "y": 708.8,
+     "facing": "east",
+     "poster": null
+    },
+    {
+     "id": "X176-1w",
+     "number": 15,
+     "x": 1114.2,
+     "y": 708.8,
+     "facing": "west",
+     "poster": null
+    }
+   ]
+  },
+  {
+   "id": "X176-2",
+   "group": 3,
+   "kind": "run",
+   "hint": "Free-standing wall, one poster on each face.",
+   "x1": 1171.2,
+   "y1": 639.0,
+   "x2": 1171.2,
+   "y2": 526.5,
+   "thickness": 9.0,
+   "slots": [
+    {
+     "id": "X176-2e",
+     "number": 14,
+     "x": 1228.2,
+     "y": 582.8,
+     "facing": "east",
+     "poster": null
+    },
+    {
+     "id": "X176-2w",
+     "number": 16,
+     "x": 1114.2,
+     "y": 582.8,
+     "facing": "west",
+     "poster": null
+    }
+   ]
+  },
+  {
+   "id": "X140-1",
+   "group": 3,
+   "kind": "run",
+   "hint": "Free-standing wall, one poster on each face.",
+   "x1": 940.8,
+   "y1": 891.0,
+   "x2": 940.8,
+   "y2": 778.5,
+   "thickness": 9.0,
+   "slots": [
+    {
+     "id": "X140-1e",
+     "number": 17,
+     "x": 997.8,
+     "y": 834.8,
+     "facing": "east",
+     "poster": null
+    },
+    {
+     "id": "X140-1w",
+     "number": 20,
+     "x": 883.8,
+     "y": 834.8,
+     "facing": "west",
+     "poster": null
+    }
+   ]
+  },
+  {
+   "id": "X140-2",
+   "group": 3,
+   "kind": "run",
+   "hint": "Free-standing wall, one poster on each face.",
+   "x1": 940.8,
+   "y1": 765.0,
+   "x2": 940.8,
+   "y2": 652.5,
+   "thickness": 9.0,
+   "slots": [
+    {
+     "id": "X140-2e",
+     "number": 18,
+     "x": 997.8,
+     "y": 708.8,
+     "facing": "east",
+     "poster": null
+    },
+    {
+     "id": "X140-2w",
+     "number": 21,
+     "x": 883.8,
+     "y": 708.8,
+     "facing": "west",
+     "poster": null
+    }
+   ]
+  },
+  {
+   "id": "X140-3",
+   "group": 3,
+   "kind": "run",
+   "hint": "Free-standing wall, one poster on each face.",
+   "x1": 940.8,
+   "y1": 639.0,
+   "x2": 940.8,
+   "y2": 526.5,
+   "thickness": 9.0,
+   "slots": [
+    {
+     "id": "X140-3e",
+     "number": 19,
+     "x": 997.8,
+     "y": 582.8,
+     "facing": "east",
+     "poster": null
+    },
+    {
+     "id": "X140-3w",
+     "number": 22,
+     "x": 883.8,
+     "y": 582.8,
+     "facing": "west",
+     "poster": null
+    }
+   ]
+  },
+  {
+   "id": "X110-1",
+   "group": 1,
+   "kind": "run",
+   "hint": "Free-standing wall, one poster on each face.",
+   "x1": 748.8,
+   "y1": 81.0,
+   "x2": 748.8,
+   "y2": 193.5,
+   "thickness": 9.0,
+   "slots": [
+    {
+     "id": "X110-1e",
+     "number": 23,
+     "x": 805.8,
+     "y": 137.2,
+     "facing": "east",
+     "poster": null
+    },
+    {
+     "id": "X110-1w",
+     "number": 26,
+     "x": 691.8,
+     "y": 137.2,
+     "facing": "west",
+     "poster": null
+    }
+   ]
+  },
+  {
+   "id": "X110-2",
+   "group": 1,
+   "kind": "run",
+   "hint": "Free-standing wall, one poster on each face.",
+   "x1": 748.8,
+   "y1": 207.0,
+   "x2": 748.8,
+   "y2": 319.5,
+   "thickness": 9.0,
+   "slots": [
+    {
+     "id": "X110-2e",
+     "number": 24,
+     "x": 805.8,
+     "y": 263.2,
+     "facing": "east",
+     "poster": null
+    },
+    {
+     "id": "X110-2w",
+     "number": 27,
+     "x": 691.8,
+     "y": 263.2,
+     "facing": "west",
+     "poster": null
+    }
+   ]
+  },
+  {
+   "id": "X110-3",
+   "group": 1,
+   "kind": "run",
+   "hint": "Free-standing wall, one poster on each face.",
+   "x1": 748.8,
+   "y1": 333.0,
+   "x2": 748.8,
+   "y2": 445.5,
+   "thickness": 9.0,
+   "slots": [
+    {
+     "id": "X110-3e",
+     "number": 25,
+     "x": 805.8,
+     "y": 389.2,
+     "facing": "east",
+     "poster": null
+    },
+    {
+     "id": "X110-3w",
+     "number": 28,
+     "x": 691.8,
+     "y": 389.2,
+     "facing": "west",
+     "poster": null
+    }
+   ]
+  },
+  {
+   "id": "F714",
+   "group": 2,
+   "kind": "flat",
+   "hint": "Single-sided board, one poster facing into the room.",
+   "x1": 461.8,
+   "y1": 891.0,
+   "x2": 541.8,
+   "y2": 891.0,
+   "thickness": 9.0,
+   "slots": [
+    {
+     "id": "F714",
+     "number": 29,
+     "x": 501.8,
+     "y": 853.2,
+     "facing": "north",
+     "poster": null
+    }
+   ]
+  },
+  {
+   "id": "F479",
+   "group": 2,
+   "kind": "flat",
+   "hint": "Single-sided board, one poster facing into the room.",
+   "x1": 311.4,
+   "y1": 891.0,
+   "x2": 391.4,
+   "y2": 891.0,
+   "thickness": 9.0,
+   "slots": [
+    {
+     "id": "F479",
+     "number": 30,
+     "x": 351.4,
+     "y": 853.2,
+     "facing": "north",
+     "poster": null
+    }
+   ]
+  },
+  {
+   "id": "X70-1",
+   "group": 1,
+   "kind": "run",
+   "hint": "Free-standing wall, one poster on each face.",
+   "x1": 492.8,
+   "y1": 81.0,
+   "x2": 492.8,
+   "y2": 193.5,
+   "thickness": 9.0,
+   "slots": [
+    {
+     "id": "X70-1e",
+     "number": 31,
+     "x": 549.8,
+     "y": 137.2,
+     "facing": "east",
+     "poster": null
+    },
+    {
+     "id": "X70-1w",
+     "number": 34,
+     "x": 435.8,
+     "y": 137.2,
+     "facing": "west",
+     "poster": null
+    }
+   ]
+  },
+  {
+   "id": "X70-2",
+   "group": 1,
+   "kind": "run",
+   "hint": "Free-standing wall, one poster on each face.",
+   "x1": 492.8,
+   "y1": 207.0,
+   "x2": 492.8,
+   "y2": 319.5,
+   "thickness": 9.0,
+   "slots": [
+    {
+     "id": "X70-2e",
+     "number": 32,
+     "x": 549.8,
+     "y": 263.2,
+     "facing": "east",
+     "poster": null
+    },
+    {
+     "id": "X70-2w",
+     "number": 35,
+     "x": 435.8,
+     "y": 263.2,
+     "facing": "west",
+     "poster": null
+    }
+   ]
+  },
+  {
+   "id": "X70-3",
+   "group": 1,
+   "kind": "run",
+   "hint": "Free-standing wall, one poster on each face.",
+   "x1": 492.8,
+   "y1": 333.0,
+   "x2": 492.8,
+   "y2": 445.5,
+   "thickness": 9.0,
+   "slots": [
+    {
+     "id": "X70-3e",
+     "number": 33,
+     "x": 549.8,
+     "y": 389.2,
+     "facing": "east",
+     "poster": null
+    },
+    {
+     "id": "X70-3w",
+     "number": 36,
+     "x": 435.8,
+     "y": 389.2,
+     "facing": "west",
+     "poster": null
+    }
+   ]
+  },
+  {
+   "id": "X30-1",
+   "group": 1,
+   "kind": "run",
+   "hint": "Free-standing wall, one poster on each face.",
+   "x1": 236.8,
+   "y1": 81.0,
+   "x2": 236.8,
+   "y2": 193.5,
+   "thickness": 9.0,
+   "slots": [
+    {
+     "id": "X30-1e",
+     "number": 37,
+     "x": 293.8,
+     "y": 137.2,
+     "facing": "east",
+     "poster": null
+    },
+    {
+     "id": "X30-1w",
+     "number": 40,
+     "x": 179.8,
+     "y": 137.2,
+     "facing": "west",
+     "poster": null
+    }
+   ]
+  },
+  {
+   "id": "X30-2",
+   "group": 1,
+   "kind": "run",
+   "hint": "Free-standing wall, one poster on each face.",
+   "x1": 236.8,
+   "y1": 207.0,
+   "x2": 236.8,
+   "y2": 319.5,
+   "thickness": 9.0,
+   "slots": [
+    {
+     "id": "X30-2e",
+     "number": 38,
+     "x": 293.8,
+     "y": 263.2,
+     "facing": "east",
+     "poster": null
+    },
+    {
+     "id": "X30-2w",
+     "number": 41,
+     "x": 179.8,
+     "y": 263.2,
+     "facing": "west",
+     "poster": null
+    }
+   ]
+  },
+  {
+   "id": "X30-3",
+   "group": 1,
+   "kind": "run",
+   "hint": "Free-standing wall, one poster on each face.",
+   "x1": 236.8,
+   "y1": 333.0,
+   "x2": 236.8,
+   "y2": 445.5,
+   "thickness": 9.0,
+   "slots": [
+    {
+     "id": "X30-3e",
+     "number": 39,
+     "x": 293.8,
+     "y": 389.2,
+     "facing": "east",
+     "poster": null
+    },
+    {
+     "id": "X30-3w",
+     "number": 42,
+     "x": 179.8,
+     "y": 389.2,
+     "facing": "west",
+     "poster": null
     }
    ]
   }

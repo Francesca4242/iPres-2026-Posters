@@ -13,7 +13,8 @@ hall layout? See [ADDING-POSTERS.md](ADDING-POSTERS.md).**
 | `index.html` | Landing page: counts, the eight themes, trail teasers, a shuffle button |
 | `posters.html` | Every poster, searchable across titles, abstracts, authors, institutions and keywords; filter by theme; sort by walk order, title, author or theme |
 | `poster.html?id=…` | One poster: the PDF readable in the page (paged, zoomable, downloadable), the full abstract, authors with their institutions, keywords, its board number, and the trails it is on |
-| `map.html` | The foyer drawn to scale from the venue plan: 25 walls, 42 numbered boards, a metre grid and a scale bar. Click a board for what is on it; once posters are assigned they colour by theme and trails draw their route; toggle the scanned floor plan underneath, registered to the same grid |
+| `online.html` | The **Online Room**: the posters that are not in the foyer, drawn as a patch panel with a cable running out to each one. Redrawn narrow and tall on a phone so the buttons stay tappable |
+| `map.html` | The foyer as a game board: 22 walls, 42 numbered buttons, the staircase you arrive by and the Community Survey table. Board 1 is the one nearest the stairs and the numbers count away from it. Click a board for what is on it; once posters are assigned they colour by theme and trails draw their route. |
 | `trails.html` | Twelve themed walks through the hall, plus a quiz that picks one for you |
 
 Running through all of them: a **Vote** button wired to the best-poster poll, a
@@ -51,8 +52,12 @@ tools/poster_files.csv┘                                      │
   institutions, keywords, topics, themes, orientation, whether it is presented
   online, and the path to its PDF (or `null` if it has not arrived). Regenerate
   with `python3 tools/build_data.py`.
-* **`data/layout.json`** — the hall: 25 walls in five groups and 42 numbered
-  boards, drawn to the scale of the venue plan. **No poster is on a board yet**
+* **`data/layout.json`** — the hall: 22 walls and 42 numbered boards, generated
+  by `tools/build_layout.py`. Deliberately not to scale — the short side of the
+  foyer is stretched so the boards are big enough to tap — but every board keeps
+  its real order and side of the room. Which poster is on which board comes
+  from the `poster_location` column of the CSV, not from this file. **No poster
+  is on a board yet**
   — set a board's `poster` to a poster id to place one, and the map, the
   gallery and the trails light up around it. Posters marked as presented online
   get no board, but stay everywhere else on the site.
@@ -96,18 +101,18 @@ one by editing that table; nothing else needs to change.
 ## Layout of the repository
 
 ```
-index.html posters.html poster.html map.html trails.html
+index.html posters.html poster.html map.html online.html trails.html
 assets/css/site.css          one stylesheet for every page
 assets/js/site.js            shared: data loading, chrome, passport, PDF rendering
 assets/thumbs/               pre-rendered gallery thumbnails, one per poster
 assets/js/trails.js          the trail definitions and the quiz
-assets/img/floorplan.png     the venue plan from map/Poster layout.pptx
 data/                        posters.json, layout.json, config.json
 posters/                     the poster PDFs
 iPRES2026_Logos/             conference logos
 tools/                       the four Python scripts, plus the filename overrides
 poster_metadata.csv          the source of truth for all poster metadata; its
                              file_name column says which PDF belongs to which row
+assets/img/floorplan.png     scan of the venue plan, kept for reference only
 map/Poster layout.pptx       the venue's wall plan, where the map numbers come from
 ```
 

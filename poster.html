@@ -83,7 +83,7 @@
     ? `<dt>Where to find it</dt><dd>Presented <strong>online</strong>, so there is no board
          for it in the hall &mdash; this page is where to read it.</dd>`
     : poster.slot
-      ? `<dt>Where to find it</dt><dd>Board <strong>#${poster.slot.number}</strong> (${esc(poster.slot.clusterName)})
+      ? `<dt>Where to find it</dt><dd>Board <strong>#${poster.slot.number}</strong>
            &middot; <a href="map.html?poster=${encodeURIComponent(poster.id)}">show me on the map</a>
            <br><small>Positions are provisional until the hall is set up.</small></dd>`
       : '';
@@ -107,6 +107,8 @@
         </div>
         ${poster.authors.every((a) => !(a.affiliations || []).length) && poster.organisations.length
           ? `<div><dt>Institution</dt><dd>${poster.organisations.map(esc).join('<br>')}</dd></div>` : ''}
+        ${poster.presenting
+          ? `<div><dt>Presenting</dt><dd>${esc(poster.presenting)}</dd></div>` : ''}
         ${slotLine ? `<div>${slotLine}</div>` : ''}
 
       </dl>
