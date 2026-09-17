@@ -312,7 +312,7 @@ def main():
             "organisations": split_orgs(row.get("organisations")),
             "locationHint": clean(row.get("poster_location")),
             "orientation": clean(row.get("landscape/ portrait")).strip().lower() or None,
-            "attendance": clean(row.get("online/ in-person")).strip().lower() or None,
+            "attendance": clean(row.get("online/ in-person")).strip() or None,
             "csvFileName": clean(row.get("file_name")).strip(),
         })
 
@@ -364,6 +364,20 @@ def main():
             record["status"] = "awaited"
             record["number"] = None
         record.pop("csvFileName", None)
+        # "online/ in-person" is still being collected, so read it generously:
+        # anything that says online / virtual / remote counts as online, and
+        # anything mentioning a person counts as in the room. The raw cell is
+        # kept as `attendance`; `presentedOnline` is what the website reads.
+        said = (record["attendance"] or "").lower()
+        if any(word in said for word in ("online", "virtual", "remote")):
+            record["presentedOnline"] = True
+        elif "person" in said or "onsite" in said or "on-site" in said:
+            record["presentedOnline"] = False
+        else:
+            record["presentedOnline"] = None
+        # Landscape is the exception worth flagging; portrait is the norm and
+        # saying so just adds noise, so only landscape is surfaced.
+        record["landscape"] = record["orientation"] == "landscape"
         record["authorLine"] = "; ".join(p["name"] for p in record["authors"])
         record["searchText"] = " ".join([
             record["title"], record["abstract"], record["authorLine"],

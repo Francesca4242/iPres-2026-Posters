@@ -518,3 +518,11 @@ html[data-theme='dark'] .site-footer img { filter: invert(1) hue-rotate(180deg) 
 .bike-loader--inline { padding: .4rem; }
 .bike-loader--inline svg { width: 64px; }
 .bike-loader--inline .bike-loader__label { font-size: .7rem; }
+
+/* A poster presented online: shown in the gallery, absent from the map. */
+.chip--online { background: #ffd166; color: #08131c; border-color: var(--ink); }
+
+/* A board with nothing on it yet. */
+.map-slot--empty .slot-face { fill: var(--paper); stroke-dasharray: 5 4; }
+.map-slot--empty text { fill: var(--ink-faint); stroke: none; }
+.map-slot--empty .slot-shine { display: none; }

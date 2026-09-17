@@ -37,6 +37,7 @@
     <div class="filter-row" style="margin-top:.5rem">
       <button class="filter" type="button" data-toggle="pdf" aria-pressed="false">&#128196; Has a PDF</button>
       <button class="filter" type="button" data-toggle="unseen" aria-pressed="false">&#128065; Not seen yet</button>
+      <button class="filter" type="button" data-toggle="online" aria-pressed="false" hidden>&#128187; Presented online</button>
       <button class="filter" type="button" data-clear>Clear all</button>
       <span class="result-count" data-count style="margin-left:auto"></span>
     </div>
@@ -67,6 +68,7 @@
     themes: new Set((params.get('theme') || '').split(',').filter(Boolean)),
     pdfOnly: params.get('pdf') === '1',
     unseenOnly: false,
+    onlineOnly: params.get('online') === '1',
     sort: params.get('sort') || 'slot',
   };
 
@@ -110,6 +112,7 @@
     const matched = posters.filter((poster) => {
       if (state.pdfOnly && poster.status !== 'available') return false;
       if (state.unseenOnly && seen.has(poster.id)) return false;
+      if (state.onlineOnly && !poster.presentedOnline) return false;
       if (state.themes.size && !(poster.themes || []).some((t) => state.themes.has(t))) return false;
       return terms.every((term) => poster.searchText.includes(term));
     }).sort(SORTERS[state.sort] || SORTERS.slot);
@@ -127,6 +130,7 @@
     if (state.q) next.set('q', state.q);
     if (state.themes.size) next.set('theme', [...state.themes].join(','));
     if (state.pdfOnly) next.set('pdf', '1');
+    if (state.onlineOnly) next.set('online', '1');
     if (state.sort !== 'slot') next.set('sort', state.sort);
     const query = next.toString();
     history.replaceState(null, '', query ? `?${query}` : window.location.pathname);
@@ -151,8 +155,14 @@
     });
   });
 
+  /* The online filter only appears once somebody has been marked as online in
+     the "online/ in-person" column of poster_metadata.csv. */
+  const onlineButton = document.querySelector('[data-toggle="online"]');
+  onlineButton.hidden = !posters.some((poster) => poster.presentedOnline);
+
+  const TOGGLE_KEYS = { pdf: 'pdfOnly', unseen: 'unseenOnly', online: 'onlineOnly' };
   document.querySelectorAll('[data-toggle]').forEach((button) => {
-    const key = button.dataset.toggle === 'pdf' ? 'pdfOnly' : 'unseenOnly';
+    const key = TOGGLE_KEYS[button.dataset.toggle];
     button.setAttribute('aria-pressed', String(state[key]));
     button.addEventListener('click', () => {
       state[key] = !state[key];
@@ -162,7 +172,8 @@
   });
 
   document.querySelector('[data-clear]').addEventListener('click', () => {
-    state.q = ''; state.themes.clear(); state.pdfOnly = false; state.unseenOnly = false;
+    state.q = ''; state.themes.clear();
+    state.pdfOnly = false; state.unseenOnly = false; state.onlineOnly = false;
     input.value = '';
     document.querySelectorAll('[data-theme-id],[data-toggle]').forEach((b) => b.setAttribute('aria-pressed', 'false'));
     apply();

@@ -25,9 +25,7 @@ A GitHub Action (`.github/workflows/build-data.yml`) rebuilds
 poster appears on the site — in the gallery, in the search index, on its own
 page and on the map.
 
-While you are in the row, `landscape/ portrait` and `online/ in-person` are
-worth filling in too: the first decides the shape of the board on the map, and
-the second puts a "presented online" note on the poster.
+
 
 **If you only do step 1**, the build still tries to pair the PDF with its row
 by looking for the author surname and words from the title in the filename, so
@@ -71,6 +69,32 @@ If the hall has room for it, give it a board:
 ```bash
 python3 tools/build_layout.py --keep   # keeps the boards already assigned
 ```
+
+## Marking a poster as presented online
+
+One column, `online/ in-person` in `poster_metadata.csv`. Put `online` in it
+and, on the next rebuild, that poster:
+
+* **comes off the map** — an online author is not in the room, so the board
+  they had is freed and shown as an empty board, and the map page gains a note
+  saying how many posters are online and linking to them;
+* **stays everywhere else** — the gallery, the search index, the trails and its
+  own page. Every poster is on this website whether or not it is in the hall;
+* gets a 💻 **Online** chip on its card, a line on its page explaining there is
+  no board for it, and a 💻 note against it in any trail it belongs to;
+* becomes findable through a **💻 Presented online** filter on the All posters
+  page. That filter stays hidden until at least one poster is marked online, so
+  it appears by itself once you start filling the column in.
+
+Anything that says online, virtual or remote counts as online; anything saying
+in-person, in person or on-site counts as being in the room. Capitals and extra
+spaces do not matter. A blank cell means "not decided yet" and shows nothing,
+so you can fill the column in a few rows at a time without the site looking
+half-finished.
+
+Nothing else needs changing — no code, no layout file. Edit the column and the
+rebuild Action does the rest, including taking the poster off the map. Change
+your mind and clear the cell, and it gets a board again on the next rebuild.
 
 ## The metadata is never edited
 

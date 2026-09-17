@@ -51,7 +51,9 @@ tools/poster_files.csv┘                                      │
   online, and the path to its PDF (or `null` if it has not arrived). Regenerate
   with `python3 tools/build_data.py`.
 * **`data/layout.json`** — the hall: 25 walls in five clusters, 42 boards, and
-  which poster hangs on each. Currently **provisional**.
+  which poster hangs on each. Currently **provisional**. Posters marked as
+  presented online in the CSV get no board here, but stay everywhere else on
+  the site.
 * **`data/config.json`** — the poll URL and the conference details.
 
 A GitHub Action rebuilds `data/posters.json` whenever a PDF is added, so

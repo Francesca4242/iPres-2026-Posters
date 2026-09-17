@@ -144,6 +144,8 @@ function matchesRule(poster, rule) {
 
 /* Build every trail's ordered stop list from the current poster set. */
 function buildTrails(posters) {
+  /* Ordered by board so a trail is a real walk. A poster presented online has
+     no board, so it goes on the end of the list rather than being dropped. */
   const bySlot = (a, b) => (a.slot?.number || 999) - (b.slot?.number || 999);
   return TRAILS.map((trail) => {
     let stops;

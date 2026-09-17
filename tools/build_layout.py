@@ -166,26 +166,33 @@ def build(previous_assignments):
 
 
 def assign(clusters, posters):
-    """Fill empty slots, keeping each theme together so the trails walk well."""
-    open_slots = [
+    """Fill empty boards, keeping each theme together so the trails walk well.
+
+    A poster presented online is not in the room, so it never gets a board -
+    and if it already had one (because the CSV changed), that board is freed.
+    Every poster still appears in the gallery, the search and its own page.
+    """
+    online = {p["id"] for p in posters if p.get("presentedOnline")}
+    all_slots = [
         slot
         for cluster in clusters
         for wall in cluster["walls"]
         for slot in wall["slots"]
-        if not slot["reservedFor"] and not slot["poster"]
     ]
-    taken = {
-        slot["poster"]
-        for cluster in clusters
-        for wall in cluster["walls"]
-        for slot in wall["slots"]
-        if slot["poster"]
-    }
-    queue = [p for p in posters if p["id"] not in taken]
+    for slot in all_slots:
+        if slot["poster"] in online:
+            slot["poster"] = None
+
+    open_slots = [s for s in all_slots if not s["reservedFor"] and not s["poster"]]
+    taken = {s["poster"] for s in all_slots if s["poster"]}
+    queue = [
+        p for p in posters
+        if p["id"] not in taken and not p.get("presentedOnline")
+    ]
     queue.sort(key=lambda p: ((p["themes"] or ["zzz"])[0], p["title"].lower()))
     for slot, poster in zip(open_slots, queue):
         slot["poster"] = poster["id"]
-    return len(queue) - len(open_slots)
+    return len(queue) - len(open_slots), len(online)
 
 
 def main():
@@ -201,7 +208,7 @@ def main():
 
     posters = json.load(open(POSTERS, encoding="utf-8"))["posters"]
     clusters = build(previous)
-    unplaced = assign(clusters, posters)
+    unplaced, online = assign(clusters, posters)
 
     slot_count = sum(len(w["slots"]) for c in clusters for w in c["walls"])
     wall_count = sum(len(c["walls"]) for c in clusters)
@@ -228,10 +235,12 @@ def main():
 
     print("Wrote {} - {} walls, {} slots, {} reserved".format(
         os.path.relpath(OUT, ROOT), wall_count, slot_count, len(RESERVED)))
+    if online:
+        print("  {} poster(s) presented online - no board, gallery only".format(online))
     if unplaced > 0:
-        print("  ! {} poster(s) could not be placed - not enough slots".format(unplaced))
+        print("  ! {} poster(s) could not be placed - not enough boards".format(unplaced))
     elif unplaced < 0:
-        print("  {} slot(s) left empty".format(-unplaced))
+        print("  {} board(s) left empty".format(-unplaced))
 
 
 if __name__ == "__main__":

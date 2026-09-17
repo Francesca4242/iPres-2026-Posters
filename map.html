@@ -29,6 +29,9 @@
       hanging on it &mdash; or pick a trail and watch the route light up.</p>
   </section>
 
+  <div class="banner-note" data-online-note hidden
+       style="border-style:solid;border-color:var(--ink);background:#ffd166;color:#08131c"></div>
+
   <div class="banner-note" data-provisional hidden>
     <span aria-hidden="true" style="font-size:1.6rem">&#128679;</span>
     <div>
@@ -84,6 +87,17 @@
   document.querySelector('[data-poll-banner]').innerHTML = IPRES.pollBanner(config);
   IPRES.wirePollPending();
   IPRES.renderPassport(document.querySelector('[data-passport]'), counts.total);
+
+  const onlinePosters = posters.filter((poster) => poster.presentedOnline);
+  if (onlinePosters.length) {
+    document.querySelector('[data-online-note]').innerHTML = `
+      <span aria-hidden="true" style="font-size:1.6rem">\u{1F4BB}</span>
+      <div><b>${onlinePosters.length} poster${onlinePosters.length === 1 ? ' is' : 's are'}
+      presented online</b> and ${onlinePosters.length === 1 ? 'is' : 'are'} not in the hall, so
+      ${onlinePosters.length === 1 ? 'it has' : 'they have'} no board here.
+      <a href="posters.html?online=1">Read ${onlinePosters.length === 1 ? 'it' : 'them'} in the gallery</a>.</div>`;
+    document.querySelector('[data-online-note]').hidden = false;
+  }
 
   if (layout.provisional) {
     document.querySelector('[data-provisional]').hidden = false;
@@ -198,18 +212,20 @@
       wall.slots.forEach((slot) => {
         const poster = slot.poster ? lookup[slot.poster] : null;
         const theme = poster && poster.themeObjects[0];
-        const fill = slot.reservedFor ? '#e7eef4' : (theme ? theme.color : '#94a3b8');
+        const fill = slot.reservedFor ? '#e7eef4' : (theme ? theme.color : 'var(--paper)');
         const node = make('g', {
-          class: 'map-slot' + (slot.reservedFor ? ' map-slot--reserved' : ''),
+          class: 'map-slot'
+            + (slot.reservedFor ? ' map-slot--reserved' : '')
+            + (!slot.reservedFor && !poster ? ' map-slot--empty' : ''),
           tabindex: 0, role: 'button',
           'data-slot': slot.id,
           'aria-label': slot.reservedFor
             ? `Board ${slot.number}, reserved for ${slot.reservedFor}`
             : `Board ${slot.number}: ${poster ? poster.title : 'empty'}`,
         });
-        /* Landscape posters get a wider, shorter board so the shape of the
-           hall matches what is actually hanging on it. */
-        const wide = poster && poster.orientation === 'landscape';
+        /* A board takes the shape of the poster on it, so the map looks like
+           the room. Not labelled anywhere - it is just how it looks. */
+        const wide = poster && poster.landscape;
         const w = wide ? 36 : 30;
         const h = wide ? 24 : 28;
         const x = slot.x - w / 2 - 1;
@@ -247,7 +263,7 @@
     ...themeList.map((theme) =>
       `<span class="chip chip--solid" style="background:${theme.color}">${theme.emoji} ${esc(theme.short)}</span>`),
     '<span class="chip chip--plain">Grey = reserved board</span>',
-    '<span class="chip chip--plain">Wide board = landscape poster</span>',
+    '<span class="chip chip--plain">Dashed = free board</span>',
     '<span class="chip chip--plain">Green outline = you have seen it</span>',
   ].join('');
 
@@ -269,7 +285,9 @@
       return;
     }
     if (!poster) {
-      detail.innerHTML = `<h3>Board #${slot.number}</h3><p>Nothing assigned yet.</p>`;
+      detail.innerHTML = `<h3>Board #${slot.number}</h3>
+        <p>Free &mdash; no poster on this one.</p>
+        <p style="font-size:.85rem;color:var(--ink-soft)">${esc(cluster.name)}</p>`;
       return;
     }
     const seen = IPRES.passport.has(poster.id);
@@ -286,9 +304,7 @@
       <h3 style="margin-top:.9rem">${esc(poster.title)}</h3>
       <p style="font-size:.88rem;color:var(--ink-soft)">${esc(poster.authorLine)}</p>
       <p class="map-blurb">${esc(poster.abstract)}</p>
-      <p style="font-size:.8rem;color:var(--ink-soft)">${esc(cluster.name)}${
-        poster.orientation ? ` &middot; ${esc(poster.orientation)}` : ''}${
-        poster.attendance ? ` &middot; ${esc(poster.attendance)}` : ''}</p>
+      <p style="font-size:.8rem;color:var(--ink-soft)">${esc(cluster.name)}</p>
       <div class="poster-card__foot">
         <a class="btn btn--sm btn--primary" href="poster.html?id=${encodeURIComponent(poster.id)}">Read the poster</a>
         <button class="btn btn--sm" type="button" data-seen>${seen ? '✓ Seen it' : 'Mark as seen'}</button>
@@ -381,7 +397,21 @@
   const wantedPoster = params.get('poster');
   if (wantedPoster) {
     const entry = [...slotNodes.values()].find((item) => item.poster && item.poster.id === wantedPoster);
-    if (entry) { entry.node.focus(); showSlot(entry); }
+    if (entry) {
+      entry.node.focus();
+      showSlot(entry);
+    } else {
+      /* Someone followed a link to a poster that has no board - it is either
+         presented online or not placed yet. Say which, rather than nothing. */
+      const poster = lookup[wantedPoster];
+      detail.innerHTML = poster
+        ? `<h3>${esc(poster.title)}</h3>
+           <p>${poster.presentedOnline
+             ? '<span class="chip chip--online">\u{1F4BB} Online</span></p><p>This one is presented online, so it has no board in the hall.'
+             : 'This poster does not have a board yet.'}</p>
+           <p><a class="btn btn--sm btn--primary" href="poster.html?id=${encodeURIComponent(poster.id)}">Read it here</a></p>`
+        : '<h3>Not found</h3><p>No poster with that id. <a href="posters.html">Browse them all</a>.</p>';
+    }
   }
 })();
 </script>

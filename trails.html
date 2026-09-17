@@ -142,7 +142,10 @@
         ${trail.stops.map((poster) => `
           <li>
             <a href="poster.html?id=${encodeURIComponent(poster.id)}">${esc(poster.title)}</a>
-            <span>${esc(poster.authorLine)}${poster.slot ? ` &middot; board #${poster.slot.number}` : ''}${poster.status === 'awaited' ? ' &middot; PDF coming soon' : ''}</span>
+            <span>${esc(poster.authorLine)}${
+              poster.presentedOnline ? ' &middot; \u{1F4BB} online, not in the hall'
+                : poster.slot ? ` &middot; board #${poster.slot.number}` : ''}${
+              poster.status === 'awaited' ? ' &middot; PDF coming soon' : ''}</span>
           </li>`).join('')}
       </ol>
     </section>`).join('');

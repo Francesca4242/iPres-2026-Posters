@@ -65,7 +65,7 @@ def main():
                 problems.append("topic {!r} is not verbatim in {!r}".format(topic, title[:40]))
         for field, column in (("orientation", "landscape/ portrait"), ("attendance", "online/ in-person")):
             value = poster.get(field)
-            if value and value not in (row.get(column) or "").lower():
+            if value and value.lower() not in (row.get(column) or "").lower():
                 problems.append("{} {!r} is not verbatim in {!r}".format(field, value, title[:40]))
 
     if problems:

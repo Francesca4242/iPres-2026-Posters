@@ -65,11 +65,14 @@
     .map((index) => poster.organisations[Number(index) - 1])
     .filter(Boolean).join('; ');
 
-  const slotLine = poster.slot
-    ? `<dt>Where to find it</dt><dd>Board <strong>#${poster.slot.number}</strong> (${esc(poster.slot.clusterName)})
-         &middot; <a href="map.html?poster=${encodeURIComponent(poster.id)}">show me on the map</a>
-         <br><small>Positions are provisional until the hall is set up.</small></dd>`
-    : '';
+  const slotLine = poster.presentedOnline
+    ? `<dt>Where to find it</dt><dd>Presented <strong>online</strong>, so there is no board
+         for it in the hall &mdash; this page is where to read it.</dd>`
+    : poster.slot
+      ? `<dt>Where to find it</dt><dd>Board <strong>#${poster.slot.number}</strong> (${esc(poster.slot.clusterName)})
+           &middot; <a href="map.html?poster=${encodeURIComponent(poster.id)}">show me on the map</a>
+           <br><small>Positions are provisional until the hall is set up.</small></dd>`
+      : '';
 
   document.querySelector('[data-sidebar]').innerHTML = `
     <article class="meta-block">
@@ -77,7 +80,7 @@
         ${poster.themeObjects.map((theme) =>
           `<a class="chip chip--solid" style="background:${theme.color}" href="posters.html?theme=${theme.id}">${theme.emoji} ${esc(theme.short)}</a>`).join('')}
         ${poster.status === 'awaited' ? '<span class="chip chip--awaited">PDF coming soon</span>' : ''}
-        ${poster.attendance === 'online' ? '<span class="chip chip--plain">\u{1F4BB} Presented online</span>' : ''}
+        ${poster.presentedOnline ? '<span class="chip chip--online">\u{1F4BB} Online</span>' : ''}
       </div>
       <h2>${esc(poster.title)}</h2>
       <dl class="meta-list">
@@ -91,10 +94,7 @@
         ${poster.authors.every((a) => !(a.affiliations || []).length) && poster.organisations.length
           ? `<div><dt>Institution</dt><dd>${poster.organisations.map(esc).join('<br>')}</dd></div>` : ''}
         ${slotLine ? `<div>${slotLine}</div>` : ''}
-        ${poster.orientation || poster.attendance ? `<div><dt>Poster</dt><dd>${
-          [poster.orientation, poster.attendance === 'online' ? 'presented online'
-            : poster.attendance === 'in-person' ? 'presented in person' : '']
-            .filter(Boolean).map(esc).join(' &middot; ')}</dd></div>` : ''}
+
       </dl>
       <div class="poster-card__foot" style="margin-top:1.1rem;gap:.6rem">
         <button class="btn btn--sm" type="button" data-seen></button>
