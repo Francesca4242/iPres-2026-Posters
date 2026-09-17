@@ -254,6 +254,19 @@
   const slotNodes = new Map();
   const slotPoints = new Map();
 
+  /* A board with no poster on it is worth showing while the hall is being
+     filled in - it says "this board exists and is still free". Once every
+     poster that is in the room has a board, the ones left over are boards the
+     conference simply is not using, and they only get in the way, so they come
+     off the map. `map.hideEmptyBoards` in data/config.json forces it either way
+     ("auto" is the default behaviour just described). */
+  const inRoom = posters.filter((poster) => poster.presentedOnline !== true);
+  const seated = inRoom.filter((poster) => poster.slot).length;
+  const hideSetting = (config.map || {}).hideEmptyBoards;
+  const hideEmpty = hideSetting === true ? true
+    : hideSetting === false ? false
+      : seated > 0 && seated === inRoom.length;
+
   /* Walls are a flat list: a run stands out from the long wall with a board on
      each face, a flat one lies along it with a single board. Groups are not
      named on the map - the numbers are what people use. */
@@ -275,6 +288,7 @@
 
     wall.slots.forEach((slot) => {
       const poster = slot.poster ? lookup[slot.poster] : null;
+      if (!poster && hideEmpty) return;
       const theme = poster && poster.themeObjects[0];
       const node = make('g', {
         class: 'map-slot' + (poster ? '' : ' map-slot--free'),
@@ -317,7 +331,9 @@
     ? [
       ...themeList.map((theme) =>
         `<span class="chip chip--solid" style="background:${theme.color}">${theme.emoji} ${esc(theme.short)}</span>`),
-      '<span class="chip chip--plain">Plain blue = board still free</span>',
+      ...(hideEmpty
+        ? [`<span class="chip chip--plain">${assigned} posters on the wall</span>`]
+        : ['<span class="chip chip--plain">Grey = board still free</span>']),
       '<span class="chip chip--plain">Green outline = you have seen it</span>',
     ]
     : [

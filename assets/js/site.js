@@ -75,6 +75,24 @@ const IPRES = (() => {
   /* Posters plus their (provisional) map slot, and a themes lookup. */
   async function hall() {
     const [posterData, layoutData] = await Promise.all([data.posters(), data.layout()]);
+
+    /* Which poster is on which board comes from the poster_location column of
+       poster_metadata.csv, read into each poster's `board`. A `poster` written
+       by hand into data/layout.json still works and is used for any board the
+       spreadsheet does not name, but the spreadsheet wins. */
+    const slotByNumber = new Map();
+    (layoutData.walls || []).forEach((wall) => {
+      wall.slots.forEach((slot) => slotByNumber.set(slot.number, slot));
+    });
+    const claimed = new Set();
+    posterData.posters.forEach((poster) => {
+      const slot = poster.board ? slotByNumber.get(poster.board) : null;
+      if (slot && !claimed.has(slot.number)) {
+        slot.poster = poster.id;
+        claimed.add(slot.number);
+      }
+    });
+
     const slotByPoster = {};
     (layoutData.walls || []).forEach((wall) => {
       wall.slots.forEach((slot) => {

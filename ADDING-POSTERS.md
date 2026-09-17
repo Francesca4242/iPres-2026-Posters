@@ -123,19 +123,26 @@ the same check runs in CI on every push. If a typo needs fixing, fix it in
 
 ## Putting posters on boards
 
-The map shows **42 numbered boards on 22 walls**, and every one of them is
-empty — they are slate grey until a poster is put on them. Putting a poster on
-a board is one line in `data/layout.json`: find the board by its number and set
-`poster` to a poster id.
+**One column in `poster_metadata.csv`: `poster_location`.** Put the board number
+in it — `12`, or `Board 12`, or `board 12, by the stairs` — and that poster
+goes on board 12 on the next rebuild. The cell itself is never edited or
+displayed differently; the build just reads the number out of it. A cell with no
+number in it (a note to yourself, `online`, anything) leaves that poster off the
+map, and it stays everywhere else on the site.
 
-```json
-{ "id": "X248-1e", "number": 1, "x": 1678.0, "y": 834.8, "facing": "east",
-  "poster": "dignified-deletion-toward-a-philosophy-of-letting-go" }
+You do not have to touch `data/layout.json` at all.
+
+The build log tells you what it made of the column, so a typo shows up before
+the day rather than on it:
+
 ```
-
-Poster ids are the `"id"` of each entry in `data/posters.json` — they are the
-title in lower case with dashes. `python3 tools/build_layout.py` prints a
-warning if a board points at an id that does not exist.
+Board numbers from poster_location: 31 of 38 posters in the room are placed
+Board 17 is claimed by 2 posters - only one can have it:
+   Emulation as a Service ...
+   Taking a risk? ...
+Board 61 does not exist - the hall has boards 1 to 42: ...
+Board 9 is given to an online poster, which is not in the room: ...
+```
 
 As soon as any board has a poster on it, the site turns the rest back on by
 itself:
@@ -147,11 +154,35 @@ itself:
 * the gallery shows board numbers and offers "Walk order (map)" as a sort;
 * trails run in board order, so they become a real walk round the room.
 
-Boards you have not filled in stay grey and say "no poster on this board yet".
-You can do them a few at a time.
+### Boards you end up not using
+
+The hall has 42 boards and there may not be 42 posters in the room. While you
+are filling the column in, every board is drawn, and the empty ones are grey and
+say "no poster on this board yet" — that is useful, it shows you what is left.
+
+**Once every poster that is in the room has a board, the boards left over
+disappear from the map**, because at that point they are boards the conference
+is not using and they only get in the way. Nothing to switch on: it happens by
+itself when the last poster is placed.
+
+To force it either way, `data/config.json`:
+
+```json
+"map": { "hideEmptyBoards": "auto" }
+```
+
+`true` always hides empty boards, `false` always shows them, `"auto"` is the
+behaviour described above.
 
 A poster marked `online` in the CSV should not be given a board — it is not in
-the room. See above.
+the room, and the build log says so if one gets a number by mistake.
+
+### Editing the layout file by hand instead
+
+Still possible, and useful for a one-off: set a board's `poster` to a poster id
+in `data/layout.json`. The spreadsheet wins for any board it names, so the two
+cannot contradict each other. Poster ids are the `"id"` of each entry in
+`data/posters.json` — the title in lower case with dashes.
 
 ## How the boards are numbered
 

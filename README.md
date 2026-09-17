@@ -54,7 +54,9 @@ tools/poster_files.csv┘                                      │
 * **`data/layout.json`** — the hall: 22 walls and 42 numbered boards, generated
   by `tools/build_layout.py`. Deliberately not to scale — the short side of the
   foyer is stretched so the boards are big enough to tap — but every board keeps
-  its real order and side of the room. **No poster is on a board yet**
+  its real order and side of the room. Which poster is on which board comes
+  from the `poster_location` column of the CSV, not from this file. **No poster
+  is on a board yet**
   — set a board's `poster` to a poster id to place one, and the map, the
   gallery and the trails light up around it. Posters marked as presented online
   get no board, but stay everywhere else on the site.

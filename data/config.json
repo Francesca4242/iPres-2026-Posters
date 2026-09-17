@@ -22,5 +22,9 @@
  "hall": {
   "//": "Shown on the map page so people know when they can actually walk round.",
   "sessionText": "Poster sessions run alongside the coffee breaks."
+ },
+ "map": {
+  "//": "Boards with no poster on them. 'auto' shows them while the hall is being filled in and drops them once every poster in the room has a board; true always hides them, false always shows them.",
+  "hideEmptyBoards": "auto"
  }
 }

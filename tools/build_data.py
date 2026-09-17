@@ -31,6 +31,7 @@ PDF_DIR = os.path.join(ROOT, "posters")
 OVERRIDES = os.path.join(ROOT, "tools", "poster_files.csv")
 THUMB_DIR = os.path.join(ROOT, "assets", "thumbs")
 OUT = os.path.join(ROOT, "data", "posters.json")
+LAYOUT = os.path.join(ROOT, "data", "layout.json")
 
 # The iPRES topic taxonomy arrives as one line per topic group. Each group
 # becomes a colour-coded theme used by the gallery filters, the map and the
@@ -399,6 +400,13 @@ def main():
             record["presentedOnline"] = False
         else:
             record["presentedOnline"] = None
+        # `poster_location` is where the organiser writes the board number.
+        # The cell is kept verbatim as `locationHint`; `board` is the number
+        # read out of it, so "12", "Board 12" and "board 12 (by the stairs)"
+        # all mean board 12. A cell with no number in it - "online", a note to
+        # self - simply leaves the poster off the map.
+        found = re.search(r"\d+", record["locationHint"] or "")
+        record["board"] = int(found.group()) if found else None
         # Landscape is the exception worth flagging; portrait is the norm and
         # saying so just adds noise, so only landscape is surfaced.
         record["landscape"] = record["orientation"] == "landscape"
@@ -420,6 +428,8 @@ def main():
             "total": len(records),
             "available": sum(1 for r in records if r["status"] == "available"),
             "awaited": sum(1 for r in records if r["status"] == "awaited"),
+            "inRoom": sum(1 for r in records if r["presentedOnline"] is not True),
+            "onBoards": sum(1 for r in records if r["board"]),
         },
         "posters": records,
     }
@@ -449,6 +459,49 @@ def main():
     for record in records:
         if record["status"] == "awaited":
             print("Still awaiting a PDF: {}".format(record["title"][:70]))
+    report_boards(records)
+
+
+def report_boards(records):
+    """Check the board numbers written in the poster_location column.
+
+    Nothing here changes a poster - it only says what the map will do with the
+    numbers, so a typo shows up in the build log instead of on the day.
+    """
+    boards = 0
+    if os.path.exists(LAYOUT):
+        layout = json.load(open(LAYOUT, encoding="utf-8"))
+        boards = layout.get("counts", {}).get("slots", 0)
+
+    taken = {}
+    for record in records:
+        if record["board"]:
+            taken.setdefault(record["board"], []).append(record)
+
+    for number in sorted(taken):
+        sharing = taken[number]
+        if len(sharing) > 1:
+            print("Board {} is claimed by {} posters - only one can have it:"
+                  .format(number, len(sharing)))
+            for record in sharing:
+                print("   {}".format(record["title"][:66]))
+        if boards and not 1 <= number <= boards:
+            print("Board {} does not exist - the hall has boards 1 to {}: {}"
+                  .format(number, boards, sharing[0]["title"][:50]))
+        for record in sharing:
+            if record["presentedOnline"] is True:
+                print("Board {} is given to an online poster, which is not in "
+                      "the room: {}".format(number, record["title"][:50]))
+
+    placed = len(taken)
+    in_room = [r for r in records if r["presentedOnline"] is not True]
+    if placed:
+        print("Board numbers from poster_location: {} of {} posters in the "
+              "room are placed".format(
+                  sum(1 for r in in_room if r["board"]), len(in_room)))
+    else:
+        print("No board numbers in poster_location yet - the map shows every "
+              "board empty.")
 
 
 if __name__ == "__main__":
