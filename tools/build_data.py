@@ -18,7 +18,6 @@ It needs nothing but a standard Python 3 install - no pip, no node.
 """
 
 import csv
-import datetime
 import difflib
 import json
 import os
@@ -374,8 +373,10 @@ def main():
 
     records.sort(key=lambda r: r["title"].lower())
 
+    # Deliberately no build timestamp: it would differ on every run and make
+    # the rebuild Action commit a new posters.json even when nothing changed.
+    # Git history already records when the data last moved.
     payload = {
-        "generated": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "themes": THEMES,
         "counts": {
             "total": len(records),
