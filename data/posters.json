@@ -110,8 +110,8 @@
  ],
  "counts": {
   "total": 39,
-  "available": 36,
-  "awaited": 3,
+  "available": 37,
+  "awaited": 2,
   "inRoom": 35,
   "onBoards": 35
  },
@@ -162,7 +162,7 @@
     "University of California San Francisco, United States of America"
    ],
    "locationHint": "22",
-   "presenting": "",
+   "presenting": "Minute Madness Session: Tuesday, 22 September 2026: 11:00am - 11:45am and presenters are likely to be available later during the lunch or afternoon to talk about their poster",
    "orientation": "landscape",
    "attendance": null,
    "file": "posters/192_KateTasker-EmmaJames_28-Million-Documents.pdf",
@@ -212,7 +212,7 @@
     "Royal Danish Library, Denmark"
    ],
    "locationHint": "36",
-   "presenting": "",
+   "presenting": "Minute Madness Session: Wednesday, 23 September 2026: 11:00am - 11:45am and presenters are likely to be available during the lunch or afternoon to talk about their poster",
    "orientation": "portrait",
    "attendance": null,
    "file": "posters/Anders Klindt Myrvoll -50 Billion Objects of the Danish Web - Visualizing Two Decades of Netarkivet.pdf",
@@ -260,7 +260,7 @@
     "American Institute of Physics (AIP), United States of America"
    ],
    "locationHint": "7",
-   "presenting": "",
+   "presenting": "Minute Madness Session: Wednesday, 23 September 2026: 11:00am - 11:45am and presenters are likely to be available during the lunch or afternoon to talk about their poster",
    "orientation": "portrait",
    "attendance": null,
    "file": "posters/156_Allison-Buser_Accessing-Quantum-History.pdf",
@@ -312,7 +312,7 @@
     "Digital Research Alliance of Canada, Canada"
    ],
    "locationHint": "11",
-   "presenting": "",
+   "presenting": "Minute Madness Session: Tuesday, 22 September 2026: 11:00am - 11:45am and presenters are likely to be available later during the lunch or afternoon to talk about their poster",
    "orientation": "portrait",
    "attendance": null,
    "file": "posters/1093_Tomé_Adapting-to-Context.pdf",
@@ -364,7 +364,7 @@
     "Digital Preservation Coalition, United Kingdom"
    ],
    "locationHint": "10",
-   "presenting": "",
+   "presenting": "Minute Madness Session: Wednesday, 23 September 2026: 11:00am - 11:45am and presenters are likely to be available during the lunch or afternoon to talk about their poster",
    "orientation": "portrait",
    "attendance": null,
    "file": "posters/Sarah Middleton and Dorothy Waugh_Advocacy as a Core Digital Preservation Competency.pdf",
@@ -423,7 +423,7 @@
     "University of Illinois"
    ],
    "locationHint": "37",
-   "presenting": "",
+   "presenting": "Minute Madness Session: Wednesday, 23 September 2026: 11:00am - 11:45am and presenters are likely to be available during the lunch or afternoon to talk about their poster",
    "orientation": "portrait",
    "attendance": null,
    "file": "posters/282_Brent-West_AI-Enabled-Access-To-Large-And-Sensitive-Collections.pdf",
@@ -489,7 +489,7 @@
     "Amsab--Institute for Social History, Belgium"
    ],
    "locationHint": "19",
-   "presenting": "",
+   "presenting": "Minute Madness Session: Wednesday, 23 September 2026: 11:00am - 11:45am and presenters are likely to be available during the lunch or afternoon to talk about their poster",
    "orientation": "portrait",
    "attendance": null,
    "file": "posters/MerijnMaene_AIDAModel.pdf",
@@ -542,7 +542,7 @@
     "University of York, United Kingdom"
    ],
    "locationHint": "6",
-   "presenting": "",
+   "presenting": "Minute Madness Session: Wednesday, 23 September 2026: 11:00am - 11:45am and presenters are likely to be available during the lunch or afternoon to talk about their poster",
    "orientation": "portrait",
    "attendance": null,
    "file": "posters/MarcoBrunello_ArchIScanArchivingOurBiggestDigitalCollectionYet.pdf",
@@ -602,7 +602,7 @@
     "Utrecht University"
    ],
    "locationHint": "online",
-   "presenting": "",
+   "presenting": "Minute Madness Session: Wednesday, 23 September 2026: 11:00am - 11:45am and presenters are likely to be available during the lunch or afternoon to talk about their poster",
    "orientation": null,
    "attendance": null,
    "file": null,
@@ -660,7 +660,7 @@
     "Emory University, United States of America"
    ],
    "locationHint": "4",
-   "presenting": "",
+   "presenting": "Minute Madness Session: Wednesday, 23 September 2026: 11:00am - 11:45am and presenters are likely to be available during the lunch or afternoon to talk about their poster",
    "orientation": "portrait",
    "attendance": null,
    "file": "posters/153_Rao-ORiordan_Captioning-Everything-Everywhere-All-At-Once.pdf",
@@ -744,7 +744,7 @@
     "Texas A&M University, United States of America"
    ],
    "locationHint": "16",
-   "presenting": "",
+   "presenting": "Minute Madness Session: Wednesday, 23 September 2026: 11:00am - 11:45am and presenters are likely to be available during the lunch or afternoon to talk about their poster",
    "orientation": "landscape",
    "attendance": null,
    "file": "posters/Taylor_NDSAFixitySurveyResults.pdf",
@@ -818,7 +818,7 @@
     "UCL, CLOSER UK"
    ],
    "locationHint": "17",
-   "presenting": "",
+   "presenting": "Minute Madness Session: Wednesday, 23 September 2026: 11:00am - 11:45am and presenters are likely to be available during the lunch or afternoon to talk about their poster",
    "orientation": "portrait",
    "attendance": null,
    "file": "posters/DANCIU_DDI Metadata for Beginners.pdf",
@@ -883,7 +883,7 @@
     "University of Cambridge Libraries and Archives, United Kingdom"
    ],
    "locationHint": "24",
-   "presenting": "",
+   "presenting": "Minute Madness Session: Tuesday, 22 September 2026: 11:00am - 11:45am and presenters are likely to be available later during the lunch or afternoon to talk about their poster",
    "orientation": "portrait",
    "attendance": null,
    "file": "posters/McKeanTalboom_Digital_Forensics_and_Preservation.pdf",
@@ -979,7 +979,7 @@
     "Digital Research Alliance of Canada"
    ],
    "locationHint": "12",
-   "presenting": "",
+   "presenting": "Minute Madness Session: Tuesday, 22 September 2026: 11:00am - 11:45am and presenters are likely to be available later during the lunch or afternoon to talk about their poster",
    "orientation": "portrait",
    "attendance": null,
    "file": "posters/Lake_A-Canada-wide-portrait-with-DPC-RAM.pdf",
@@ -1034,7 +1034,7 @@
     "The American University in Cairo, Egypt"
    ],
    "locationHint": "online",
-   "presenting": "",
+   "presenting": "Minute Madness Session: Tuesday, 22 September 2026: 11:00am - 11:45am and presenters are likely to be available later during the lunch or afternoon to talk about their poster",
    "orientation": "portrait",
    "attendance": "online",
    "file": "posters/107_IrinaSchmid_DignifiedDeletion.pdf",
@@ -1092,7 +1092,7 @@
     "KB national library of the Netherlands"
    ],
    "locationHint": "1",
-   "presenting": "",
+   "presenting": "Minute Madness Session: Tuesday, 22 September 2026: 11:00am - 11:45am and presenters are likely to be available later during the lunch or afternoon to talk about their poster",
    "orientation": "portrait",
    "attendance": null,
    "file": "posters/113_Hofsink-Ligtenberg_Dont-Stop-Retrievin_.pdf",
@@ -1162,7 +1162,7 @@
     "International Institute of Social History, Netherlands, The"
    ],
    "locationHint": "2",
-   "presenting": "",
+   "presenting": "Minute Madness Session: Wednesday, 23 September 2026: 11:00am - 11:45am and presenters are likely to be available during the lunch or afternoon to talk about their poster",
    "orientation": "portrait",
    "attendance": null,
    "file": "posters/140_RoseVanderKnaapFriedland_ExploringaHolisticApproach.pdf",
@@ -1226,7 +1226,7 @@
     "UC Santa Cruz, United States of America"
    ],
    "locationHint": "15",
-   "presenting": "",
+   "presenting": "Minute Madness Session: Tuesday, 22 September 2026: 11:00am - 11:45am and presenters are likely to be available later during the lunch or afternoon to talk about their poster",
    "orientation": "portrait",
    "attendance": null,
    "file": "posters/151_Norton-Berry_Forwarding-the-Email-Archive.pdf",
@@ -1292,7 +1292,7 @@
     "Medical Center of National Digital Preservation Centre, National Science and Technology Library"
    ],
    "locationHint": "18",
-   "presenting": "",
+   "presenting": "Minute Madness Session: Tuesday, 22 September 2026: 11:00am - 11:45am and presenters are likely to be available later during the lunch or afternoon to talk about their poster",
    "orientation": "portrait",
    "attendance": null,
    "file": "posters/Peng Yuanyuan_From Simulation to Reality_ China_s First Authentic-Scenario Emergency Drill for Preserving Licensed Electronic Journals in Biomedicine.pdf",
@@ -1355,7 +1355,7 @@
     "National Library of New Zealand and Archives New Zealand, New Zealand"
    ],
    "locationHint": "13",
-   "presenting": "",
+   "presenting": "Minute Madness Session: Wednesday, 23 September 2026: 11:00am - 11:45am and presenters are likely to be available during the lunch or afternoon to talk about their poster",
    "orientation": "portrait",
    "attendance": null,
    "file": "posters/AndreaGoethals_HowWellDidWeDo.pdf",
@@ -1449,7 +1449,7 @@
     "The National Archives, United Kingdom"
    ],
    "locationHint": "29",
-   "presenting": "",
+   "presenting": "Minute Madness Session: Tuesday, 22 September 2026: 11:00am - 11:45am and presenters are likely to be available later during the lunch or afternoon to talk about their poster",
    "orientation": "landscape",
    "attendance": null,
    "file": "posters/168_AndyJackson_IntroducingDataflowDiagrams.pdf",
@@ -1517,16 +1517,16 @@
     "University of Exeter"
    ],
    "locationHint": "online",
-   "presenting": "",
+   "presenting": "Minute Madness Session: Wednesday, 23 September 2026: 11:00am - 11:45am and presenters are likely to be available during the lunch or afternoon to talk about their poster",
    "orientation": null,
    "attendance": null,
-   "file": null,
-   "fileSize": 0,
-   "status": "awaited",
+   "file": "posters/PaulStokes.GarethCole.KEEPING OPEN BOOKS USABLE.pdf",
+   "fileSize": 573105,
+   "status": "available",
    "number": null,
-   "thumb": null,
-   "thumbWidth": null,
-   "thumbHeight": null,
+   "thumb": "assets/thumbs/keeping-open-books-usable-challenges-and-opportunities.webp",
+   "thumbWidth": 520,
+   "thumbHeight": 1177,
    "presentedOnline": true,
    "board": null,
    "landscape": false,
@@ -1582,7 +1582,7 @@
     "King’s College London, United Kingdom"
    ],
    "locationHint": "23",
-   "presenting": "",
+   "presenting": "Minute Madness Session: Wednesday, 23 September 2026: 11:00am - 11:45am and presenters are likely to be available during the lunch or afternoon to talk about their poster",
    "orientation": "portrait",
    "attendance": null,
    "file": "posters/167_Pallotto-Strickland-and-Storrar_Let’s-doWARC.pdf",
@@ -1632,7 +1632,7 @@
     "TIB – Leibniz Information Centre for Science and Technology and University Library Germany, Germany"
    ],
    "locationHint": "34",
-   "presenting": "",
+   "presenting": "Minute Madness Session: Wednesday, 23 September 2026: 11:00am - 11:45am and presenters are likely to be available during the lunch or afternoon to talk about their poster",
    "orientation": "portrait",
    "attendance": null,
    "file": "posters/263_Annabel-Walz_Lower-Saxony-State-Initiative.pdf",
@@ -1692,7 +1692,7 @@
     "Vancouver Holocaust Education Centre (VHEC), Canada"
    ],
    "locationHint": "5",
-   "presenting": "",
+   "presenting": "Minute Madness Session: Tuesday, 22 September 2026: 11:00am - 11:45am and presenters are likely to be available later during the lunch or afternoon to talk about their poster",
    "orientation": "portrait",
    "attendance": null,
    "file": "posters/AdaRohini_LTO-7toLTO-10.pdf",
@@ -1745,7 +1745,7 @@
     "FORS, Switzerland"
    ],
    "locationHint": "9",
-   "presenting": "",
+   "presenting": "Minute Madness Session: Wednesday, 23 September 2026: 11:00am - 11:45am and presenters are likely to be available during the lunch or afternoon to talk about their poster",
    "orientation": "portrait",
    "attendance": null,
    "file": "posters/ElianeFerrez_OvercomingBarriersToPreservingAndSharingQualitativeData.pdf",
@@ -1804,7 +1804,7 @@
     "CERN, Switzerland"
    ],
    "locationHint": "27",
-   "presenting": "",
+   "presenting": "Minute Madness Session: Tuesday, 22 September 2026: 11:00am - 11:45am and presenters are likely to be available later during the lunch or afternoon to talk about their poster",
    "orientation": "portrait",
    "attendance": null,
    "file": "posters/234-Liptak_LeMeur-CERN-Preservation-As-A-Service.pdf",
@@ -1852,7 +1852,7 @@
     "University of California, California Digital Library, United States"
    ],
    "locationHint": "14",
-   "presenting": "",
+   "presenting": "Minute Madness Session: Tuesday, 22 September 2026: 11:00am - 11:45am and presenters are likely to be available later during the lunch or afternoon to talk about their poster",
    "orientation": "landscape",
    "attendance": null,
    "file": "posters/EricLopatin_Repository-Autoscaling-through-use-of-Containers-and-Operational-Metrics.pdf",
@@ -1929,7 +1929,7 @@
     "National Museum of Japanese History, Japan"
    ],
    "locationHint": "39",
-   "presenting": "",
+   "presenting": "Minute Madness Session: Wednesday, 23 September 2026: 11:00am - 11:45am and presenters are likely to be available during the lunch or afternoon to talk about their poster",
    "orientation": null,
    "attendance": null,
    "file": null,
@@ -1986,7 +1986,7 @@
     "RMIT University, Australia"
    ],
    "locationHint": "online",
-   "presenting": "",
+   "presenting": "Minute Madness Session: Tuesday, 22 September 2026: 11:00am - 11:45am and presenters are likely to be available later during the lunch or afternoon to talk about their poster",
    "orientation": "landscape",
    "attendance": null,
    "file": "posters/CassieShaw_RoadmapToPreservation.pdf",
@@ -2060,7 +2060,7 @@
     "Oswaldo Cruz Foundation, Brazil"
    ],
    "locationHint": "3",
-   "presenting": "",
+   "presenting": "Minute Madness Session: Tuesday, 22 September 2026: 11:00am - 11:45am and presenters are likely to be available later during the lunch or afternoon to talk about their poster",
    "orientation": "portrait",
    "attendance": null,
    "file": "posters/116_Machado-JoaoGuilherme_SGP-VSD_packager.pdf",
@@ -2115,7 +2115,7 @@
     "University of Cambridge Libraries and Archives, United Kingdom"
    ],
    "locationHint": "25",
-   "presenting": "",
+   "presenting": "Minute Madness Session: Tuesday, 22 September 2026: 11:00am - 11:45am and presenters are likely to be available later during the lunch or afternoon to talk about their poster",
    "orientation": "portrait",
    "attendance": "in-person",
    "file": "posters/138_Rebekah-Johnston-and-Leontien-Talboom_Shrinking-The-Digital-Heap-Triaging.pdf",
@@ -2182,7 +2182,7 @@
     "Digital Preservation Coalition, United Kingdom"
    ],
    "locationHint": "30",
-   "presenting": "",
+   "presenting": "Minute Madness Session: Tuesday, 22 September 2026: 11:00am - 11:45am and presenters are likely to be available later during the lunch or afternoon to talk about their poster",
    "orientation": "landscape",
    "attendance": null,
    "file": "posters/281_AndyJackson_BuildingAnIndexOfPractice.pdf",
@@ -2240,7 +2240,7 @@
     "The British Library, United Kingdom"
    ],
    "locationHint": "26",
-   "presenting": "",
+   "presenting": "Minute Madness Session: Wednesday, 23 September 2026: 11:00am - 11:45am and presenters are likely to be available during the lunch or afternoon to talk about their poster",
    "orientation": "portrait",
    "attendance": null,
    "file": "posters/240_LucasWhibleyDay_TakingARisk.pdf",
@@ -2301,7 +2301,7 @@
     "National Library of Scotland, United Kingdom"
    ],
    "locationHint": "20",
-   "presenting": "",
+   "presenting": "Minute Madness Session: Tuesday, 22 September 2026: 11:00am - 11:45am and presenters are likely to be available later during the lunch or afternoon to talk about their poster",
    "orientation": "portrait",
    "attendance": "in-person",
    "file": "posters/118_Conor-Q-Walker_The-Diskovery-Pilot.pdf",
@@ -2359,7 +2359,7 @@
     "University of Geneva, Switzerland"
    ],
    "locationHint": "8",
-   "presenting": "",
+   "presenting": "Minute Madness Session: Tuesday, 22 September 2026: 11:00am - 11:45am and presenters are likely to be available later during the lunch or afternoon to talk about their poster",
    "orientation": "portrait",
    "attendance": null,
    "file": "posters/Cazeaux_TheDLCMTechnology.pdf",
@@ -2425,7 +2425,7 @@
     "UKRI, United Kingdom"
    ],
    "locationHint": "31",
-   "presenting": "",
+   "presenting": "Minute Madness Session: Tuesday, 22 September 2026: 11:00am - 11:45am and presenters are likely to be available later during the lunch or afternoon to talk about their poster",
    "orientation": "portrait",
    "attendance": null,
    "file": "posters/246_Oliver-Brough_The-Good-The-Grey-The-Redundant.pdf",
@@ -2528,7 +2528,7 @@
     "Finnish Social Science  Data Archive (FSD), Tampere University"
    ],
    "locationHint": "28",
-   "presenting": "",
+   "presenting": "Minute Madness Session: Wednesday, 23 September 2026: 11:00am - 11:45am and presenters are likely to be available during the lunch or afternoon to talk about their poster",
    "orientation": "portrait",
    "attendance": null,
    "file": "posters/HLH-TRIPP_v02_00.drawio.pdf",
@@ -2596,8 +2596,8 @@
     "Indiana University Libraries, United States of America",
     "University of Illinois Urbana-Champaign, United States of America"
    ],
-   "locationHint": "32",
-   "presenting": "",
+   "locationHint": "33",
+   "presenting": "Minute Madness Session: Wednesday, 23 September 2026: 11:00am - 11:45am and presenters are likely to be available during the lunch or afternoon to talk about their poster",
    "orientation": "portrait",
    "attendance": null,
    "file": "posters/Narlock_WeCantKeepEverythingForever.pdf",
@@ -2608,7 +2608,7 @@
    "thumbWidth": 520,
    "thumbHeight": 694,
    "presentedOnline": null,
-   "board": 32,
+   "board": 33,
    "landscape": false,
    "authorLine": "Narlock, Mikala; Luong, Hoa; Taylor, Danielle",
    "searchText": "we can’t keep everything forever: a landscape analysis of data retention in u.s. data repositories this poster presents an in-progress study being conducted to investigate how research data repositories are responding to the exponential growth of data while balancing preservation best practices; in particular, retention and deaccessioning. this poster will discuss our methods for identifying repositories for review, evaluation criteria, and preliminary results of the ongoing study. this research study expands on a smaller, preliminary study presented at ipres 2022. narlock, mikala; luong, hoa; taylor, danielle research data content data retention appraisal management organizations staffing repository assessments costsappraisal / selection acquisition ingest indiana university libraries, united states of america university of illinois urbana-champaign, united states of america"
