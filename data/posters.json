@@ -110,8 +110,8 @@
  ],
  "counts": {
   "total": 39,
-  "available": 35,
-  "awaited": 4,
+  "available": 36,
+  "awaited": 3,
   "inRoom": 35,
   "onBoards": 35
  },
@@ -161,7 +161,7 @@
    "organisations": [
     "University of California San Francisco, United States of America"
    ],
-   "locationHint": "26",
+   "locationHint": "22",
    "presenting": "",
    "orientation": "landscape",
    "attendance": null,
@@ -173,7 +173,7 @@
    "thumbWidth": 520,
    "thumbHeight": 312,
    "presentedOnline": null,
-   "board": 26,
+   "board": 22,
    "landscape": true,
    "authorLine": "Tasker, Kate; James, Emma",
    "searchText": "28 million documents and counting: digital preservation and corporate accountability at the ucsf industry documents library how do you preserve and provide access to millions of previously internal corporate documents released through public interest lawsuits? the industry documents library (idl) at the university of california san francisco (ucsf) is a digital archive containing over 26 million digitized and born-digital documents obtained from industries which impact public health, specifically the tobacco, opioid, drug, chemical, food, and fossil fuel industries.this presentation provides an overview of the context, workflows, and tools used when managing document disclosure for large volumes of digitized and born-digital records which may contain private information; utilizing cloud storage for preservation; and facilitating open online access for a diverse user community which has cited industry documents in over 1,200 publications and informed lifesaving public health research. tasker, kate; james, emma access data management other storage risk assessment open source software management organizations staffing repository assessments coststechnical infrastructure tools storage bit preservationlegal / ethical / environmental considerations policy strategy university of california san francisco, united states of america"
@@ -211,19 +211,19 @@
    "organisations": [
     "Royal Danish Library, Denmark"
    ],
-   "locationHint": "33",
+   "locationHint": "36",
    "presenting": "",
    "orientation": "portrait",
    "attendance": null,
-   "file": null,
-   "fileSize": 0,
-   "status": "awaited",
+   "file": "posters/Anders Klindt Myrvoll -50 Billion Objects of the Danish Web - Visualizing Two Decades of Netarkivet.pdf",
+   "fileSize": 2909183,
+   "status": "available",
    "number": null,
-   "thumb": null,
-   "thumbWidth": null,
-   "thumbHeight": null,
+   "thumb": "assets/thumbs/50-billion-objects-of-the-danish-web-visualizing.webp",
+   "thumbWidth": 520,
+   "thumbHeight": 1232,
    "presentedOnline": null,
-   "board": 33,
+   "board": 36,
    "landscape": false,
    "authorLine": "Klindt Myrvoll, Anders",
    "searchText": "50 billion objects of the danish web: visualizing two decades of netarkivet since 2005, the danish national web archive netarkivet, maintained by the royal danish library, has systematically collected and preserved the danish web under the danish legal deposit framework. through domain, selective, and event-based harvesting, the archive captures both the breadth and depth of denmark’s online presence, documenting the evolution of the country’s digital public sphere.over two decades of web archiving have produced a collection of more than 50 billion archived objects from over 3.3 million unique domains, representing approximately 1.6 petabytes of preserved data. the collection includes html pages, images, text files, pdfs, audio, video, and other web resources. this poster presents a large-scale visualization of netarkivet, providing a novel perspective on the structure, composition, and growth of a national web archive.the visualization highlights the scale and heterogeneity of the collection, which currently contains approximately 31.6 billion html files, 9 billion images, 7.4 billion other file types, 3 billion text files, 136 million pdfs, 23 million video files, and 14 million audio files. it also illustrates the historical development of the archive from 1995–2026, including growth in harvested content and the impact of large-scale deduplication. to contextualize the collection, the poster incorporates a historical link graph of danish web domains from 1998–2003, revealing patterns in the early development of the danish web and its relationship to subsequent preservation efforts.beyond visualizing content, the poster outlines key preservation and access milestones, including the adoption of browser-based crawling technologies, long-term preservation through replicated storage using open-source bitrepository software, and the evolution of access services from url-based retrieval to full-text search and discovery through solrwayback and pywb. the poster further demonstrates how archived web data supports research, highlighting projects ranging from studies of the historical danish web domain to recent investigations of childhood and digital culture in the early web era.finally, the poster reflects on challenges facing contemporary web archiving, including technological obsolescence, resource constraints, crawler blocking, and the increasing fragmentation of the web. by presenting netarkivet through a visual lens, this work demonstrates how visualization can bridge preservation infrastructure and scholarly engagement, making large-scale web archives more accessible, interpretable, and meaningful as both technical systems and cultural heritage collections. klindt myrvoll, anders web archive content data visualisation. link graphs technical infrastructure tools storage bit preservationmetadata descriptiondiscovery access delivery emulation royal danish library, denmark"
@@ -259,7 +259,7 @@
    "organisations": [
     "American Institute of Physics (AIP), United States of America"
    ],
-   "locationHint": "9",
+   "locationHint": "7",
    "presenting": "",
    "orientation": "portrait",
    "attendance": null,
@@ -271,7 +271,7 @@
    "thumbWidth": 520,
    "thumbHeight": 736,
    "presentedOnline": null,
-   "board": 9,
+   "board": 7,
    "landscape": false,
    "authorLine": "Buser, Allison",
    "searchText": "accessing quantum history in the new century: a collaborative (re)vision of archival governance “never in the history of science has so effective an effort been made to record decisive moments in the evolution of new ideas while key participants are still alive.” [1]the archive for the history of quantum physics (ahqp) was a momentous undertaking by historians and physical scientists in the 1960s to preserve primary source documentation of the 20th-century quantum revolution. a project undertaken and stewarded by institutions and individuals around the world, the archive remains a critical resource. however, outdated and ambiguous project policies have prevented institutions holding ahqp materials from offering broad access to documents holding significant insight into the early development of quantum physics. this poster will outline the collaborative undertaking by the american institute of physics and the american philosophical society, two of the project’s founding institutions, to revise ahqp’s governing convention and establish a new vision of greater access and preservation for the archive’s future. buser, allison collaboration governance access community collaborationsdiscovery access delivery emulation american institute of physics (aip), united states of america"
@@ -363,7 +363,7 @@
    "organisations": [
     "Digital Preservation Coalition, United Kingdom"
    ],
-   "locationHint": "13",
+   "locationHint": "10",
    "presenting": "",
    "orientation": "portrait",
    "attendance": null,
@@ -375,7 +375,7 @@
    "thumbWidth": 520,
    "thumbHeight": 910,
    "presentedOnline": null,
-   "board": 13,
+   "board": 10,
    "landscape": false,
    "authorLine": "Middleton, Sarah; Waugh, Dorothy",
    "searchText": "advocacy as a core digital preservation competency: strengthening awareness, action and organisational support advocacy plays a critical role in shaping successful digital preservation programs. whether practitioners are securing resources, raising awareness of risks or building organizational capability, advocacy activities directly support long term digital preservation outcomes. this poster frames advocacy as an essential part of digital preservation practice, which has become a key skill necessary for practitioners across roles and sectors. it highlights how purposeful communication—through clear and meaningful messaging—can reinforce the importance of digital preservation, raise awareness and inspire action. the poster also showcases the digital preservation coalition’s (dpc) extensive advocacy resources, including toolkits, models, templates and training opportunities, which practitioners can draw for support in their own advocacy endeavors; advancing digital preservation within their own organizational contexts. middleton, sarah; waugh, dorothy general digital preservation community people people capacity strategy community collaborations digital preservation coalition, united kingdom"
@@ -422,7 +422,7 @@
    "organisations": [
     "University of Illinois"
    ],
-   "locationHint": "32",
+   "locationHint": "37",
    "presenting": "",
    "orientation": "portrait",
    "attendance": null,
@@ -434,7 +434,7 @@
    "thumbWidth": 520,
    "thumbHeight": 736,
    "presentedOnline": null,
-   "board": 32,
+   "board": 37,
    "landscape": false,
    "authorLine": "West, Brent; Kaczmarek, Joanne",
    "searchText": "ai-enabled access to large and sensitive collections we present an approach to processing high-volume deposits of content leveraging technologies using open-source large language models and image description tools to generate descriptive metadata, summarization of text, and identification of potentially sensitive images. this approach, combined with on-demand human review for redaction of specific documents should enable researchers to more quickly locate information relevant to their research interests and protect sensitive information through abstraction, allowing archivists to provide more rapid and useful access to previously unavailable accessions. west, brent; kaczmarek, joanne metadata extraction email content image content risk management workflows technical infrastructure tools storage bit preservationmetadata descriptiondiscovery access delivery emulation university of illinois"
@@ -488,7 +488,7 @@
     "AIDA-netwerk vzw, Belgium",
     "Amsab--Institute for Social History, Belgium"
    ],
-   "locationHint": "16",
+   "locationHint": "19",
    "presenting": "",
    "orientation": "portrait",
    "attendance": null,
@@ -500,7 +500,7 @@
    "thumbWidth": 520,
    "thumbHeight": 1177,
    "presentedOnline": null,
-   "board": 16,
+   "board": 19,
    "landscape": false,
    "authorLine": "Maene, Merijn; Savels, Maarten",
    "searchText": "aida: a network-based approach to technical partner communication there's no way of getting around it: archiving born-digital content requires archivists to cooperate effectively with technical partners, yet this collaboration is frequently hindered by a communication gap.technical partners may lack insight into theoretical archival requirements for long-term preservation (such as oais and its interpretation), while archivists may struggle to translate archival principles into technical specifications.this poster presents aida, a flemish network initiative, that addresses this gap through a cooperative, community-driven model. by bringing together archival institutions, technical expertise, and a central coordinator, aida facilitates mutual learning and shared responsibility in the development of sustainable workflows for born-digital archiving.the poster highlights how this approach improves communication, supports informed decision-making, and contributes to a durable digital preservation infrastructure. maene, merijn; savels, maarten born digital content open source software network collaboration sustainability management organizations staffing repository assessments coststechnical infrastructure tools storage bit preservationcommunity collaborations aida-netwerk vzw, belgium amsab--institute for social history, belgium"
@@ -541,7 +541,7 @@
    "organisations": [
     "University of York, United Kingdom"
    ],
-   "locationHint": "7",
+   "locationHint": "6",
    "presenting": "",
    "orientation": "portrait",
    "attendance": null,
@@ -553,7 +553,7 @@
    "thumbWidth": 520,
    "thumbHeight": 1156,
    "presentedOnline": null,
-   "board": 7,
+   "board": 6,
    "landscape": false,
    "authorLine": "Brunello, Marco",
    "searchText": "arch-i-scan: archiving our biggest digital collection yet this poster explores the archival workflow and technical challenges encountered during the archival process of the arch-i-scan project (2019-2023), an ahrc-funded initiative that generated a massive ai training dataset of roman ceramics.moving from a research-active environment to a permanent repository at the archaeology data service (ads) required managing an unusually large archaeological dataset of approximately 698.78 gb. the archiving process involved a high-volume migration of over 208,000 images from .jpg to .tif for preservation and the conversion of 3d models from .fbx to .obj.a key focus of this submission is the development of a custom query and results interface designed to allow users to navigate this huge dataset. this poster reflects on the scalability of digital preservation practices when faced with \"big data\" and the necessity of creating a bespoke interface. brunello, marco digital preservation access born digital content file formats content integrity migrations content preservationappraisal / selection acquisition ingestdiscovery access delivery emulation university of york, united kingdom"
@@ -659,7 +659,7 @@
    "organisations": [
     "Emory University, United States of America"
    ],
-   "locationHint": "5",
+   "locationHint": "4",
    "presenting": "",
    "orientation": "portrait",
    "attendance": null,
@@ -671,7 +671,7 @@
    "thumbWidth": 520,
    "thumbHeight": 694,
    "presentedOnline": null,
-   "board": 5,
+   "board": 4,
    "landscape": false,
    "authorLine": "Rao, Nina; O'Riordan, Simon",
    "searchText": "captioning: everything, everywhere, all at once? integrating automated speech recognition into a digital preservation workflow from 2023 to 2025, emory libraries conducted a grant-funded project exploring the use of whisper, an open-source automated speech recognition (asr) software, for captioning and transcribing audiovisual (av) materials. the project found that using whisper expanded our capacity to provide accurate, high-quality captions and favorably transformed the experience of staff engaged in captioning work. based on these results, we were subsequently tasked with creating and preserving captions and transcripts for all av material in our digital preservation workflow. this poster describes our approach for transforming a pilot project into an ongoing service, the challenges we encountered in scaling up this work and integrating it into an existing workflow, and lessons learned for future integrations of automated description tools. rao, nina; o'riordan, simon access audiovisual content metadata extraction open source software technical infrastructure tools storage bit preservationmetadata descriptiondiscovery access delivery emulation emory university, united states of america"
@@ -743,7 +743,7 @@
     "Virginia Commonwealth University, United States of America",
     "Texas A&M University, United States of America"
    ],
-   "locationHint": "28",
+   "locationHint": "16",
    "presenting": "",
    "orientation": "landscape",
    "attendance": null,
@@ -755,7 +755,7 @@
    "thumbWidth": 520,
    "thumbHeight": 293,
    "presentedOnline": null,
-   "board": 28,
+   "board": 16,
    "landscape": true,
    "authorLine": "Taylor, Danielle; Kussmann, Carol; Pahl, Aaron; Kidd, Margaret; Oldham, Krista",
    "searchText": "current trends in fixity practices: results from the 2025 ndsa fixity survey in 2025, the ndsa fixity survey working group conducted its third iteration of the fixity survey in order to better understand how fixity and integrity practices have grown and changed. based on the structure and results of the 2017 and 2021 fixity survey reports, the 2025 fixity survey provides insight into how organizations worldwide use various fixity methods to ensure the stability of their digital content and to learn how real-world capacity and best practices differ. this poster shares the results from the 2025 fixity survey and illuminates the value of community-wide data gathering and knowledge sharing. taylor, danielle; kussmann, carol; pahl, aaron; kidd, margaret; oldham, krista fixity validation preservation tools technical infrastructure tools storage bit preservation indiana university libraries, united states of america university of minnesota, united states of america university of alabama at birmingham, united states of america virginia commonwealth university, united states of america texas a&m university, united states of america"
@@ -817,7 +817,7 @@
     "Sciences Po, Center for Socio-Political Data (CDSP), CNRS, France",
     "UCL, CLOSER UK"
    ],
-   "locationHint": "15",
+   "locationHint": "17",
    "presenting": "",
    "orientation": "portrait",
    "attendance": null,
@@ -829,7 +829,7 @@
    "thumbWidth": 520,
    "thumbHeight": 737,
    "presentedOnline": null,
-   "board": 15,
+   "board": 17,
    "landscape": false,
    "authorLine": "Danciu, Alina; Jon Johnson, Jon; Oldroyd, Becky; Marie, Lucie",
    "searchText": "ddi for beginners: free, bilingual training resources to help you start making your data fair with the ddi standard the fair principles (findable, accessible, interoperable, reusable) rely heavily on high?quality metadata and on the use of metadata standards such as the data documentation initiative (ddi). ddi plays a key role in enabling data reuse and reproducibility by providing a rich, structured metadata framework that captures essential information about the data, including elements needed to assess data quality and provenance.although ddi is well established within communities experienced in (meta)data management, it remains less accessible to newcomers. to broaden the adoption of fair practices, it is crucial to support researchers and data professionals who are unfamiliar with metadata standards and who may find existing ddi materials too abstract or technically demanding.in france, the two national open science plans and the evolving landscape of data?sharing practices have brought ddi to the attention of many “new” data professionals. despite the availability of numerous ddi resources (slide decks, recorded webinars, documentation), there is a clear need for true beginner?level training materials. existing resources are often perceived as too conceptual, complex, or difficult to navigate by first?time ddi users who lack prior experience with metadata management.the french fairwddi project (work package 2) was created to address this gap. specialists from the center for socio-political data of sciences po/cnrs (france) and closer, ucl (uk) collaborated during two week?long sprints to develop introductory ddi training materials designed specifically for beginners and showcased at eddi. their guiding question was: what is the minimum set of ddi metadata needed to make data reusable? they also aimed to ensure that learners acquire a solid understanding of core metadata and ddi concepts. a designer contributed to the project to make the materials visually clear, intuitive, and user?friendly.this poster presents two beginner?level ddi training resources, produced in both french and english, which will be made freely available to the community. danciu, alina; jon johnson, jon; oldroyd, becky; marie, lucie data documentation initiative metadata standards data management community collaborationsmetadata description sciences po, center for socio-political data (cdsp), cnrs, france ucl, closer uk"
@@ -1035,7 +1035,7 @@
    ],
    "locationHint": "online",
    "presenting": "",
-   "orientation": "landscape",
+   "orientation": "portrait",
    "attendance": "online",
    "file": "posters/107_IrinaSchmid_DignifiedDeletion.pdf",
    "fileSize": 4183507,
@@ -1046,7 +1046,7 @@
    "thumbHeight": 780,
    "presentedOnline": true,
    "board": null,
-   "landscape": true,
+   "landscape": false,
    "authorLine": "Schmid, Irina",
    "searchText": "dignified deletion: toward a philosophy of letting go in digital preservation this presentation challenges a foundational assumption of digital preservation: that our mission is to save as much as possible, for as long as possible. drawing on ecological concepts of decay, regeneration, and the forest floor, it proposes a philosophy of 'graceful degradation' and 'dignified deletion'—frameworks for intentionally letting some digital objects die. while current preservation practices focus on preventing data loss, they also create ongoing obligations: storage costs, format migration, metadata maintenance, and the labor of future colleagues. this presentation explores five interconnected provocations: ecological necessity of decay, environmental sustainability concerns, authenticity of ephemeral objects, preservation debt for future workers, and deletion as ethical care. the presentation introduces a draft framework for principled deaccessioning, 'dignified deletion,' including documentation, redistribution, sunset metadata, and transparent retention policies. schmid, irina policy strategy costs management preservation planning management organizations staffing repository assessments costsappraisal / selection acquisition ingestlegal / ethical / environmental considerations policy strategy the american university in cairo, egypt"
   },
@@ -1225,7 +1225,7 @@
    "organisations": [
     "UC Santa Cruz, United States of America"
    ],
-   "locationHint": "9",
+   "locationHint": "15",
    "presenting": "",
    "orientation": "portrait",
    "attendance": null,
@@ -1237,7 +1237,7 @@
    "thumbWidth": 520,
    "thumbHeight": 1071,
    "presentedOnline": null,
-   "board": 9,
+   "board": 15,
    "landscape": false,
    "authorLine": "Norton, Alix; Berry, Annika",
    "searchText": "forwarding the email archive: stewarding donna j. haraway’s digital correspondence at uc santa cruz the preservation of email archives is an ongoing challenge in the area of personal papers and manuscript collecting, especially in public universities and other archival institutions with mandates and expectations to provide wide access to all collections in our stewardship. much of the history we steward is in the form of personal and family papers, faculty papers, and organizational records, in formats ranging from paper files to photographs, oral history recordings, other audiovisual materials, and (increasingly) digital files. the stewardship of digital files (especially email), including acquisition, content review, preservation, and access, introduces many challenges not present in other formats.in 2025, the uc santa cruz special collections & archives processed and made accessible the papers of donna j. haraway, ucsc distinguished professor emerita who has taught in the history of consciousness and feminist studies departments since 1980. a prominent writer and interdisciplinary scholar in feminist science and technology studies, haraway's work bridges biology, philosophy, and cultural theory, and delves critically into the epistemological foundations of scientific knowledge. haraway transferred her email correspondence, beginning in 1998 and including over 85,000 messages, to the archives to be made available for research alongside the rest of her papers.in uc santa cruz’s center for archival research and training, the presenters worked together to make this collection available to researchers; in doing so, we encountered a number of technical and ethical challenges related specifically to email files. in this poster, we outline the tools we used including epadd, mailbag, emailchemy, darc, treesize pro, and dart, as well as the new and difficult considerations we navigated while preparing these materials for research use.in this poster, we reflect on how haraway’s own scholarship can inform archival thinking about digital correspondence. when we spoke to haraway about her wishes for the future of her archive, she emphasized the scale of environmental and technological change she anticipates in the coming years. her writing and scholarship encourages us to think critically about systems of knowledge production and preservation, as well as the technical infrastructures that support this work and the relationships (between humans, other species, environments, and machines) that sustain them. by situating a practical case study of email processing beside these larger philosophical questions, this poster invites reflection on how archival preservation practices might adapt to, or, quoting haraway, “stay with the trouble” of our uncertain present and futures. norton, alix; berry, annika access email content workflows preservation tools strategy file formats content integrity migrations content preservationappraisal / selection acquisition ingestdiscovery access delivery emulationlegal / ethical / environmental considerations policy strategy uc santa cruz, united states of america"
@@ -1291,7 +1291,7 @@
     "Institute of Medical Information/Medical Library, Chinese Academy of Medical Sciences & Peking Union Medical College, China, People's Republic of",
     "Medical Center of National Digital Preservation Centre, National Science and Technology Library"
    ],
-   "locationHint": "8",
+   "locationHint": "18",
    "presenting": "",
    "orientation": "portrait",
    "attendance": null,
@@ -1303,7 +1303,7 @@
    "thumbWidth": 520,
    "thumbHeight": 1118,
    "presentedOnline": null,
-   "board": 8,
+   "board": 18,
    "landscape": false,
    "authorLine": "Peng, Yuanyuan; Ren, Huiling; Fu, Minjun",
    "searchText": "from simulation to reality: china's first authentic-scenario emergency drill for preserving licensed electronic journals in biomedicine digital preservation often confronts a fundamental paradox: while the ultimate objective is to ensure ongoing use, the practical feasibility of such use is seldom empirically validated under authentic operational conditions. this paper presents a pioneering emergency drill conducted by the national digital preservation center (ndpc) medical branch in china. moving beyond theoretical \"dark archive\" simulations, this exercise involved 25 participating libraries and executed a live switch-over of access rights for karger publishers' biomedical journals. lasting 8 hours, the drill demonstrated 100% system availability, identified and resolved critical technical bottlenecks (such as cache overflows), and established a collaborative \"warm archiving\" framework. this initiative marks a significant milestone in validating the national infrastructure’s readiness to safeguard critical biomedical knowledge against real-world disruptions. peng, yuanyuan; ren, huiling; fu, minjun authentic-scenario drill digital preservation emergency access biomedical literature collaboration community collaborations institute of medical information/medical library, chinese academy of medical sciences & peking union medical college, china, people's republic of medical center of national digital preservation centre, national science and technology library"
@@ -1354,7 +1354,7 @@
    "organisations": [
     "National Library of New Zealand and Archives New Zealand, New Zealand"
    ],
-   "locationHint": "14",
+   "locationHint": "13",
    "presenting": "",
    "orientation": "portrait",
    "attendance": null,
@@ -1366,7 +1366,7 @@
    "thumbWidth": 520,
    "thumbHeight": 867,
    "presentedOnline": null,
-   "board": 14,
+   "board": 13,
    "landscape": false,
    "authorLine": "Goethals, Andrea; Gengenbach, Martin; Wu, Cynthia",
    "searchText": "how well did we do? measuring digital preservation performance how can digital preservation programmes measure how well digital collections are being preserved, rather than simply how much content has been ingested into a repository or attempting to demonstrate repository “trustworthiness”? these approaches provide limited insight into whether digital material is being maintained in accordance with preservation policy requirements.this poster presents a proposed performance metric developed at the national library of new zealand and archives new zealand to support a new organisational measure assessing the percentage of collections maintained according to preservation policies. the metric combines two factors: the proportion of digital holdings stored in compliant preservation environments, and the operational assurance that those environments are being actively managed and maintained as intended. together, these provide a clearer and more communicable indicator of digital preservation performance that can be adapted to different types of digital collections. goethals, andrea; gengenbach, martin; wu, cynthia repository assessment audit management management organizations staffing repository assessments coststechnical infrastructure tools storage bit preservation national library of new zealand and archives new zealand, new zealand"
@@ -1448,7 +1448,7 @@
     "University of Cambridge Libraries & Archives, United Kingdom",
     "The National Archives, United Kingdom"
    ],
-   "locationHint": "20",
+   "locationHint": "29",
    "presenting": "",
    "orientation": "landscape",
    "attendance": null,
@@ -1460,7 +1460,7 @@
    "thumbWidth": 520,
    "thumbHeight": 368,
    "presentedOnline": null,
-   "board": 20,
+   "board": 29,
    "landscape": true,
    "authorLine": "Jackson, Andrew; McConnachie, Stephen; Wales, Lucy; Talboom, Leontien; Gostick, John; Daly, Steve",
    "searchText": "introducing dataflow diagrams: communicating digital preservation workflows all digital preservation initiatives depend on robust workflows that weave digital preservation tools and processes into the infrastructure of the preserving institution and the roles and goals of the people involved. sharing and communicating these workflows is crucial work, both within organisations and when comparing practices across different contexts. this poster proposes a standardised form of “dataflow diagram”, intended to help capture and illuminate the way digital data moves from place to place, the poster will use generic dataflows based on oais to set the stage, but the focus will be on documenting real workflows from the uk web archive (c.2023), the bfi national archive, the cambridge university library, and the national archives (uk). jackson, andrew; mcconnachie, stephen; wales, lucy; talboom, leontien; gostick, john; daly, steve workflows strategy collaboration management organizations staffing repository assessments costscommunity collaborations digital preservation coalition, united kingdom bfi national archive, united kingdom university of cambridge libraries & archives, united kingdom the national archives, united kingdom"
@@ -1581,7 +1581,7 @@
     "The National Archives (UK), United Kingdom",
     "King’s College London, United Kingdom"
    ],
-   "locationHint": "26",
+   "locationHint": "23",
    "presenting": "",
    "orientation": "portrait",
    "attendance": null,
@@ -1593,7 +1593,7 @@
    "thumbWidth": 520,
    "thumbHeight": 736,
    "presentedOnline": null,
-   "board": 26,
+   "board": 23,
    "landscape": false,
    "authorLine": "Storrar, Thomas; Pallotto Strickland, Manuela",
    "searchText": "let’s dowarc! semantic modelling of web archiving artefacts to support their sustainable long-term preservation this poster presents our work on using semantic technologies to tackle contextual-ambiguities and versioning -ambiguities commonly occurring in web archiving practices.web archives are stored in the iso28500:2017 standard warc file format. typically, each warc file is a composite of multiple web-hosted digital objects and is remarkably efficient in terms of retrieval and storage, allowing for effective bit-level preservation. however, aspects of web archiving practices in building and managing these born-digital collections can present significant challenges to digital preservation principles such as self-containment and self-description.because of the distributed and dynamic nature of living web content, web archives struggle to implement sustainable and accessible approaches to versioning and context-anchoring for each digital object.as web archives are generally built from snapshotting of living web resources situated within the networked web, unique content is often interspersed with duplicate, or near-duplicate, material. this process can reduce the visibility of the relationship between digital objects within these collections, causing a loss of contextualisation that can have real implications for meaningful description. these issues are compounded when considering the vast scale at which most web archives operate.to address the ensuing challenges, we leveraged the specific affordances offered by the resource description framework (rdf) and experimented with a local and small-scale implementation in a jupyter environment. we used standard web archiving tools such as warcio and fastwarc to extract data from warc and cdx files, and the lightweight dowarc ontology, which we designed as a metadata tool compliant with the iso warc specifications, to describe it.by implementing dowarc over sample data, we were able to ascertain that rdf can be used as a tool to mitigate context-related ambiguities at scale, over ever-growing collections of warc and derivative cdx files. with dowarc, we represented web archiving artefacts as interlinked rdf graphs and, thus doing, we were able to formalise and disambiguate the relationships between these resources, whilst also defining the context in which they had been originally captured or derived.the representation of warc files as rdf graphs could provide the digital archivists with metadata that significantly enriches the related aip, to support more sustainable long-term storage and preservation. depending on local policy frameworks, rdf modelling with dowarc can also help digital repositories address issues with sustainable data-storing engendered by intensive web archiving versioning practices. storrar, thomas; pallotto strickland, manuela metadata extraction data management born digital content preservation tools web archive content file formats content integrity migrations content preservationtechnical infrastructure tools storage bit preservationmetadata description the national archives (uk), united kingdom king’s college london, united kingdom"
@@ -1631,7 +1631,7 @@
    "organisations": [
     "TIB – Leibniz Information Centre for Science and Technology and University Library Germany, Germany"
    ],
-   "locationHint": "31",
+   "locationHint": "34",
    "presenting": "",
    "orientation": "portrait",
    "attendance": null,
@@ -1643,7 +1643,7 @@
    "thumbWidth": 520,
    "thumbHeight": 1217,
    "presentedOnline": null,
-   "board": 31,
+   "board": 34,
    "landscape": false,
    "authorLine": "Walz, Annabel; Rücknagel, Jesko",
    "searchText": "lower saxony state initiative for digital preservation the lower saxony state initiative for digital preserva-tion (landesinitiative langzeitarchivierung – lila) is a five-year project (2025-2030) which supports the state and academic libraries and museums in establishing and im-plementing digital preservation (dp). lila builds on the digital preservation-as-a-service workflows offered by the german national library of science and technology (tib) and will test the scalability of these workflows. in addition to providing an entry point in dp for the men-tioned institutions the project will foster community and estimate resource needs for dp for participating institu-tions. the poster will highlight the insights gained during the first year. walz, annabel; rücknagel, jesko collaboration community workflows community collaborations tib – leibniz information centre for science and technology and university library germany, germany"
@@ -1691,7 +1691,7 @@
    "organisations": [
     "Vancouver Holocaust Education Centre (VHEC), Canada"
    ],
-   "locationHint": "4",
+   "locationHint": "5",
    "presenting": "",
    "orientation": "portrait",
    "attendance": null,
@@ -1703,7 +1703,7 @@
    "thumbWidth": 520,
    "thumbHeight": 1073,
    "presentedOnline": null,
-   "board": 4,
+   "board": 5,
    "landscape": false,
    "authorLine": "Alster, Ada; Singh, Rohini",
    "searchText": "lto-7 to lto-10: migrating holocaust survivor testimonies for long-term digital preservation the vancouver holocaust education centre (vhec) undertook a digital preservation migration project to strengthen the long-term stewardship of its audiovisual holocaust testimony collection. the collection comprises over 200 survivor and eyewitness testimonies recorded since 1979 across analogue and digital formats.as existing lto-7 media approached the end of its recommended service lifecycle, the vhec migrated preservation and mezzanine files to lto-10 in alignment with best-practice recommendations for periodic carrier refresh. [1]beyond tape-to-tape copying, the project implemented structured repackaging using bagit and automated python scripts integrated with collectiveaccess (ca), the vhec’s content management system (cms). an oais-informed workflow incorporated fixity verification and premis-aligned preservation metadata. the migration produced verified preservation copies for over 200 testimonies and established a sustainable workflow suitable for small and mid-sized documentary heritage organizations. alster, ada; singh, rohini audiovisual content tape storage fixity workflows preservation tools file formats content integrity migrations content preservationtechnical infrastructure tools storage bit preservationmetadata description vancouver holocaust education centre (vhec), canada"
@@ -1744,7 +1744,7 @@
    "organisations": [
     "FORS, Switzerland"
    ],
-   "locationHint": "10",
+   "locationHint": "9",
    "presenting": "",
    "orientation": "portrait",
    "attendance": null,
@@ -1756,7 +1756,7 @@
    "thumbWidth": 520,
    "thumbHeight": 736,
    "presentedOnline": null,
-   "board": 10,
+   "board": 9,
    "landscape": false,
    "authorLine": "Ferrez, Eliane; Heers, Marieke",
    "searchText": "overcoming barriers to preserving and sharing qualitative data: the experience of fors archiving, sharing and reuse of qualitative social sciences data is not yet a common practice. in this poster, we will present the experience of fors - swiss center of expertise in the social sciences - concerning the preservation and sharing of qualitative data. we will describe the context and conditions which made it possible to overcome some of the (perceived) barriers. ferrez, eliane; heers, marieke archives content access social sciences qualitative data discovery access delivery emulation fors, switzerland"
@@ -1803,7 +1803,7 @@
    "organisations": [
     "CERN, Switzerland"
    ],
-   "locationHint": "17",
+   "locationHint": "27",
    "presenting": "",
    "orientation": "portrait",
    "attendance": null,
@@ -1815,7 +1815,7 @@
    "thumbWidth": 520,
    "thumbHeight": 735,
    "presentedOnline": null,
-   "board": 17,
+   "board": 27,
    "landscape": false,
    "authorLine": "Le Meur, Jean-Yves; Liptak, Panna",
    "searchText": "preservation as a service: the cern preserve hub the european organization for nuclear research (cern) has set up a preservation service to ensure any data under its intellectual property can be treated for long term preservation according to world-wide standards.the cern preserve hub is designed to communicate with the live information repositories run within the institute. service level agreements establish how the data and metadata from these source systems are harvested in order to convert them into archival information packages.the poster will describe the two main areas that have empowered the raise of this new service. it will highlight the technical developments and how the backend engine can be scaled to support the massive data produced by cern. it will also expose the underlying policies that are guiding a centralized preservation strategy, covering all possible data types. le meur, jean-yves; liptak, panna strategy preservation planning workflow oais eosc eden management organizations staffing repository assessments coststechnical infrastructure tools storage bit preservation cern, switzerland"
@@ -1851,7 +1851,7 @@
    "organisations": [
     "University of California, California Digital Library, United States"
    ],
-   "locationHint": "30",
+   "locationHint": "14",
    "presenting": "",
    "orientation": "landscape",
    "attendance": null,
@@ -1863,7 +1863,7 @@
    "thumbWidth": 520,
    "thumbHeight": 253,
    "presentedOnline": null,
-   "board": 30,
+   "board": 14,
    "landscape": true,
    "authorLine": "Lopatin, Eric",
    "searchText": "repository autoscaling through use of containers and operational metrics – a cloud-based approach at california digital library, the digital preservation repository team is amid a paradigm shift that entails movement of the system’s microservices and queueing capabilities to a fully containerized state. meaning, each key service, such as ingest, inventory and storage will operate in independent but orchestrated containers.there are numerous advantages to running a repository using this new strategy and infrastructure. this poster will illustrate the team’s transition from its current cloud infrastructure to containers, including items such as infrastructure as code, orchestration and vitally, using key metrics to determine when the system should scale its resources to handle variable deposit rates – all with the intention of optimizing throughput, costs and environmental impact. lopatin, eric repository systems software cloud strategy workflows containerization technical infrastructure tools storage bit preservation university of california, california digital library, united states"
@@ -1928,7 +1928,7 @@
     "National Institutes for the Humanities, Japan",
     "National Museum of Japanese History, Japan"
    ],
-   "locationHint": "34",
+   "locationHint": "39",
    "presenting": "",
    "orientation": null,
    "attendance": null,
@@ -1940,7 +1940,7 @@
    "thumbWidth": null,
    "thumbHeight": null,
    "presentedOnline": null,
-   "board": 34,
+   "board": 39,
    "landscape": false,
    "authorLine": "Kameda, Akihiro; Kitaoka, Tamako; Goto, Makoto",
    "searchText": "repository-native documentation for research data preservation with well-known repository files this poster proposes a repository-native approach to research data preservation in which well-known repository files such as readme.md, contributors.md, notice.md, and ethics.md serve as primary documentation for preservation-relevant metadata.it also introduces issue-level markdown records to document actions, rationale, uncertainty, and residual problems. together, these records support continuous provenance capture during research and can be transformed into outputs such as ro-crate, mets, jpcoar2 metadata, and tei header. kameda, akihiro; kitaoka, tamako; goto, makoto research data content management metadata ai-assisted software development provenance management organizations staffing repository assessments costsfile formats content integrity migrations content preservationmetadata descriptionlegal / ethical / environmental considerations policy strategy national institutes for the humanities, japan national museum of japanese history, japan"
@@ -2181,7 +2181,7 @@
     "IIPC, United States of America",
     "Digital Preservation Coalition, United Kingdom"
    ],
-   "locationHint": "22",
+   "locationHint": "30",
    "presenting": "",
    "orientation": "landscape",
    "attendance": null,
@@ -2193,7 +2193,7 @@
    "thumbWidth": 520,
    "thumbHeight": 368,
    "presentedOnline": null,
-   "board": 22,
+   "board": 30,
    "landscape": true,
    "authorLine": "Holownia, Olga; Jackson, Andrew N.; Healy, Sharon",
    "searchText": "sustainable and systematic: building a search index of research and practice in web archiving and digital preservation our project introduces the awesome indexer, which brings together digital preservation and web archiving resources into a single search interface and database. our key argument is that centralised discovery is crucial for the long-term sustainability of these resources, encouraging reuse and investment in those resources rather than attempting to replace them. holownia, olga; jackson, andrew n.; healy, sharon access database content workflows technical infrastructure tools storage bit preservationcommunity collaborations iipc, united states of america digital preservation coalition, united kingdom"
@@ -2239,7 +2239,7 @@
    "organisations": [
     "The British Library, United Kingdom"
    ],
-   "locationHint": "23",
+   "locationHint": "26",
    "presenting": "",
    "orientation": "portrait",
    "attendance": null,
@@ -2251,7 +2251,7 @@
    "thumbWidth": 520,
    "thumbHeight": 741,
    "presentedOnline": null,
-   "board": 23,
+   "board": 26,
    "landscape": false,
    "authorLine": "Lucas, Rebecca; Whibley, Simon; Day, Michael",
    "searchText": "taking a risk? this poster describes how the implementation of a digital preservation risk assessment programme using the charm reference model for conceptualising and characterising digital preservation risk supported digital collections management at the british library following a major cyber incident. lucas, rebecca; whibley, simon; day, michael risk identification risk assessment community collaboration engagement community collaborations the british library, united kingdom"
@@ -2300,7 +2300,7 @@
    "organisations": [
     "National Library of Scotland, United Kingdom"
    ],
-   "locationHint": "29",
+   "locationHint": "20",
    "presenting": "",
    "orientation": "portrait",
    "attendance": "in-person",
@@ -2312,7 +2312,7 @@
    "thumbWidth": 520,
    "thumbHeight": 875,
    "presentedOnline": false,
-   "board": 29,
+   "board": 20,
    "landscape": false,
    "authorLine": "Walker, Conor de Quincey",
    "searchText": "the diskovery pilot: amiga coverdisk emulation & videogaming the incidental the national library of scotland's diskovery pilot is a two-year project to preserve and provide access to collections held on cd audio, dvd video, and 3.5-inch floppy disk. this poster focuses on the latter, drawing on amiga-formatted coverdisks from computing magazines of the 1980s and 1990s to address a pressing preservation horizon: the obsolescence of disk-based collections carrying sound, moving image, and videogame culture. diskovery is framed by the emergent digital – the transitional period from magnetic to optical data storage (1970s–1990s) – and the radical expansion of multimedia through personal computing that accompanied it.coverdisk migration: floppy disk workflows and amiga preservation3.5-inch floppy coverdisks constitute the library's largest computer game collection, arriving incidentally as supplemental material to legally deposited magazines. scottish classics ‘menace’ and ‘lemmings’ from dundee's dma design reside here alongside software, tutorials, utilities, and digital art primers. the migration workflow draws on digital forensics practices, refined through dialogue with the digital preservation coalition (dpc) and training from cambridge university library's future nostalgia project. workflows target both flux-level fidelity and emulation-ready output, ensuring captured disks are playable within amiga forever, a licensed emulation environment. this approach relies on affordable, open-source hardware, including the greaseweazle floppy disk controller, offering a reproducible methodology for institutions facing similar collection loss risks.playing the archive: emulation and the gaming kioskemulation terminals will be deployed in the george iv reading room in edinburgh and at moving image, music & sound collections in glasgow, realising preservation to the point of access. installing a gaming kiosk in a research library re-orients the public access offer toward interactive, time-based digital culture, raising questions around emulation licensing, accessibility, and what gaming means in spaces traditionally reserved for text-based research. diskovery proposes a replicable model for cultural memory institutions beginning to engage with gaming collections.access challenges and the cultural porosity of videogamesunder uk legal deposit, videogames fall outside non-print legal deposit legislation, yet the library has accumulated its largest games collection through incidental coverdisks. this inversion calls for more flexible collecting mandates. the library is co-leading a network with national museums scotland and the national videogame museum toward a shared framework for collecting, preserving, and presenting scotland's videogaming legacy—directly addressing ipres 2026's community theme. videogames are culturally porous, bleeding into art, music, and cinema, and diskovery asks what it means for a national library to steward not only games, but their afterlives across forms. walker, conor de quincey audiovisual content emulation migration videogames floppy coverdisks file formats content integrity migrations content preservationtechnical infrastructure tools storage bit preservationcommunity collaborationsmetadata descriptiondiscovery access delivery emulationlegal / ethical / environmental considerations policy strategy national library of scotland, united kingdom"
@@ -2358,7 +2358,7 @@
    "organisations": [
     "University of Geneva, Switzerland"
    ],
-   "locationHint": "6",
+   "locationHint": "8",
    "presenting": "",
    "orientation": "portrait",
    "attendance": null,
@@ -2370,7 +2370,7 @@
    "thumbWidth": 520,
    "thumbHeight": 1118,
    "presentedOnline": null,
-   "board": 6,
+   "board": 8,
    "landscape": false,
    "authorLine": "CAZEAUX, Hugues; BURGI, Pierre-Yves",
    "searchText": "the dlcm technology, the swiss army knife of digital preservation: research data, administrative/heritage data and innovation developed with financial support from swissuniversities, the dlcm's open-access technology enables long-term digital preservation. this technology has been designed with swiss know-how to build complete digital archiving solutions accessible via a simple, ergonomic web portal. its strengths lie in its modularity, scalability and open architecture, which comply with the oais standard and best archiving practices. dlcm facilitates data deposit for both research and administrative/patrimonial fields. it automatically qualifies submitted formats, informing users of any risk of obsolescence by assigning a compliance level to each file based on the file format’s identification with the pronom registry. the dlcm ensures the long-term survival of archives by replicating them and guaranteeing their integrity. it mitigates the preservation risks, like natural and man-made disasters, human errors or hardware failure and hardware obsolescence. the use of open standards enables the “fairness” of the archives by adhering to fair principles through the use of the datacite schema for metadata, by assigning a persistent identifier (doi or ark) to each archive and by also using persistent identifiers in metadata for individuals (orcid), institutions (ror) and licenses (spdx). dlcm provides access to archives via a simple search interface, while controlling access according to access levels and data sensitivity. in the most restricted way, the user must be logged in with secured authentication (mfa, multi-factor authentication), request access to the archive and provide a signed data use agreement. designed using state-of-the-art software practices, dlcm guarantees maintainability by implementing continuous integration and automatic testing in line with “devops” practices. thanks to its modularity, the integration of a dna connector, carried out as part of the european dnamic.org project, will make it possible in future to archive information packages in molecules with unrivalled data density, longevity, and very low energy requirements. cazeaux, hugues; burgi, pierre-yves research data content repository systems software storage media general digital preservation open source software file formats content integrity migrations content preservationtechnical infrastructure tools storage bit preservation university of geneva, switzerland"
@@ -2424,7 +2424,7 @@
    "organisations": [
     "UKRI, United Kingdom"
    ],
-   "locationHint": "26",
+   "locationHint": "31",
    "presenting": "",
    "orientation": "portrait",
    "attendance": null,
@@ -2436,7 +2436,7 @@
    "thumbWidth": 520,
    "thumbHeight": 736,
    "presentedOnline": null,
-   "board": 26,
+   "board": 31,
    "landscape": false,
    "authorLine": "Brough, Oliver; Holt, Peter; Mistry, Vivek",
    "searchText": "the good, the grey and the redundant - data redundancy and grey literature at the edc the energy data centre (edc) is a capability of the uk energy research centre (ukerc) which is an independent research centre that carries out research into sustainable future energy systems in the uk. the edc curates uk energy research data for long term preservation and provides a discovery portal to make this data findable and accessible.the edc has been running as a service for 25 years without a major outage, achieved in part through our practice of data redundancy across our multiple servers. this approach has enabled the edc to minimise disruption to users of the service during periods of server instability, as well as bolstering the preservation practices by maintaining multiple copies of the digital objects in case of a loss of file integrity.storing copies of digital objects in multiple locations does however come with the added consideration of ensuring that all of these copies are identical. in 2025, the edc expanded on its preservation practices to best account for these considerations. an in-house integrity checking tool was created that assesses our files across all storage locations to ensure their quality through checksums. additionally, we introduced both file manifests and metadata files for the datasets we hold for both data validation and machine readability to improve the findability of our content.data redundancy is especially important for the long-term preservation of grey literature, these being publications that were not formally published. this is because if the only instance of a document that is no longer available anywhere else is corrupted, this data could become permanently lost. the edc has a strong focus on preserving grey literature, such as with the energy technologies institute (eti) which ran from 2007-2019 and produced many reports that would have been inaccessible once the website shut down in 2025 if they hadn’t also been stored on the edc. preserving multiple copies of these publications in different locations ensures these copies can be used to restore the data back to its original version if a specific instance of the file is damaged, ensuring it is still findable and accessible to users and securing its preservation.this poster will detail how these preservation practices are carried out at the edc, the importance of each within the context of grey literature and eti, how these practices support fair data, and the edcs plans moving forward to streamline this process, while still following preservation best practices. brough, oliver; holt, peter; mistry, vivek preservation action research data content data management validation collection assessment file formats content integrity migrations content preservationtechnical infrastructure tools storage bit preservationmetadata description ukri, united kingdom"
@@ -2527,7 +2527,7 @@
     "TIB - Leibniz Information Centre for Science  and Technology",
     "Finnish Social Science  Data Archive (FSD), Tampere University"
    ],
-   "locationHint": "27",
+   "locationHint": "28",
    "presenting": "",
    "orientation": "portrait",
    "attendance": null,
@@ -2539,7 +2539,7 @@
    "thumbWidth": 520,
    "thumbHeight": 738,
    "presentedOnline": null,
-   "board": 27,
+   "board": 28,
    "landscape": false,
    "authorLine": "L'Hours, Hervé; Parkes, Oliver; Benauer, Maria; Lindlar, Micky; Caron, Bertrand; Kleemola, Mari",
    "searchText": "transparent, referenceable, integrated, preservation planning tripp this poster proposes that any organisational entity that looks after data and/or metadata should take an approach that integrates retention, curation and preservation planning, and should share a transparent and referenceable (i.e. structured, persistently identified, resolvable) set of supporting information. it presents a diagrammatic overview of the internal and external inputs, preservation planning and the digital object management lifecycle, including assessment and intervention.the overall vision of transparent, referenceable, integrated preservation planning is provision of a tripp template that all repositories can use to share and to clarify their practice. l'hours, hervé; parkes, oliver; benauer, maria; lindlar, micky; caron, bertrand; kleemola, mari preservation planning preservation action data management digital preservation functions management organizations staffing repository assessments costsfile formats content integrity migrations content preservationappraisal / selection acquisition ingestdiscovery access delivery emulation uk data service,  uk data archive,  university of essex tib - leibniz information centre for science  and technology finnish social science  data archive (fsd), tampere university"
@@ -2596,7 +2596,7 @@
     "Indiana University Libraries, United States of America",
     "University of Illinois Urbana-Champaign, United States of America"
    ],
-   "locationHint": "28",
+   "locationHint": "32",
    "presenting": "",
    "orientation": "portrait",
    "attendance": null,
@@ -2608,7 +2608,7 @@
    "thumbWidth": 520,
    "thumbHeight": 694,
    "presentedOnline": null,
-   "board": 28,
+   "board": 32,
    "landscape": false,
    "authorLine": "Narlock, Mikala; Luong, Hoa; Taylor, Danielle",
    "searchText": "we can’t keep everything forever: a landscape analysis of data retention in u.s. data repositories this poster presents an in-progress study being conducted to investigate how research data repositories are responding to the exponential growth of data while balancing preservation best practices; in particular, retention and deaccessioning. this poster will discuss our methods for identifying repositories for review, evaluation criteria, and preliminary results of the ongoing study. this research study expands on a smaller, preliminary study presented at ipres 2022. narlock, mikala; luong, hoa; taylor, danielle research data content data retention appraisal management organizations staffing repository assessments costsappraisal / selection acquisition ingest indiana university libraries, united states of america university of illinois urbana-champaign, united states of america"
