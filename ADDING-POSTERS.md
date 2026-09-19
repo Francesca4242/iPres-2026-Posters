@@ -27,10 +27,13 @@ search index, on its own page and on the map.
 
 
 
-**If you only do step 1**, the build still tries to pair the PDF with its row
-by looking for the author surname and words from the title in the filename, so
-a file named like the existing ones will usually be picked up anyway. Anything
-it cannot place is named in the Action's log and stays marked "PDF on its way".
+**If you only do step 1**, the build still pairs the PDF with its row by
+looking for the author surname and words from the title in the filename, so a
+file named anything like the existing ones is picked up on its own — including
+when the row's `file_name` cell is empty. Only PDFs that no row has claimed by
+name are considered, so it cannot steal a poster from another row. Anything it
+cannot place is named in the Action's log and stays marked "PDF on its way",
+and anything it does place by guesswork is named in the log too.
 
 **If a filename refuses to match** — an accented character can arrive mangled
 when the CSV is exported — add one line to `tools/poster_files.csv`, which
@@ -131,6 +134,16 @@ opens a poster.
 They are committed rather than generated on the fly because the site is plain
 static files — there is no server to render them on demand.
 
+## If the rebuild goes red
+
+The Action checks the site's copy of the metadata against the CSV and stops if
+they differ. When it stops, **nothing is published** — the site carries on
+serving the last good version, so a bad edit never reaches visitors. Fix the
+CSV and push again.
+
+Empty rows left behind by a spreadsheet are ignored rather than treated as an
+error, and a row with a missing column does not stop the build.
+
 ## The metadata is never edited
 
 Titles, abstracts, author names, institutions and keywords are copied to the
@@ -193,7 +206,8 @@ To force it either way, `data/config.json`:
 behaviour described above.
 
 A poster marked `online` in the CSV should not be given a board — it is not in
-the room, and the build log says so if one gets a number by mistake.
+the room. If one gets a number by mistake the build log says so, and the site
+ignores it: an online poster never takes a board.
 
 ### Editing the layout file by hand instead
 
