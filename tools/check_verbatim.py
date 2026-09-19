@@ -42,26 +42,31 @@ def main():
     problems = []
 
     for row in rows:
-        title = newline_only(row["title"])
+        title = newline_only(row.get("title"))
+        # Spreadsheets leave empty rows behind. build_data.py skips them, so
+        # this has to as well - otherwise one stray comma-only line at the end
+        # of the CSV fails the build and the site never sees the day's edits.
+        if not title.strip():
+            continue
         poster = by_title.get(title)
         if poster is None:
             problems.append("title not found verbatim in posters.json: {!r}".format(title))
             continue
-        if poster["abstract"] != newline_only(row["abstract_plain"]):
+        if poster["abstract"] != newline_only(row.get("abstract_plain")):
             problems.append("abstract differs for {!r}".format(title[:60]))
         for author in poster["authors"]:
-            if author["raw"] not in row["authors"]:
+            if author["raw"] not in (row.get("authors") or ""):
                 problems.append("author {!r} is not verbatim in {!r}".format(author["raw"], title[:40]))
             if author["name"] not in author["raw"]:
                 problems.append("author display name {!r} was rewritten".format(author["name"]))
         for keyword in poster["keywords"]:
-            if keyword not in row["keywords"]:
+            if keyword not in (row.get("keywords") or ""):
                 problems.append("keyword {!r} is not verbatim in {!r}".format(keyword, title[:40]))
         for org in poster["organisations"]:
-            if org not in row["organisations"]:
+            if org not in (row.get("organisations") or ""):
                 problems.append("institution {!r} is not verbatim in {!r}".format(org, title[:40]))
         for topic in poster["topics"]:
-            if topic not in row["topics"]:
+            if topic not in (row.get("topics") or ""):
                 problems.append("topic {!r} is not verbatim in {!r}".format(topic, title[:40]))
         for field, column in (("orientation", "landscape/ portrait"), ("attendance", "online/ in-person")):
             value = poster.get(field)
@@ -82,7 +87,7 @@ def main():
     print("All {} posters: titles, abstracts, authors, keywords, institutions, "
           "topics, orientation and presenting times are character-for-character "
           "identical to the "
-          "CSV.".format(len(rows)))
+          "CSV.".format(len(posters)))
 
 
 if __name__ == "__main__":

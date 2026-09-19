@@ -87,7 +87,10 @@ const IPRES = (() => {
     });
     const claimed = new Set();
     posterData.posters.forEach((poster) => {
-      const slot = poster.board ? slotByNumber.get(poster.board) : null;
+      /* A poster presented online is not in the room, so it never takes a
+         board even if one was typed into its row by mistake. */
+      const slot = poster.board && !poster.presentedOnline
+        ? slotByNumber.get(poster.board) : null;
       if (slot && !claimed.has(slot.number)) {
         slot.poster = poster.id;
         claimed.add(slot.number);
