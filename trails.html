@@ -18,9 +18,9 @@
 <main id="main" class="wrap">
   <section style="padding:2rem 0 0">
     <h1>Take the scenic route</h1>
-    <p class="hero__lead">Themed walks through the hall. Each one strings together posters that are
-      arguing about the same thing, in the order you would pass them if you set off from the entrance.
-      Not sure which? Let the quiz decide.</p>
+    <p class="hero__lead">Themed walks through the hall. Each one gathers posters on the same
+      question, in the order you would pass them walking from the entrance. Not sure which to
+      take? The quiz will suggest one.</p>
   </section>
 
   <section class="section">
@@ -92,7 +92,7 @@
 
     const ranked = scoreQuiz(answers, trails);
     if (!ranked.length) {
-      resultBox.innerHTML = '<p>No strong match &mdash; have a wander through all of them below.</p>';
+      resultBox.innerHTML = '<p>No clear match &mdash; every trail is listed below.</p>';
       return;
     }
     const [best, ...rest] = ranked;
