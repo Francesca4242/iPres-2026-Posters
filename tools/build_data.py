@@ -360,8 +360,12 @@ def main():
         else:
             missing.append((record["id"], stated))
 
+    # A row with no file_name yet - blank, or the word "placeholder" - is
+    # exactly the row whose PDF is still to arrive, so it is the one that most
+    # needs guessing. Only PDFs that no row has claimed by name are candidates,
+    # and anything guessed is named in the log, so a wrong guess is visible.
     for record in records:
-        if record.get("file") or record["csvFileName"].lower() in PLACEHOLDERS:
+        if record.get("file"):
             continue
         fname, _score = guess_file(record, [f for f in pdfs if f not in claimed])
         if fname:
